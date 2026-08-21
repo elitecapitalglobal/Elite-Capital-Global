@@ -1,0 +1,660 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   ELITE CAPITAL — DESIGN TOKENS
+   This block is the brand. Change colours, fonts, radii and spacing here and
+   the whole site follows. Nothing below this block invents a new value.
+   See DESIGN.md for what each token is for.
+   ========================================================================== */
+
+@theme {
+  /* --- Navy: structure -------------------------------------------------
+     Vertex Pro's palette, taken from its own design tokens. The two darks
+     (`#050061` indigo, `#071a3d` navy) are its brand surfaces; the three
+     steps above them are Tailwind blue 950/900/800, which is what the
+     template's own blue ramp is built from. */
+  --color-navy-950: #050061; /* Indigo — deep page background, hero floor */
+  --color-navy-900: #071a3d; /* Deep   — deep section background */
+  --color-navy-800: #172554; /* Panel  — glass panel fill base */
+  --color-navy-700: #1e3a8a; /* Raised — hover, inner chrome, body on clear */
+  --color-navy-600: #1e40af; /* Slate  — borders on navy, cool aurora */
+
+  /* --- Blue: the single accent -----------------------------------------
+     Vertex Pro's accent is Tailwind blue. 600 is the button fill and the
+     accent-text colour on light (5.2:1 on #fafafa — it works as both, which
+     the old gold did not). 400 is the accent on navy, 200 is pale trim. */
+  --color-blue-700: #1d4ed8; /* Pressed CTA, accent text on clear */
+  --color-blue-600: #2563eb; /* Signal — CTA fill, focus ring, active */
+  --color-blue-400: #60a5fa; /* Lit    — gradient top-stop, links on navy */
+  --color-blue-200: #bfdbfe; /* Pale   — hairlines, display highlight */
+  --color-blue-50: #eff6ff; /* Tint   — quiet section fills, split panels */
+
+  /* --- Ink: text and light surfaces ------------------------------------ */
+  --color-ink-100: #fafafa; /* clear page background; primary text on deep */
+  --color-ink-300: #dbeafe; /* body copy on deep */
+  /* Cool, not neutral. A pure grey (Vertex's own `#a3a3a3`) goes muddy on a
+     saturated indigo — the background pushes blue through it and it reads as
+     dirty rather than quiet. This is the same lightness, rotated onto the
+     surface's own hue. */
+  --color-ink-500: #94a3b8; /* metadata only — never body copy */
+
+  /* --- Market state: functional only ----------------------------------- */
+  --color-bid: #3ecf8e;
+  --color-ask: #e3564c;
+
+  /* --- Type ------------------------------------------------------------ */
+  --font-display: var(--font-mona), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-mona), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* --- Radii ----------------------------------------------------------- */
+  --radius-pill: 999px;
+  --radius-panel: 32px;
+  --radius-card: 24px;
+  --radius-inner: 14px;
+  --radius-tight: 8px;
+
+  /* --- Breakpoints ------------------------------------------------------
+     Tailwind stops at 2xl (1536px). Ultrawide desks are common for traders
+     running multiple terminals, so the scale continues past it. */
+  --breakpoint-3xl: 1920px;
+  --breakpoint-4xl: 2560px;
+}
+
+/* --- Values Tailwind doesn't own ---------------------------------------- */
+:root {
+  --gutter: clamp(18px, 4vw, 48px);
+  --section-y: clamp(60px, 6.5vw, 120px);
+
+  /* The readable column. Steps up on very wide displays so an ultrawide
+     doesn't render the whole site as a narrow ribbon, but never grows past
+     what a line of text can comfortably span. */
+  --container-shell: 1440px;
+
+  /* Fluid type scale — 1.25 ratio. Tracking is size-specific, always
+     negative above 20px. See DESIGN.md §3. */
+  --text-display: clamp(2.25rem, 5.2vw, 4.5rem);
+  --text-h2: clamp(1.875rem, 3.6vw, 3rem);
+  --text-h3: clamp(1.1875rem, 1.5vw, 1.4375rem);
+  --text-lead: clamp(1rem, 1.3vw, 1.1875rem);
+
+  /* Named z-scale — no arbitrary 9999 anywhere in this codebase. */
+  --z-sticky: 40;
+  --z-dropdown: 50;
+  --z-scrim: 60;
+  --z-modal: 70;
+
+  /* Motion. Mirrored in src/lib/motion.ts — change both together. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 150ms;
+  --dur-base: 300ms;
+  --dur-slow: 700ms;
+
+  color-scheme: dark;
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --container-shell: 1600px;
+    --text-display: 4.75rem;
+  }
+}
+
+@media (min-width: 2560px) {
+  :root {
+    --container-shell: 1760px;
+  }
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+* {
+  min-width: 0; /* stops long strings blowing out grid/flex children */
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-navy-950);
+  color: var(--color-ink-100);
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  line-height: 1.6;
+  letter-spacing: -0.006em;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  /* Deliberately NO `overflow-x: clip` here. It makes <body> a clip container,
+     and `position: sticky` descendants then resolve against body instead of
+     the viewport — which silently strands the sticky header mid-page. Clip
+     wide content at the component that owns it (see Ticker, Markets). */
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--color-blue-600);
+  color: var(--color-navy-950);
+}
+
+/* Focus ring — visible on both surfaces, never removed. */
+:where(a, button, summary, input, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-blue-600);
+  outline-offset: 2px;
+  border-radius: var(--radius-tight);
+}
+
+/* ==========================================================================
+   LAYOUT UTILITIES
+   ========================================================================== */
+
+@utility shell {
+  width: 100%;
+  max-width: var(--container-shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility section-y {
+  padding-block: var(--section-y);
+}
+
+/* ==========================================================================
+   TYPE UTILITIES
+   Size, weight, tracking and leading move together as a set — that's what
+   makes a scale read as designed rather than as clamp() applied to a number.
+   ========================================================================== */
+
+@utility type-display {
+  font-size: var(--text-display);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.03;
+}
+
+@utility type-h2 {
+  font-size: var(--text-h2);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+
+@utility type-h3 {
+  font-size: var(--text-h3);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+@utility type-lead {
+  font-size: var(--text-lead);
+  font-weight: 400;
+  letter-spacing: -0.011em;
+  line-height: 1.55;
+}
+
+@utility type-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/* Tabular figures for every price, spread and deposit — so columns of
+   numbers line up when a reader scans them. */
+@utility num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.02em;
+}
+
+/* Single large figures — a hero number, a headline price. Set in the display
+   family, not the mono one: Geist Mono gives every glyph a full character
+   cell, so at 68px a decimal point opens a visible hole in "0.0". Mono earns
+   its place in columns of numbers, not in one big one. */
+@utility num-display {
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
+  letter-spacing: -0.045em;
+}
+
+/* Body copy measure. */
+@utility measure {
+  max-width: 68ch;
+}
+
+/* ==========================================================================
+   THE MATERIAL — liquid glass over milled metal
+   DESIGN.md §4.
+
+   What separates real glass from a grey rectangle with a blur on it:
+
+   1. A SHEEN. A top-to-bottom gradient in the fill, so the surface catches
+      light unevenly the way a curved edge does. Without it the panel is a
+      flat wash and reads as cheap plastic.
+   2. SATURATION. `saturate()` above 1 pushes the colour that bleeds through
+      the blur, so the material picks up its surroundings instead of
+      averaging them to mud.
+   3. An EDGE LADDER. A bright inset top rim, dimmer side rims, and three
+      progressively softer drop shadows. One flat border reads as a div.
+   4. ENOUGH OPACITY TO HIDE TEXT. Below ~85% fill, body copy scrolling
+      underneath ghosts through as grey smears. Translucency is supposed to
+      show colour and shape, not letterforms.
+   ========================================================================== */
+
+/* IMPORTANT — the blur comes from `@apply`, not a raw `backdrop-filter`.
+   Lightning CSS (which Tailwind v4 compiles through) silently DROPS a
+   hand-written `backdrop-filter` / `-webkit-backdrop-filter` declaration
+   from these rules. Every other property survives, so nothing errors and
+   nothing warns — the surfaces just render as flat translucent panels with
+   no blur and no saturation whatsoever. That is precisely what "glass that
+   looks cheap" looks like, and it is invisible in code review.
+
+   Going through Tailwind's own `backdrop-blur-*` / `backdrop-saturate-*`
+   utilities routes the property through the machinery Lightning CSS expects,
+   and it survives.
+
+   Verify in the browser after touching this file — do not trust the source:
+     getComputedStyle(document.querySelector('.bevel-deep')).backdropFilter
+   It must NOT be "none". */
+@layer components {
+  .bevel-deep {
+    background:
+      linear-gradient(
+        180deg,
+        rgb(255 255 255 / 0.09) 0%,
+        rgb(255 255 255 / 0.02) 42%,
+        rgb(5 0 97 / 0.05) 100%
+      ),
+      color-mix(in oklab, var(--color-navy-800) 72%, transparent);
+    @apply backdrop-blur-[28px] backdrop-saturate-[190%];
+    border: 1px solid
+      color-mix(in oklab, var(--color-ink-100) 10%, transparent);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.3),
+      inset 0 -1px 0 rgb(255 255 255 / 0.05),
+      inset -1.3px 0 1.3px -0.5px rgb(255 255 255 / 0.12),
+      inset 1.3px 0 1.3px -0.5px rgb(255 255 255 / 0.12),
+      0 0.6px 1.6px -1.5px rgb(3 0 45 / 0.55),
+      0 2.3px 6px -3px rgb(3 0 45 / 0.45),
+      0 10px 26px -4px rgb(3 0 45 / 0.35);
+  }
+
+  .bevel-clear {
+    background:
+      linear-gradient(
+        180deg,
+        rgb(255 255 255 / 0.6) 0%,
+        rgb(255 255 255 / 0.16) 55%,
+        rgb(7 26 61 / 0.02) 100%
+      ),
+      rgb(255 255 255 / 0.72);
+    @apply backdrop-blur-[28px] backdrop-saturate-[190%];
+    border: 1px solid rgb(7 26 61 / 0.07);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.95),
+      inset 0 -1px 0 rgb(7 26 61 / 0.03),
+      inset -1.3px 0 1.3px -0.5px rgb(255 255 255 / 0.7),
+      inset 1.3px 0 1.3px -0.5px rgb(255 255 255 / 0.7),
+      0 0.6px 1.6px -1.5px rgb(7 26 61 / 0.14),
+      0 2.3px 6px -3px rgb(7 26 61 / 0.1),
+      0 10px 26px -4px rgb(7 26 61 / 0.08);
+  }
+
+  /* Chrome for floating navigation, which crosses BOTH surface states as the
+     reader scrolls. Heavier fill than a panel: this one always has text
+     travelling underneath it, and translucency that lets letterforms through
+     reads as a dirty smear rather than as glass. Blur alone will not save it
+     — the fill has to be opaque enough to stop the glyphs. */
+  .nav-glass-deep {
+    background:
+      linear-gradient(
+        180deg,
+        rgb(255 255 255 / 0.1) 0%,
+        rgb(255 255 255 / 0.02) 50%,
+        rgb(5 0 97 / 0.06) 100%
+      ),
+      color-mix(in oklab, var(--color-navy-900) 92%, transparent);
+    @apply backdrop-blur-[32px] backdrop-saturate-[190%];
+    border: 1px solid
+      color-mix(in oklab, var(--color-ink-100) 11%, transparent);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.26),
+      inset 0 -1px 0 rgb(255 255 255 / 0.05),
+      0 1px 2px -1px rgb(3 0 45 / 0.5),
+      0 8px 24px -8px rgb(3 0 45 / 0.55),
+      0 20px 48px -16px rgb(3 0 45 / 0.4);
+  }
+
+  .nav-glass-clear {
+    background:
+      linear-gradient(
+        180deg,
+        rgb(255 255 255 / 0.72) 0%,
+        rgb(255 255 255 / 0.5) 50%,
+        rgb(255 255 255 / 0.55) 100%
+      ),
+      rgb(255 255 255 / 0.9);
+    @apply backdrop-blur-[32px] backdrop-saturate-[190%];
+    border: 1px solid rgb(7 26 61 / 0.08);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 1),
+      inset 0 -1px 0 rgb(7 26 61 / 0.03),
+      0 1px 2px -1px rgb(7 26 61 / 0.1),
+      0 8px 24px -10px rgb(7 26 61 / 0.16),
+      0 20px 48px -20px rgb(7 26 61 / 0.14);
+  }
+}
+
+/* Solid navy panel — for anything holding body copy or dense data.
+   Glass never sits under a paragraph. */
+@utility panel-solid {
+  background: linear-gradient(
+    160deg,
+    var(--color-navy-800),
+    var(--color-navy-950)
+  );
+  border: 1px solid color-mix(in oklab, var(--color-ink-100) 8%, transparent);
+}
+
+/* The hero wash — Vertex Pro's signature. Deep indigo at the top, a royal
+   blue bloom rising from just below the fold. The bloom is anchored off-canvas
+   (`at 50% 112%`) so its brightest point is never on screen; what the reader
+   sees is the falloff, which is what makes it read as light rather than as a
+   circle. */
+@utility aurora {
+  background:
+    radial-gradient(
+      88% 62% at 50% 112%,
+      color-mix(in oklab, var(--color-blue-600) 88%, transparent),
+      transparent 62%
+    ),
+    linear-gradient(
+      180deg,
+      var(--color-navy-950) 0%,
+      color-mix(in oklab, var(--color-navy-600) 70%, var(--color-navy-950)) 100%
+    );
+}
+
+/* Hairline that fades at both ends — used to close `deep` sections. */
+@utility hairline {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--color-blue-200) 22%, transparent),
+    transparent
+  );
+}
+
+/* ==========================================================================
+   INTERACTION — pointer-reactive depth
+   DESIGN.md §5.
+
+   Cards tilt toward the pointer, catch a highlight where it sits, and lift.
+   All three read as one physical response because they share one transform
+   and one set of custom properties, written by `Interactions.tsx`.
+
+   Rules that keep this from turning into novelty:
+
+   1. ONE TRANSFORM. Tilt, lift and press all compose into the single
+      `transform` below via custom properties. A Tailwind `hover:-translate-y`
+      on the same element would replace this whole declaration, silently
+      killing the tilt — that is why those classes were removed from every
+      card that opts in here.
+   2. SMALL ANGLES. 5–7deg. Past ~10 the card reads as a flag rather than a
+      solid object, and text on it starts to shear visibly.
+   3. FINE POINTERS ONLY. There is no hover on touch, so a tilt there would
+      fire on tap and stick. The JS gates on `(hover: hover)`.
+   4. NOTHING LOAD-BEARING. Every effect here is decoration on top of a layout
+      that already works. If the JS never runs, the vars keep their fallbacks
+      and the cards are simply flat.
+   ========================================================================== */
+
+/* The glow and the tilt are separate utilities, and that split is deliberate.
+   The hero cards are parallaxed by GSAP, which writes `transform` inline —
+   inline always beats a stylesheet rule, so a tilt transform on those cards
+   would be silently dead while looking correct in the markup. They take
+   `card-glow` alone; everything else takes both. */
+@utility card-glow {
+  position: relative;
+}
+
+@utility card-3d {
+  position: relative;
+  transform: perspective(var(--tilt-perspective, 900px))
+    rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))
+    translate3d(0, var(--lift, 0px), 0) scale(var(--press, 1));
+  transform-style: preserve-3d;
+  /* Short on the way in so the tilt tracks the pointer, long on the way out so
+     the release eases rather than snaps. `Interactions.tsx` swaps the duration
+     by toggling `data-tilting`. */
+  transition:
+    transform 500ms var(--ease-out-expo),
+    box-shadow 500ms var(--ease-out-expo),
+    border-color 300ms ease-out;
+}
+
+[data-tilting] {
+  transition-duration: 90ms, 90ms, 300ms;
+}
+
+/* The highlight, sitting where the pointer is. `inset: -1px` so it covers the
+   card's own border rather than stopping just inside it and drawing a seam. */
+.card-glow::after,
+.card-3d::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    var(--glow-size, 320px) circle at var(--mx, 50%) var(--my, 50%),
+    var(--glow, rgb(37 99 235 / 0.13)),
+    transparent 68%
+  );
+  opacity: 0;
+  transition: opacity 400ms var(--ease-out-expo);
+  pointer-events: none;
+}
+
+.card-glow:hover::after,
+.card-glow:focus-within::after,
+.card-3d:hover::after,
+.card-3d:focus-within::after {
+  opacity: 1;
+}
+
+/* On indigo the blue glow is invisible — it needs a light source, not more
+   blue. Cards on `deep` surfaces set this instead. */
+@utility glow-light {
+  --glow: rgb(255 255 255 / 0.1);
+}
+
+@utility lift-hover {
+  &:hover {
+    --lift: -4px;
+  }
+  &:active {
+    --press: 0.995;
+  }
+}
+
+/* Children that sit forward of the card face. Only meaningful inside a
+   `card-3d` (it owns the `preserve-3d`), and only on elements whose parent
+   chain has no `overflow` clip — a clip flattens the 3D context and the
+   translateZ silently does nothing. */
+@utility depth {
+  transform: translateZ(var(--depth, 26px));
+}
+
+/* Buttons: a highlight that sweeps across on hover. Deliberately one pass and
+   no loop — a permanently shimmering button reads as a loading state. */
+@utility shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 38%,
+      rgb(255 255 255 / 0.28) 50%,
+      transparent 62%
+    );
+    transform: translateX(-130%);
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    transform: translateX(130%);
+    transition: transform 750ms var(--ease-out-expo);
+  }
+}
+
+/* ==========================================================================
+   ACCORDION — animated open/close on a native <details>
+
+   `::details-content` is what makes this possible without JS or a wrapper
+   div: it targets the revealed content as a box that can be transitioned.
+   `transition-behavior: allow-discrete` is the load-bearing part — without it
+   `content-visibility` flips instantly and the height animation is never seen.
+
+   Browsers without `::details-content` ignore the whole block and open the
+   accordion instantly, which is the correct fallback.
+   ========================================================================== */
+
+details::details-content {
+  block-size: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    block-size 380ms var(--ease-out-expo),
+    content-visibility 380ms allow-discrete,
+    opacity 260ms ease-out;
+}
+
+details[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+}
+
+/* ==========================================================================
+   MARQUEE — continuous horizontal loops (market tape, asset classes).
+
+   Items carry their own trailing space via padding rather than the track
+   using `gap`. With `gap`, a duplicated list is N items + (2N-1) gaps wide,
+   so translating -50% lands half a gap out and the loop visibly hitches.
+   Padding makes each copy exactly half the track, so -50% is seamless.
+   ========================================================================== */
+
+/* Slides by exactly one copy, so the reset lands on an identical frame.
+   `--marquee-copies` must match the number of copies actually rendered —
+   the <Marquee> component sets both together. */
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(calc(-100% / var(--marquee-copies, 2)), 0, 0); }
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 34s) linear infinite;
+  will-change: transform;
+}
+
+/* Let a reader stop the loop to actually read a card. */
+.marquee-hoverable:hover .marquee,
+.marquee:focus-within {
+  animation-play-state: paused;
+}
+
+/* Fade the track into the page edges instead of cutting it mid-glyph. */
+@utility marquee-mask {
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 5%,
+    #000 95%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 5%,
+    #000 95%,
+    transparent 100%
+  );
+}
+
+/* ==========================================================================
+   ACCESSIBILITY PREFERENCES
+   Global, not per-component. Do not re-implement these in a component.
+   ========================================================================== */
+
+@media (prefers-reduced-transparency: reduce) {
+  .bevel-deep,
+  .nav-glass-deep {
+    background: var(--color-navy-800);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .bevel-clear,
+  .nav-glass-clear {
+    background: #fff;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  [data-progressive-blur] {
+    display: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .bevel-deep,
+  .nav-glass-deep {
+    background: var(--color-navy-900);
+    border-color: var(--color-blue-200);
+  }
+  .bevel-clear,
+  .nav-glass-clear {
+    background: #fff;
+    border-color: var(--color-navy-900);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  /* The loop stops, and the track becomes manually scrollable so the content
+     it was carrying is still reachable. */
+  .marquee {
+    animation: none;
+  }
+  [data-marquee-track] {
+    overflow-x: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
