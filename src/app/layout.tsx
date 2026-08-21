@@ -5,6 +5,7 @@ import { SmoothScroll } from "@/components/SmoothScroll";
 import { Interactions } from "@/components/ui/Interactions";
 import { SiteHeader } from "@/components/sections/SiteHeader";
 import { SiteFooter } from "@/components/sections/SiteFooter";
+import { Analytics } from "@vercel/analytics/next"
 
 /**
  * One family, two axes. Mona Sans carries a width axis, so display type can be
@@ -49,6 +50,7 @@ export default function RootLayout({
         <SiteHeader />
         {children}
         <SiteFooter />
+        <Analytics />
       </body>
     </html>
   );
