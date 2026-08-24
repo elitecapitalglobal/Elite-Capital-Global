@@ -1,63 +1,24 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { nav, site } from "@/content/site";
 import { Button } from "@/components/ui/Button";
 import { ProgressiveBlur } from "@/components/ui/ProgressiveBlur";
 import { LanguagePicker } from "@/components/ui/LanguagePicker";
-
-/** Distance from the viewport top to just below the floating pill. */
-const PILL_BOTTOM = 96;
+import { Logo } from "@/components/ui/Logo";
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
-  /**
-   * Which surface is currently passing underneath the pill.
-   *
-   * A single dark translucent bar crossing a cream section averages out to
-   * flat grey — the material stops reading as glass and starts reading as a
-   * plastic slab laid over the page. Real floating chrome takes its cue from
-   * what is behind it, so the pill swaps its whole palette at the boundary
-   * instead of holding one tint the whole way down.
-   */
-  const [under, setUnder] = useState<"deep" | "clear">("deep");
   const [open, setOpen] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    // Read straight off the scroll event rather than throttling through
-    // requestAnimationFrame: rAF is suspended in a background tab, so an
-    // rAF-throttled handler silently stops updating and the pill keeps
-    // whatever palette it had when the tab was hidden. Nine rect reads per
-    // scroll event cost nothing measurable, and the values are already
-    // computed by the scroll itself.
-    const read = () => {
-      setScrolled(window.scrollY > 24);
-
-      // Cheaper and more robust than an IntersectionObserver band: rect reads
-      // over ~10 sections cost nothing, and this stays correct through
-      // sticky, pinned and transformed ancestors.
-      const sections =
-        document.querySelectorAll<HTMLElement>("[data-surface]");
-      let current: "deep" | "clear" = "deep";
-      for (const section of sections) {
-        if (section.getBoundingClientRect().top <= PILL_BOTTOM) {
-          current = section.dataset.surface === "clear" ? "clear" : "deep";
-        }
-      }
-      setUnder(current);
-    };
-
+    const read = () => setScrolled(window.scrollY > 24);
     read();
     window.addEventListener("scroll", read, { passive: true });
-    window.addEventListener("resize", read, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", read);
-      window.removeEventListener("resize", read);
-    };
+    return () => window.removeEventListener("scroll", read);
   }, []);
 
   // Escape closes whatever is open. Never trap the reader in a menu.
@@ -83,20 +44,16 @@ export function SiteHeader() {
     closeTimer.current = setTimeout(() => setOpen(null), 140);
   };
 
-  const light = under === "clear";
-
-  // Every colour in the pill flips as a set. Half-flipping (dark text on a
-  // dark pill for one frame at the boundary) is worse than not flipping.
+  // The pill always wears the deep palette — it never flips to the light
+  // glass variant, no matter what surface is scrolling underneath it — but
+  // it only picks up the glass fill/border/shadow once scrolled. At rest,
+  // the row floats on the page with no chrome at all.
   const t = {
-    pill: light ? "nav-glass-clear" : "nav-glass-deep",
-    link: light
-      ? "text-navy-700/75 hover:text-navy-900"
-      : "text-ink-300 hover:text-ink-100",
-    linkActive: light ? "text-blue-700" : "text-blue-400",
-    quiet: light
-      ? "text-navy-700/75 hover:text-blue-700"
-      : "text-ink-300 hover:text-blue-400",
-    burger: light ? "text-navy-900" : "text-ink-100",
+    pill: scrolled ? "nav-glass-deep" : "",
+    link: "text-ink-300 hover:text-ink-100",
+    linkActive: "text-blue-400",
+    quiet: "text-ink-300 hover:text-blue-400",
+    burger: "text-ink-100",
   };
 
   return (
@@ -110,7 +67,7 @@ export function SiteHeader() {
       </div>
 
       <header
-        className="sticky top-0 z-[var(--z-sticky)]"
+        className="sticky top-4 z-[var(--z-sticky)]"
         onMouseLeave={hoverClose}
       >
         {/* The blur ramp sits BEHIND the pill and extends past it, so content
@@ -147,19 +104,16 @@ export function SiteHeader() {
               className="flex min-h-11 shrink-0 items-center"
               aria-label={`${site.name} home`}
             >
-              <Image
-                src="/logo-transparent.png"
-                alt=""
-                width={160}
-                height={44}
-                priority
-                // The logo keeps its gold on every surface. It is the brand
-                // mark, not a UI icon — do not re-tint it to match the pill.
+              <Logo
+                // Unlike the old raster logo, colour here follows the theme
+                // tokens rather than staying fixed — see Logo.tsx. Sizing is
+                // em-based, so the old height pairs become font sizes.
                 // Smaller below `sm` than the old scale: with the burger no
                 // longer able to shrink, the logo is what has to give at
-                // 320px. Logo + CTA + burger fits in 284px only at h-6.
-                className={`w-auto transition-all duration-500 ease-[var(--ease-out-expo)] ${
-                  scrolled ? "h-5 sm:h-8" : "h-6 sm:h-10"
+                // 320px. Logo + CTA + burger fits in 284px only at the small
+                // step.
+                className={`transition-all duration-500 ease-[var(--ease-out-expo)] ${
+                  scrolled ? "text-[20px] sm:text-[32px]" : "text-[24px] sm:text-[40px]"
                 }`}
               />
             </Link>
@@ -198,7 +152,7 @@ export function SiteHeader() {
             </nav>
 
             <div className="ml-auto flex items-center gap-1 sm:gap-1.5">
-              <LanguagePicker tone={under} />
+              <LanguagePicker tone="deep" />
               <Link
                 href={site.cta.login.href}
                 className={`hidden min-h-11 items-center px-3 text-sm font-medium transition-colors sm:flex ${t.quiet}`}

@@ -123,7 +123,7 @@ export function Accounts() {
           ))}
         </Reveal>
 
-        <p className="mt-7 text-center text-[13px] text-navy-700/65">
+        <p className="mt-18 text-center text-[13px] text-navy-700/65">
           Leverage is subject to terms and regulatory guidelines and varies by
           jurisdiction.
         </p>

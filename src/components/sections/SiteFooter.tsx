@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/content/site";
+import { Logo } from "@/components/ui/Logo";
 import {
   footerColumns,
   footerContact,
@@ -31,13 +31,7 @@ export function SiteFooter() {
       <div className="border-t border-ink-100/8">
         <div className="shell grid gap-10 py-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)] lg:gap-16 lg:py-16">
           <div>
-            <Image
-              src="/logo-transparent.png"
-              alt={site.name}
-              width={180}
-              height={50}
-              className="h-11 w-auto"
-            />
+            <Logo className="text-[44px]" />
             <p className="measure mt-5 text-[14.5px] leading-relaxed text-ink-300">
               {site.footerBlurb}
             </p>

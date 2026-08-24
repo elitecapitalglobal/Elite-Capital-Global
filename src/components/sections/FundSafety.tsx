@@ -33,7 +33,7 @@ export function FundSafety() {
           className="absolute inset-0 -z-10"
           style={{
             background:
-              "radial-gradient(80% 120% at 12% 100%, rgb(37 99 235 / 0.75), transparent 62%), linear-gradient(160deg, #0b1f57 0%, #050061 58%, #071a3d 100%)",
+              "radial-gradient(80% 120% at 12% 100%, color-mix(in oklab, var(--color-blue-700) 16%, transparent), transparent 62%), linear-gradient(160deg, color-mix(in oklab, var(--color-navy-950) 97%, var(--color-blue-700)) 0%, var(--color-navy-950) 58%, var(--color-navy-900) 100%)",
           }}
         />
         <div

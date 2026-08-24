@@ -8,38 +8,45 @@
    ========================================================================== */
 
 @theme {
-  /* --- Navy: structure -------------------------------------------------
-     Vertex Pro's palette, taken from its own design tokens. The two darks
-     (`#050061` indigo, `#071a3d` navy) are its brand surfaces; the three
-     steps above them are Tailwind blue 950/900/800, which is what the
-     template's own blue ramp is built from. */
-  --color-navy-950: #050061; /* Indigo — deep page background, hero floor */
-  --color-navy-900: #071a3d; /* Deep   — deep section background */
-  --color-navy-800: #172554; /* Panel  — glass panel fill base */
-  --color-navy-700: #1e3a8a; /* Raised — hover, inner chrome, body on clear */
-  --color-navy-600: #1e40af; /* Slate  — borders on navy, cool aurora */
+  /* --- Navy: structure ---------------------------------------------------
+     Obsidian — true grayscale, R=G=B at every step. The first pass drifted
+     blue as it lightened (each step's derivation carried the same delta
+     forward); this one holds zero hue the whole way up so panels, borders
+     and hover chrome read as black and charcoal, not slate-blue. Class
+     names keep the `navy-*` slots (every component already targets them);
+     only the hex values changed. */
+  --color-navy-950: #080808; /* Obsidian — deep page background, hero floor */
+  --color-navy-900: #0d0d0d; /* Deep     — deep section background */
+  --color-navy-800: #131313; /* Panel    — glass panel fill base */
+  --color-navy-700: #1c1c1c; /* Raised   — hover, inner chrome, body on clear */
+  --color-navy-600: #262626; /* Slate    — borders on navy, cool aurora */
 
-  /* --- Blue: the single accent -----------------------------------------
-     Vertex Pro's accent is Tailwind blue. 600 is the button fill and the
-     accent-text colour on light (5.2:1 on #fafafa — it works as both, which
-     the old gold did not). 400 is the accent on navy, 200 is pale trim. */
-  --color-blue-700: #1d4ed8; /* Pressed CTA, accent text on clear */
-  --color-blue-600: #2563eb; /* Signal — CTA fill, focus ring, active */
-  --color-blue-400: #60a5fa; /* Lit    — gradient top-stop, links on navy */
-  --color-blue-200: #bfdbfe; /* Pale   — hairlines, display highlight */
-  --color-blue-50: #eff6ff; /* Tint   — quiet section fills, split panels */
+  /* --- Blue: the single accent ---------------------------------------
+     Emerald — `#0fa968` is the anchor, doing what the old blue-600 did:
+     CTA fill, focus ring, active state. `#6fe3ae` is the lit top-stop that
+     pops against obsidian without shading into neon. 700 is 0fa968 pushed
+     dark enough to hold as accent text on a light surface. */
+  --color-blue-700: #0c8753; /* Pressed CTA, accent text on clear */
+  --color-blue-600: #0fa968; /* Signal — CTA fill, focus ring, active */
+  --color-blue-400: #6fe3ae; /* Lit    — gradient top-stop, links on obsidian */
+  --color-blue-200: #b5e9cf; /* Pale   — hairlines, display highlight */
+  --color-blue-50: #dcece1; /* Tint   — quiet section fills, split panels */
 
   /* --- Ink: text and light surfaces ------------------------------------ */
-  --color-ink-100: #fafafa; /* clear page background; primary text on deep */
-  --color-ink-300: #dbeafe; /* body copy on deep */
-  /* Cool, not neutral. A pure grey (Vertex's own `#a3a3a3`) goes muddy on a
-     saturated indigo — the background pushes blue through it and it reads as
-     dirty rather than quiet. This is the same lightness, rotated onto the
-     surface's own hue. */
-  --color-ink-500: #94a3b8; /* metadata only — never body copy */
+  --color-ink-100: #efeeea; /* Ivory — clear page background; primary text on deep */
+  --color-ink-300: #dcdcd9; /* body copy on deep */
+  /* Plain neutral grey, not rotated toward the accent — against a truly
+     grayscale obsidian, tinting metadata text green just re-introduces the
+     colour cast the structure ramp was fixed to remove. */
+  --color-ink-500: #929290; /* metadata only — never body copy */
 
-  /* --- Market state: functional only ----------------------------------- */
-  --color-bid: #3ecf8e;
+  /* --- Market state: functional only -----------------------------------
+     Bid intentionally shares the brand accent rather than inventing a
+     fourth green — on a site whose whole identity is "green means signal",
+     a bullish tick and a CTA button reading as the same colour is the
+     point, not a clash. Ask stays a hue away from everything else on the
+     page so a loss is never mistaken for anything decorative. */
+  --color-bid: #0fa968;
   --color-ask: #e3564c;
 
   /* --- Type ------------------------------------------------------------ */
@@ -171,6 +178,59 @@ p {
 }
 
 /* ==========================================================================
+   SECTION SEAMS
+   Sections sit back to back as flat solid colours, which made every deep ->
+   light (or light -> deep) boundary a hard, one-frame cut while scrolling.
+   This blends the first stretch of whichever section comes second, fading
+   in from the previous section's own colour instead of starting at full
+   contrast immediately underneath the page's dark/light rhythm.
+
+   Pure CSS via the adjacent-sibling combinator: it matches on the
+   `data-surface` attribute every section already carries (see Section.tsx),
+   so no page or section file has to know what its neighbour is. `tint` and
+   `white` both report as `clear` for this same reason `SiteHeader` uses it.
+   ========================================================================== */
+[data-surface="deep"] + [data-surface="clear"],
+[data-surface="clear"] + [data-surface="deep"] {
+  position: relative;
+}
+
+[data-surface="deep"] + [data-surface="clear"]::before,
+[data-surface="clear"] + [data-surface="deep"]::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: clamp(40px, 6vw, 84px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Eased, not linear. A plain two-stop fade spends most of its height at
+   ~50% opacity, which sits on a light background as a flat grey smear
+   instead of a dissolve. Front-loading the opacity so it clears the "grey"
+   band fast keeps the seam readable as a quick soft edge, not a stripe. */
+[data-surface="deep"] + [data-surface="clear"]::before {
+  background: linear-gradient(
+    180deg,
+    var(--color-navy-950) 0%,
+    color-mix(in oklab, var(--color-navy-950) 45%, transparent) 30%,
+    color-mix(in oklab, var(--color-navy-950) 12%, transparent) 60%,
+    transparent 100%
+  );
+}
+
+[data-surface="clear"] + [data-surface="deep"]::before {
+  background: linear-gradient(
+    180deg,
+    var(--color-ink-100) 0%,
+    color-mix(in oklab, var(--color-ink-100) 45%, transparent) 30%,
+    color-mix(in oklab, var(--color-ink-100) 12%, transparent) 60%,
+    transparent 100%
+  );
+}
+
+/* ==========================================================================
    TYPE UTILITIES
    Size, weight, tracking and leading move together as a set — that's what
    makes a scale read as designed rather than as clamp() applied to a number.
@@ -277,7 +337,7 @@ p {
         180deg,
         rgb(255 255 255 / 0.09) 0%,
         rgb(255 255 255 / 0.02) 42%,
-        rgb(5 0 97 / 0.05) 100%
+        color-mix(in oklab, var(--color-navy-950) 5%, transparent) 100%
       ),
       color-mix(in oklab, var(--color-navy-800) 72%, transparent);
     @apply backdrop-blur-[28px] backdrop-saturate-[190%];
@@ -288,9 +348,9 @@ p {
       inset 0 -1px 0 rgb(255 255 255 / 0.05),
       inset -1.3px 0 1.3px -0.5px rgb(255 255 255 / 0.12),
       inset 1.3px 0 1.3px -0.5px rgb(255 255 255 / 0.12),
-      0 0.6px 1.6px -1.5px rgb(3 0 45 / 0.55),
-      0 2.3px 6px -3px rgb(3 0 45 / 0.45),
-      0 10px 26px -4px rgb(3 0 45 / 0.35);
+      0 0.6px 1.6px -1.5px color-mix(in oklab, var(--color-navy-950) 55%, transparent),
+      0 2.3px 6px -3px color-mix(in oklab, var(--color-navy-950) 45%, transparent),
+      0 10px 26px -4px color-mix(in oklab, var(--color-navy-950) 35%, transparent);
   }
 
   .bevel-clear {
@@ -299,19 +359,19 @@ p {
         180deg,
         rgb(255 255 255 / 0.6) 0%,
         rgb(255 255 255 / 0.16) 55%,
-        rgb(7 26 61 / 0.02) 100%
+        color-mix(in oklab, var(--color-navy-900) 2%, transparent) 100%
       ),
       rgb(255 255 255 / 0.72);
     @apply backdrop-blur-[28px] backdrop-saturate-[190%];
-    border: 1px solid rgb(7 26 61 / 0.07);
+    border: 1px solid color-mix(in oklab, var(--color-navy-900) 7%, transparent);
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 0.95),
-      inset 0 -1px 0 rgb(7 26 61 / 0.03),
+      inset 0 -1px 0 color-mix(in oklab, var(--color-navy-900) 3%, transparent),
       inset -1.3px 0 1.3px -0.5px rgb(255 255 255 / 0.7),
       inset 1.3px 0 1.3px -0.5px rgb(255 255 255 / 0.7),
-      0 0.6px 1.6px -1.5px rgb(7 26 61 / 0.14),
-      0 2.3px 6px -3px rgb(7 26 61 / 0.1),
-      0 10px 26px -4px rgb(7 26 61 / 0.08);
+      0 0.6px 1.6px -1.5px color-mix(in oklab, var(--color-navy-900) 14%, transparent),
+      0 2.3px 6px -3px color-mix(in oklab, var(--color-navy-900) 10%, transparent),
+      0 10px 26px -4px color-mix(in oklab, var(--color-navy-900) 8%, transparent);
   }
 
   /* Chrome for floating navigation, which crosses BOTH surface states as the
@@ -325,7 +385,7 @@ p {
         180deg,
         rgb(255 255 255 / 0.1) 0%,
         rgb(255 255 255 / 0.02) 50%,
-        rgb(5 0 97 / 0.06) 100%
+        color-mix(in oklab, var(--color-navy-950) 6%, transparent) 100%
       ),
       color-mix(in oklab, var(--color-navy-900) 92%, transparent);
     @apply backdrop-blur-[32px] backdrop-saturate-[190%];
@@ -334,9 +394,9 @@ p {
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 0.26),
       inset 0 -1px 0 rgb(255 255 255 / 0.05),
-      0 1px 2px -1px rgb(3 0 45 / 0.5),
-      0 8px 24px -8px rgb(3 0 45 / 0.55),
-      0 20px 48px -16px rgb(3 0 45 / 0.4);
+      0 1px 2px -1px color-mix(in oklab, var(--color-navy-950) 50%, transparent),
+      0 8px 24px -8px color-mix(in oklab, var(--color-navy-950) 55%, transparent),
+      0 20px 48px -16px color-mix(in oklab, var(--color-navy-950) 40%, transparent);
   }
 
   .nav-glass-clear {
@@ -349,13 +409,13 @@ p {
       ),
       rgb(255 255 255 / 0.9);
     @apply backdrop-blur-[32px] backdrop-saturate-[190%];
-    border: 1px solid rgb(7 26 61 / 0.08);
+    border: 1px solid color-mix(in oklab, var(--color-navy-900) 8%, transparent);
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 1),
-      inset 0 -1px 0 rgb(7 26 61 / 0.03),
-      0 1px 2px -1px rgb(7 26 61 / 0.1),
-      0 8px 24px -10px rgb(7 26 61 / 0.16),
-      0 20px 48px -20px rgb(7 26 61 / 0.14);
+      inset 0 -1px 0 color-mix(in oklab, var(--color-navy-900) 3%, transparent),
+      0 1px 2px -1px color-mix(in oklab, var(--color-navy-900) 10%, transparent),
+      0 8px 24px -10px color-mix(in oklab, var(--color-navy-900) 16%, transparent),
+      0 20px 48px -20px color-mix(in oklab, var(--color-navy-900) 14%, transparent);
   }
 }
 
@@ -377,15 +437,19 @@ p {
    circle. */
 @utility aurora {
   background:
+    /* Richer than a wash: high saturation so the glow reads as one
+       concentrated jewel-tone bloom against solid black, not a pale tint —
+       but sized and anchored to actually clear the fold, unlike the
+       previous pass, which shrank it enough to vanish entirely. */
     radial-gradient(
-      88% 62% at 50% 112%,
-      color-mix(in oklab, var(--color-blue-600) 88%, transparent),
+      100% 80% at 50% 112%,
+      color-mix(in oklab, var(--color-blue-600) 65%, transparent),
       transparent 62%
     ),
     linear-gradient(
       180deg,
       var(--color-navy-950) 0%,
-      color-mix(in oklab, var(--color-navy-600) 70%, var(--color-navy-950)) 100%
+      var(--color-navy-900) 100%
     );
 }
 
@@ -461,7 +525,7 @@ p {
   border-radius: inherit;
   background: radial-gradient(
     var(--glow-size, 320px) circle at var(--mx, 50%) var(--my, 50%),
-    var(--glow, rgb(37 99 235 / 0.13)),
+    var(--glow, color-mix(in oklab, var(--color-blue-600) 13%, transparent)),
     transparent 68%
   );
   opacity: 0;

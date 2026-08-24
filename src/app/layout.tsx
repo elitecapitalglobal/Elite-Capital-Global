@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mona_Sans, Geist_Mono } from "next/font/google";
+import { Mona_Sans, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Interactions } from "@/components/ui/Interactions";
@@ -26,6 +26,21 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+/**
+ * The wordmark only — never body copy. A soft, faceted display serif
+ * (opsz-aware, so it stays crisp at logotype sizes rather than reading like
+ * shrunk book text) to give the brand mark its own identity apart from Mona
+ * Sans, the way a logotype almost always sits on a different face to the UI
+ * around it. See `Logo.tsx`.
+ */
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  style: ["normal"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Elite Capital — Forex & CFD Trading Platform",
   description:
@@ -42,7 +57,10 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${mona.variable} ${geistMono.variable}`}>
+    <html
+      lang="en"
+      className={`${mona.variable} ${geistMono.variable} ${fraunces.variable}`}
+    >
       <body>
         {process.env.NEXT_PUBLIC_NO_SMOOTH !== "1" && <SmoothScroll />}
         <Interactions />

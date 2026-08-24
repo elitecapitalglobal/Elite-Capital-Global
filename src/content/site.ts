@@ -154,31 +154,6 @@ export const hero = {
   ],
 };
 
-/** Floating glass card cluster — Vertex Pro's hero, 1:1. */
-export const heroCards = {
-  watchlist: {
-    title: "Live Market Watch",
-    note: "Sample data",
-    rows: [
-      { pair: "EUR/USD", cls: "Forex", price: "1.0862", change: "+0.12%", dir: "up" },
-      { pair: "XAU/USD", cls: "Metals", price: "2,412.30", change: "+0.34%", dir: "up" },
-      { pair: "US30", cls: "Indices", price: "39,845.2", change: "-0.18%", dir: "down" },
-      { pair: "BTC/USD", cls: "Crypto CFD", price: "63,120", change: "+1.05%", dir: "up" },
-    ],
-  },
-  spread: {
-    label: "Spreads from",
-    value: "0.0",
-    unit: "pips",
-    caption: "On the ECN account, across major pairs.",
-  },
-  access: {
-    label: "One account",
-    title: "Six asset classes",
-    caption: "Forex, metals, indices, shares, commodities and crypto CFDs.",
-  },
-} as const;
-
 /* -------------------------------------------------------------------------- */
 /* Ticker                                                                      */
 /* -------------------------------------------------------------------------- */
@@ -257,19 +232,6 @@ export const platforms = {
     { title: "MetaTrader 5", body: "The full multi-asset terminal, with the charting and automation to match.", href: "/platforms/mt5" },
     { title: "Copy Trading", body: "Follow a strategy you rate and mirror its trades on your own account.", href: "/platforms/copy" },
   ],
-  /**
-   * FxPro's platform-range card. Two rows today because we run two terminals —
-   * this list is the honest lineup, not a placeholder. Add a row when a
-   * platform actually launches.
-   */
-  range: {
-    title: "Browse the full range of platforms",
-    lead: "Different traders want different things from a terminal. Right now we run two, and your account works the same on both.",
-    items: [
-      { name: "MetaTrader 5", note: "The full multi-asset terminal", href: "/platforms/mt5" },
-      { name: "Web Portal", note: "Everything, in the browser", href: "/platforms/webtrader" },
-    ],
-  },
 };
 
 /* -------------------------------------------------------------------------- */

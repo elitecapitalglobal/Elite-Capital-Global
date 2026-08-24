@@ -26,7 +26,7 @@ export function Platforms() {
         className="absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(58% 50% at 88% 0%, rgb(37 99 235 / 0.07), transparent 60%)",
+            "radial-gradient(58% 50% at 88% 0%, color-mix(in oklab, var(--color-blue-600) 4%, transparent), transparent 60%)",
         }}
       />
 
@@ -68,83 +68,12 @@ export function Platforms() {
           <Tile item={mt5} />
           <Tile item={copy} />
         </Reveal>
-
-        <Reveal className="mt-4">
-          <PlatformRange />
-        </Reveal>
       </div>
     </Section>
   );
 }
 
 /* -------------------------------------------------------------------------- */
-
-/**
- * FxPro's range card. It exists to answer "what else have you got?" in one
- * place instead of making the reader infer the lineup from the tiles above.
- *
- * With two rows it stays honest — the card names the terminals we actually
- * run. Adding a third row is a content change in site.ts; the grid already
- * takes it.
- */
-function PlatformRange() {
-  const { title, lead, items } = platforms.range;
-
-  return (
-    // Top-aligned, not centred. The list is a stack of rules; centring it
-    // against the heading block leaves the first rule floating above the
-    // heading with nothing to line up with, which reads as a mistake even
-    // though it is symmetrical. Aligning the tops gives the heading and the
-    // first platform name a shared line.
-    <div data-tilt="2" className="bevel-clear card-glow card-3d grid gap-6 rounded-panel p-6 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:items-start lg:gap-12 lg:p-10">
-      <div>
-        <h3 className="type-h3 text-navy-900">{title}</h3>
-        <p className="measure mt-3 text-[15px] leading-relaxed text-navy-700/80">
-          {lead}
-        </p>
-      </div>
-
-      {/* Dropping the first row's top padding is what actually lands the
-          alignment — without it the row padding pushes the first platform name
-          half a line below the heading. Only from `lg`, where the two columns
-          sit side by side and there is anything to align to. */}
-      <ul className="divide-y divide-navy-900/10 lg:[&>li:first-child>a]:pt-0">
-        {items.map((item) => (
-          <li key={item.name}>
-            <Link
-              href={item.href}
-              className="group flex min-h-16 items-center justify-between gap-4 py-4 transition-colors"
-            >
-              <span>
-                <span className="block text-[15px] font-semibold text-navy-900 transition-colors group-hover:text-blue-600">
-                  {item.name}
-                </span>
-                <span className="block text-[13px] text-navy-700/60">
-                  {item.note}
-                </span>
-              </span>
-              <span
-                aria-hidden
-                className="grid size-8 shrink-0 place-items-center rounded-full border border-blue-600/30 text-blue-600 transition-all duration-300 ease-[var(--ease-out-expo)] group-hover:translate-x-0.5 group-hover:bg-blue-600/10"
-              >
-                <svg width="12" height="12" viewBox="0 0 12 12">
-                  <path
-                    d="M2 6h8M6.5 2.5L10 6l-3.5 3.5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
 
 function Tile({
   item,

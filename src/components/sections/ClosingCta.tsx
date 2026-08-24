@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 
 /**
- * The one place gold is allowed to go full drench. It's the last thing on the
- * page, so there's nothing left for it to compete with — everywhere else gold
- * stays at accent weight.
+ * The one place the emerald accent is allowed to go full drench. It's the
+ * last thing on the page, so there's nothing left for it to compete with —
+ * everywhere else it stays at accent weight.
  */
 export function ClosingCta() {
   return (
@@ -18,7 +18,7 @@ export function ClosingCta() {
         className="absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(62% 82% at 50% 118%, rgb(37 99 235 / 0.55), transparent 62%), radial-gradient(48% 60% at 12% 8%, rgb(30 64 175 / 0.5), transparent 60%)",
+            "radial-gradient(62% 82% at 50% 118%, color-mix(in oklab, var(--color-blue-600) 16%, transparent), transparent 62%), radial-gradient(48% 60% at 12% 8%, color-mix(in oklab, var(--color-navy-600) 30%, transparent), transparent 60%)",
         }}
       />
       <div aria-hidden className="hairline absolute inset-x-0 top-0 h-px" />
