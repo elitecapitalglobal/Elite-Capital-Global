@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { platforms } from "@/content/site";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
@@ -85,33 +84,15 @@ function Tile({
   children?: React.ReactNode;
 }) {
   return (
-    <Link
-      href={item.href}
+    <div
       data-tilt="4"
-      className={`bevel-clear card-glow card-3d lift-hover group flex flex-col overflow-hidden rounded-panel p-6 sm:p-7 ${className}`}
+      className={`bevel-clear card-glow card-3d lift-hover flex flex-col overflow-hidden rounded-panel p-6 sm:p-7 ${className}`}
     >
-      <div className="flex items-start justify-between gap-4">
-        <h3 className="type-h3 text-navy-900">{item.title}</h3>
-        <span
-          aria-hidden
-          className="grid size-7 shrink-0 place-items-center rounded-full border border-blue-600/35 text-blue-600 transition-transform duration-300 ease-[var(--ease-out-expo)] group-hover:rotate-45 group-hover:bg-blue-600/10"
-        >
-          <svg width="11" height="11" viewBox="0 0 12 12">
-            <path
-              d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </span>
-      </div>
+      <h3 className="type-h3 text-navy-900">{item.title}</h3>
       <p className="mt-2.5 max-w-[34ch] text-[15px] leading-relaxed text-navy-700/80">
         {item.body}
       </p>
       {children}
-    </Link>
+    </div>
   );
 }

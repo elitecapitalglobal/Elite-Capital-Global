@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/Button";
  */
 export function Support() {
   return (
-    <Section surface="white" className="section-y">
+    <Section surface="white" id="support" className="section-y">
       <div className="shell grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:gap-16">
         <Reveal>
           <h2 className="type-h2 whitespace-pre-line text-navy-900">

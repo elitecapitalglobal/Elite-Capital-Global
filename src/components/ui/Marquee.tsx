@@ -40,7 +40,7 @@ export function Marquee({
   return (
     <div
       data-marquee-track
-      className={`marquee-hoverable marquee-mask ${className}`}
+      className={`marquee-hoverable ${className}`}
     >
       <div
         className="marquee"

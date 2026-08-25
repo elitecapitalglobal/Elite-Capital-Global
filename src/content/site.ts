@@ -7,8 +7,9 @@
  * rewritten in plain English rather than lifted. Lines marked `REVIEW:` make a
  * claim about the firm and need compliance sign-off before launch.
  *
- * Market figures are illustrative and are labelled "Sample data" in the UI.
- * Do not remove that label without wiring a real feed. See DESIGN.md §8.
+ * The `ticker` list below is instrument metadata only — no prices. Live
+ * prices come from Yahoo Finance at request time; see `src/lib/quotes.ts` and
+ * `Ticker.tsx`.
  */
 
 export const site = {
@@ -29,10 +30,10 @@ export const site = {
     primary: {
       label: "Open Live Account",
       short: "Open Account",
-      href: "/open-account",
+      href: "#accounts",
     },
-    secondary: { label: "Try Demo Account", href: "/demo" },
-    login: { label: "Log In", href: "/login" },
+    secondary: { label: "Try Demo Account", href: "#accounts" },
+    login: { label: "Log In", href: "#accounts" },
   },
 
   /** Footer brand paragraph. The link columns live in `footer.ts`. */
@@ -62,17 +63,17 @@ export const nav: NavItem[] = [
       {
         title: "FX & Commodities",
         items: [
-          { label: "Forex", desc: "Trade 50+ currency pairs with tight, competitive spreads.", href: "/markets/forex" },
-          { label: "Metals", desc: "Gold, silver and precious metals with deep liquidity.", href: "/markets/metals" },
-          { label: "Commodities", desc: "Diversify with oil, gas and other soft commodities.", href: "/markets/commodities" },
+          { label: "Forex", desc: "Trade 50+ currency pairs with tight, competitive spreads.", href: "#markets" },
+          { label: "Metals", desc: "Gold, silver and precious metals with deep liquidity.", href: "#markets" },
+          { label: "Commodities", desc: "Diversify with oil, gas and other soft commodities.", href: "#markets" },
         ],
       },
       {
         title: "Equities & Digital",
         items: [
-          { label: "Indices", desc: "Get exposure to the world's leading stock indices.", href: "/markets/indices" },
-          { label: "Shares", desc: "CFDs on global equities from major exchanges.", href: "/markets/shares" },
-          { label: "Crypto CFDs", desc: "Speculate on Bitcoin, Ethereum and more, 24/7.", href: "/markets/crypto" },
+          { label: "Indices", desc: "Get exposure to the world's leading stock indices.", href: "#markets" },
+          { label: "Shares", desc: "CFDs on global equities from major exchanges.", href: "#markets" },
+          { label: "Crypto CFDs", desc: "Speculate on Bitcoin, Ethereum and more, 24/7.", href: "#markets" },
         ],
       },
     ],
@@ -87,51 +88,38 @@ export const nav: NavItem[] = [
       {
         title: "Trading Terminals",
         items: [
-          { label: "MetaTrader 5", desc: "The full multi-asset terminal, with the tooling to match.", href: "/platforms/mt5" },
-          { label: "Web Portal", desc: "Trade in your browser. Nothing to download, nothing to update.", href: "/platforms/webtrader" },
+          { label: "MetaTrader 5", desc: "The full multi-asset terminal, with the tooling to match.", href: "#platforms" },
+          { label: "Web Portal", desc: "Trade in your browser. Nothing to download, nothing to update.", href: "#platforms" },
         ],
       },
       {
         title: "Tools & Programs",
         items: [
-          { label: "Mobile Apps", desc: "The same account in your pocket, on iOS and Android.", href: "/platforms/mobile" },
-          { label: "Copy Trading", desc: "Follow a strategy you rate and mirror it on your own account.", href: "/platforms/copy" },
+          { label: "Mobile Apps", desc: "The same account in your pocket, on iOS and Android.", href: "#platforms" },
+          { label: "Copy Trading", desc: "Follow a strategy you rate and mirror it on your own account.", href: "#platforms" },
         ],
       },
     ],
   },
-  // Anchors are written `/#foo`, not `#foo`. A bare hash resolves against
-  // whatever page the reader is on, so in the header — which renders on every
-  // route — `#accounts` silently goes nowhere from `/markets/forex`.
-  { label: "Accounts", href: "/#accounts" },
+  // Single-page site: every href is a same-page anchor, never a route.
+  { label: "Accounts", href: "#accounts" },
   {
     label: "Elite",
     groups: [
       {
         title: "Why Elite Capital",
         items: [
-          { label: "Fast Execution", desc: "Orders routed for low-latency fills.", href: "/#advantages" },
-          { label: "Competitive Spreads", desc: "Tight pricing across all markets.", href: "/#advantages" },
-          { label: "Flexible Leverage", desc: "Trading power that fits your strategy.", href: "/#advantages" },
-          { label: "Negative Balance Protection", desc: "Your account can never be pushed below zero.", href: "/#fund-safety" },
+          { label: "Fast Execution", desc: "Orders routed for low-latency fills.", href: "#advantages" },
+          { label: "Competitive Spreads", desc: "Tight pricing across all markets.", href: "#advantages" },
+          { label: "Flexible Leverage", desc: "Trading power that fits your strategy.", href: "#advantages" },
+          { label: "Negative Balance Protection", desc: "Your account can never be pushed below zero.", href: "#fund-safety" },
         ],
       },
       {
-        title: "Company",
+        title: "Support",
         items: [
-          { label: "Our Advantages", desc: "Why traders choose Elite Capital.", href: "/#advantages" },
-          { label: "Careers", desc: "Join our growing global team.", href: "/careers" },
-          { label: "Media Coverage", desc: "Elite Capital in the news.", href: "/media" },
-          { label: "Announcements", desc: "Product updates and platform news.", href: "/announcements" },
-        ],
-      },
-      {
-        title: "Support & Legal",
-        items: [
-          { label: "Help Center", desc: "Answers to common trading questions.", href: "/help" },
-          { label: "Contact Us", desc: "Reach our multilingual support team, 24/5.", href: "/contact" },
-          { label: "Regulation", desc: "How we're licensed and supervised.", href: "/regulation" },
-          { label: "Legal Documents", desc: "Terms, policies and risk disclosures.", href: "/legal" },
+          { label: "Help Center", desc: "Answers to common trading questions.", href: "#faq" },
+          { label: "Contact Us", desc: "Reach our multilingual support team, 24/5.", href: "#support" },
         ],
       },
     ],
@@ -158,15 +146,21 @@ export const hero = {
 /* Ticker                                                                      */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * `symbol` is the Yahoo Finance ticker fetched for this row; `decimals` is
+ * how the live price is formatted. Gold and silver are priced off the COMEX
+ * futures contract (`GC=F` / `SI=F`) — Yahoo has no working `XAUUSD=X` /
+ * `XAGUSD=X` spot symbol despite those looking like the obvious choice.
+ */
 export const ticker = [
-  { pair: "EUR/USD", price: "1.0862", dir: "up" },
-  { pair: "GBP/USD", price: "1.2704", dir: "down" },
-  { pair: "XAU/USD", price: "2412.30", dir: "up" },
-  { pair: "XAG/USD", price: "28.41", dir: "up" },
-  { pair: "US30", price: "39845.2", dir: "down" },
-  { pair: "NAS100", price: "18320.5", dir: "up" },
-  { pair: "BTC/USD", price: "63120", dir: "up" },
-  { pair: "WTI Oil", price: "78.62", dir: "down" },
+  { pair: "EUR/USD", symbol: "EURUSD=X", decimals: 4 },
+  { pair: "GBP/USD", symbol: "GBPUSD=X", decimals: 4 },
+  { pair: "XAU/USD", symbol: "GC=F", decimals: 2 },
+  { pair: "XAG/USD", symbol: "SI=F", decimals: 2 },
+  { pair: "US30", symbol: "^DJI", decimals: 1 },
+  { pair: "NAS100", symbol: "^NDX", decimals: 1 },
+  { pair: "BTC/USD", symbol: "BTC-USD", decimals: 0 },
+  { pair: "WTI Oil", symbol: "CL=F", decimals: 2 },
 ] as const;
 
 /* -------------------------------------------------------------------------- */
@@ -227,10 +221,10 @@ export const platforms = {
   heading: "Trade your way,\non any device",
   lead: "Two terminals, one login, and the same account behind both.",
   items: [
-    { title: "Mobile App", body: "The same account in your pocket, on iOS and Android.", href: "/platforms/mobile", image: "/mobile-app.png" },
-    { title: "Web Portal", body: "Trade straight from your browser. Nothing to install, nothing to keep updated.", href: "/platforms/webtrader", image: "/web-trader.png" },
-    { title: "MetaTrader 5", body: "The full multi-asset terminal, with the charting and automation to match.", href: "/platforms/mt5" },
-    { title: "Copy Trading", body: "Follow a strategy you rate and mirror its trades on your own account.", href: "/platforms/copy" },
+    { title: "Mobile App", body: "The same account in your pocket, on iOS and Android.", image: "/mobile-app.png" },
+    { title: "Web Portal", body: "Trade straight from your browser. Nothing to install, nothing to keep updated.", image: "/web-trader.png" },
+    { title: "MetaTrader 5", body: "The full multi-asset terminal, with the charting and automation to match." },
+    { title: "Copy Trading", body: "Follow a strategy you rate and mirror its trades on your own account." },
   ],
 };
 
@@ -334,13 +328,13 @@ export const everyTrader = {
       tone: "light" as const,
       title: "New to trading?",
       body: "Practise on a demo account with live market prices and none of the risk. Work through our guides at your own pace, and move to a live account whenever you feel ready.",
-      cta: { label: "Start on a demo", href: "/demo" },
+      cta: { label: "Start on a demo", href: "#accounts" },
     },
     {
       tone: "dark" as const,
       title: "Been at this a while?",
       body: "Raw spreads, deeper liquidity and the advanced tooling you already know how to use — plus a named contact who picks up when you call.",
-      cta: { label: "See the ECN account", href: "/#accounts" },
+      cta: { label: "See the ECN account", href: "#accounts" },
     },
   ],
 };
@@ -365,45 +359,7 @@ export const steps = {
 export const support = {
   heading: "Real people, whenever\nthe market is open",
   lead: "Reach us by chat, email or phone, 24/5, in a wide range of languages. No ticket queue, no bot to argue with first.",
-  cta: { label: "Talk to us", href: "/contact" },
-};
-
-/* -------------------------------------------------------------------------- */
-/* Contact — the /contact page                                                 */
-/* -------------------------------------------------------------------------- */
-
-/**
- * Two channels because we have two. XM lists live chat, phone, email and a
- * help centre; we list what we can actually answer. Add a channel here the day
- * it goes live, not before.
- */
-export const contact = {
-  title: "How can we help?",
-  lead: "Start with the help centre — most questions are already answered there. If yours isn't, email us and a person will pick it up.",
-  channels: [
-    {
-      icon: "email" as const,
-      title: "Email",
-      body: "Send us the details and we'll come back to you. Include your account number if you have one — it saves a round trip.",
-      detail: "support@elitecapital.com", // REVIEW: confirm the live inbox
-      availability: "Answered 24/5",
-      cta: "Compose email",
-      href: "mailto:support@elitecapital.com",
-    },
-    {
-      icon: "help" as const,
-      title: "Help centre",
-      body: "Account opening, funding, spreads, platforms and withdrawals — the questions we get most, answered in full.",
-      detail: null,
-      availability: "Always open",
-      cta: "Browse the answers",
-      href: "/help",
-    },
-  ],
-  security: {
-    title: "One thing worth knowing",
-    body: "We will never ask for your password, a card PIN, or a one-time code — not by email, not on the phone, not in any circumstance. If a message claiming to be from us asks for any of those, it isn't from us. Forward it to the support address above and we'll deal with it.",
-  },
+  cta: { label: "Talk to us", href: "mailto:support@elitecapital.com" },
 };
 
 /* -------------------------------------------------------------------------- */

@@ -1,12 +1,7 @@
 import Link from "next/link";
 import { site } from "@/content/site";
 import { Logo } from "@/components/ui/Logo";
-import {
-  footerColumns,
-  footerContact,
-  footerLegal,
-  footerLegalLinks,
-} from "@/content/footer";
+import { footerColumns, footerContact, footerLegal } from "@/content/footer";
 
 /**
  * Three bands, which is the shape every regulated broker's footer converges on
@@ -14,7 +9,7 @@ import {
  *
  *   1. Brand + contact + link columns.
  *   2. The disclosure stack: risk, restrictions, regulator, client funds.
- *   3. Legal document links and copyright.
+ *   3. Copyright.
  *
  * Band 2 is the part that usually gets designed into illegibility — 10px grey
  * on grey, collapsed behind a "read more", or dropped entirely. It is set here
@@ -52,10 +47,7 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <nav
-            aria-label="Footer"
-            className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
-          >
+          <nav aria-label="Footer" className="grid max-w-md gap-8 sm:grid-cols-2">
             {footerColumns.map((col) => (
               <div key={col.title}>
                 <h2 className="type-label mb-3 text-blue-400">{col.title}</h2>
@@ -99,22 +91,10 @@ export function SiteFooter() {
       </div>
 
       {/* ---------------------------------------------------------------- */}
-      {/* 3. Legal documents + copyright                                    */}
+      {/* 3. Copyright                                                      */}
       {/* ---------------------------------------------------------------- */}
       <div className="border-t border-ink-100/8 bg-navy-950">
-        <div className="shell flex flex-col gap-4 py-7 lg:flex-row lg:items-center lg:justify-between">
-          <ul className="flex flex-wrap items-center gap-x-5 gap-y-1">
-            {footerLegalLinks.map((link) => (
-              <li key={link.label}>
-                <Link
-                  href={link.href}
-                  className="flex min-h-10 items-center text-[13px] text-ink-300 transition-colors hover:text-blue-400"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <div className="shell py-7 text-center">
           <p className="text-[13px] text-ink-500">
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>

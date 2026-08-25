@@ -42,7 +42,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Elite Capital — Forex & CFD Trading Platform",
+  title: "Elite Capital | Forex & CFD Trading Platform",
   description:
     "Trade forex, commodities, indices, metals and shares with tight spreads, fast execution and platforms built for every kind of trader.",
 };

@@ -9,7 +9,7 @@
  *   3. RISK WARNING, at length. Not the one-liner from the header.
  *   4. REGIONAL RESTRICTIONS — who we may not serve.
  *   5. REGULATORY INFORMATION — one paragraph per licensed entity.
- *   6. A bottom bar of legal documents and the copyright line.
+ *   6. A bottom bar with the copyright line.
  *
  * All four put 3–5 in ALL-CAPS labelled blocks at the very bottom, below the
  * links. That is the convention a compliance reviewer will look for, so this
@@ -30,52 +30,27 @@ export type FooterColumn = {
   links: { label: string; href: string }[];
 };
 
+/**
+ * Single-page site: every link below is an anchor into a section already on
+ * this page, never a route. Columns that used to point at now-deleted
+ * sub-pages (per-market, per-platform, legal, company) collapse to whichever
+ * on-page section covers that ground.
+ */
 export const footerColumns: FooterColumn[] = [
   {
     title: "Trading",
     links: [
-      { label: "Account Types", href: "/#accounts" },
-      { label: "Open Live Account", href: "/open-account" },
-      { label: "Demo Account", href: "/demo" },
-      { label: "Our Advantages", href: "/#advantages" },
-    ],
-  },
-  {
-    title: "Markets",
-    links: [
-      { label: "Forex", href: "/markets/forex" },
-      { label: "Metals", href: "/markets/metals" },
-      { label: "Indices", href: "/markets/indices" },
-      { label: "Shares", href: "/markets/shares" },
-      { label: "Commodities", href: "/markets/commodities" },
-      { label: "Crypto CFDs", href: "/markets/crypto" },
-    ],
-  },
-  {
-    title: "Platforms",
-    links: [
-      { label: "MetaTrader 5", href: "/platforms/mt5" },
-      { label: "Web Portal", href: "/platforms/webtrader" },
-      { label: "Mobile Apps", href: "/platforms/mobile" },
-      { label: "Copy Trading", href: "/platforms/copy" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "Regulation", href: "/regulation" },
-      { label: "Careers", href: "/careers" },
-      { label: "Media Coverage", href: "/media" },
-      { label: "Announcements", href: "/announcements" },
+      { label: "Account Types", href: "#accounts" },
+      { label: "Markets", href: "#markets" },
+      { label: "Platforms", href: "#platforms" },
+      { label: "Our Advantages", href: "#advantages" },
     ],
   },
   {
     title: "Support",
     links: [
-      { label: "Help Center", href: "/help" },
-      { label: "Contact Us", href: "/contact" },
-      { label: "Legal Documents", href: "/legal" },
-      { label: "Risk Disclosure", href: "/legal/risk-disclosure" },
+      { label: "Help Center", href: "#faq" },
+      { label: "Contact Us", href: "#support" },
     ],
   },
 ];
@@ -117,13 +92,4 @@ export const footerLegal = [
       "Client money is held in segregated accounts, separate from the capital the business operates on. Every Elite Capital account carries negative balance protection, so you cannot lose more than the balance in your account. Segregation and negative balance protection do not protect you against trading losses, which remain yours.",
     ],
   },
-];
-
-/** Bottom bar. Short, and every one of these has to resolve to a real page. */
-export const footerLegalLinks = [
-  { label: "Terms & Conditions", href: "/legal/terms" },
-  { label: "Privacy Policy", href: "/legal/privacy" },
-  { label: "Cookie Policy", href: "/legal/cookies" },
-  { label: "AML & KYC Policy", href: "/legal/aml" },
-  { label: "Legal Documents", href: "/legal" },
 ];
