@@ -24,8 +24,14 @@ export function Support() {
           <p className="type-lead measure mt-5 text-navy-700/80">
             {support.lead}
           </p>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Button href={support.cta.href}>{support.cta.label}</Button>
+            <Button
+              variant="ghostDark"
+              href={`tel:${support.phone.replace(/\s+/g, "")}`}
+            >
+              Call us
+            </Button>
           </div>
         </Reveal>
 

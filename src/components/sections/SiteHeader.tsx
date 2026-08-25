@@ -5,6 +5,7 @@ import Link from "next/link";
 import { nav, site } from "@/content/site";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
+import { Marquee } from "@/components/ui/Marquee";
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
@@ -56,9 +57,19 @@ export function SiteHeader() {
 
   return (
     <>
-      {/* Regulatory. Above everything, never collapsed behind an interaction. */}
-      <div className="relative z-[var(--z-sticky)] bg-ink-100 text-navy-900">
-        <p className="shell py-2 text-center text-[11px] leading-snug text-navy-700/85 sm:text-[11.5px]">
+      {/* Regulatory. Above everything, never collapsed behind an interaction.
+          Below `sm` the full sentence has no room to sit on one line and
+          wrapping it eats too much vertical space above the fold, so it
+          scrolls as a marquee instead; `sm` and up it's wide enough to read
+          as a static centred line. */}
+      <div className="relative z-[var(--z-sticky)] overflow-hidden bg-ink-100 text-navy-900">
+        <Marquee copies={3} duration="34s" className="py-2 sm:hidden">
+          <p className="flex shrink-0 items-center whitespace-nowrap pe-10 text-[11px] leading-snug text-navy-700/85">
+            <strong className="font-semibold">Disclaimer:</strong>{" "}
+            {site.riskDisclaimer}
+          </p>
+        </Marquee>
+        <p className="shell hidden py-2 text-center text-[11.5px] leading-snug text-navy-700/85 sm:block">
           <strong className="font-semibold">Disclaimer:</strong>{" "}
           {site.riskDisclaimer}
         </p>

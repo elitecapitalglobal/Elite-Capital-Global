@@ -44,6 +44,12 @@ export function SiteFooter() {
               >
                 {footerContact.email}
               </a>
+              <a
+                href={`tel:${footerContact.phone.replace(/\s+/g, "")}`}
+                className="flex min-h-11 items-center text-[14.5px] font-semibold text-ink-100 underline decoration-blue-400/50 underline-offset-4 transition-colors hover:text-blue-400"
+              >
+                {footerContact.phone}
+              </a>
             </div>
           </div>
 
