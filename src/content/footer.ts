@@ -58,7 +58,7 @@ export const footerColumns: FooterColumn[] = [
 export const footerContact = {
   heading: "Talk to us",
   body: "Multilingual support, 24 hours a day, 7 days a week.",
-  email: "support@elitecapital.com", // REVIEW: confirm the live inbox
+  email: "info@elitecapital.com", // REVIEW: confirm the live inbox
   phone: "+971 52 763 2238",
   /** Add address when it exists. Do not invent it. */
   address: "[[REGISTERED OFFICE ADDRESS]]",
