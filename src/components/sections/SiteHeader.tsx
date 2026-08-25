@@ -4,8 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { nav, site } from "@/content/site";
 import { Button } from "@/components/ui/Button";
-import { ProgressiveBlur } from "@/components/ui/ProgressiveBlur";
-import { LanguagePicker } from "@/components/ui/LanguagePicker";
 import { Logo } from "@/components/ui/Logo";
 
 export function SiteHeader() {
@@ -70,24 +68,6 @@ export function SiteHeader() {
         className="sticky top-4 z-[var(--z-sticky)]"
         onMouseLeave={hoverClose}
       >
-        {/* The blur ramp sits BEHIND the pill and extends past it, so content
-            dissolves as it approaches the chrome instead of staying sharp
-            right up to a hard edge.
-
-            Height is a balance, and both ends of it are visible: too short
-            and a heading sits crisply beside the pill as if the two were
-            unrelated; too tall (or ramping past ~8px) and it smears a whole
-            line of body copy into grey mush. ~130px covers the pill plus a
-            short approach. */}
-        {/* `direction="up"` is essential, not cosmetic. The chrome is anchored
-            to the TOP, so the ramp has to be heaviest at the top and clear at
-            the bottom: content should sharpen as it moves away from the pill.
-            The default ("down") does the reverse — it leaves content crisp
-            exactly where it slides behind the pill and pools the blur in the
-            empty band underneath, which reads as the glass sitting below the
-            content instead of over it. */}
-        <ProgressiveBlur direction="up" className="-z-10 h-[130px]" />
-
         <div className="shell">
           <div
             // At 320px the pill's whole budget is logo + CTA + menu button.
@@ -152,7 +132,6 @@ export function SiteHeader() {
             </nav>
 
             <div className="ml-auto flex items-center gap-1 sm:gap-1.5">
-              <LanguagePicker tone="deep" />
               <Link
                 href={site.cta.login.href}
                 className={`hidden min-h-11 items-center px-3 text-sm font-medium transition-colors sm:flex ${t.quiet}`}

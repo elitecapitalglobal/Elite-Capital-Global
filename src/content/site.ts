@@ -30,15 +30,15 @@ export const site = {
     primary: {
       label: "Open Live Account",
       short: "Open Account",
-      href: "#accounts",
+      href: "/coming-soon",
     },
-    secondary: { label: "Try Demo Account", href: "#accounts" },
+    secondary: { label: "Try Demo Account", href: "/coming-soon" },
     login: { label: "Log In", href: "#accounts" },
   },
 
   /** Footer brand paragraph. The link columns live in `footer.ts`. */
   footerBlurb:
-    "Elite Capital provides online trading in forex, commodities, indices, metals and shares through MetaTrader 5 and our browser-based Web Portal.",
+    "Elite Capital provides online trading in forex, commodities, indices, metals and shares through MetaTrader 5 / 4 and our browser-based Web Portal.",
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -88,7 +88,7 @@ export const nav: NavItem[] = [
       {
         title: "Trading Terminals",
         items: [
-          { label: "MetaTrader 5", desc: "The full multi-asset terminal, with the tooling to match.", href: "#platforms" },
+          { label: "MetaTrader 5 / 4", desc: "The full multi-asset terminal, with the tooling to match.", href: "#platforms" },
           { label: "Web Portal", desc: "Trade in your browser. Nothing to download, nothing to update.", href: "#platforms" },
         ],
       },
@@ -119,7 +119,7 @@ export const nav: NavItem[] = [
         title: "Support",
         items: [
           { label: "Help Center", desc: "Answers to common trading questions.", href: "#faq" },
-          { label: "Contact Us", desc: "Reach our multilingual support team, 24/5.", href: "#support" },
+          { label: "Contact Us", desc: "Reach our multilingual support team, 24/7.", href: "#support" },
         ],
       },
     ],
@@ -138,7 +138,7 @@ export const hero = {
   trustRow: [
     "Segregated client funds",
     "Negative balance protection",
-    "Multilingual support, 24/5",
+    "Multilingual support, 24/7",
   ],
 };
 
@@ -208,7 +208,7 @@ export const advantages = {
     { title: "Competitive spreads", body: "Pricing built to keep the running cost of trading down." },
     { title: "Flexible leverage", body: "Choose the trading power that suits your strategy, within your regulator's limits." },
     { title: "Easy transactions", body: "Funding and withdrawals that are quick, simple and free of charge." }, // REVIEW
-    { title: "Support in your language", body: "Real people, 24/5, in the language you are most comfortable using." },
+    { title: "Support in your language", body: "Real people, 24/7, in the language you are most comfortable using." },
     { title: "Negative balance protection", body: "Your account cannot be pushed below zero. Losses stop at your balance." }, // REVIEW
   ],
 };
@@ -223,7 +223,7 @@ export const platforms = {
   items: [
     { title: "Mobile App", body: "The same account in your pocket, on iOS and Android.", image: "/mobile-app.png" },
     { title: "Web Portal", body: "Trade straight from your browser. Nothing to install, nothing to keep updated.", image: "/web-trader.png" },
-    { title: "MetaTrader 5", body: "The full multi-asset terminal, with the charting and automation to match." },
+    { title: "MetaTrader 5 / 4", body: "The full multi-asset terminal, with the charting and automation to match." },
     { title: "Copy Trading", body: "Follow a strategy you rate and mirror its trades on your own account." },
   ],
 };
@@ -235,13 +235,79 @@ export const platforms = {
 export const markets = {
   heading: "One account,\nevery major market",
   lead: "Six asset classes, one login, one margin pool.",
+  /**
+   * `symbols` are a representative sample, not the full instrument list —
+   * `count` still carries that claim. Each maps to a Yahoo Finance ticker;
+   * live prices are fetched in `Markets.tsx` via `src/lib/quotes.ts`, the
+   * same feed the header ticker uses.
+   */
   items: [
-    { name: "Forex", body: "Major, minor and exotic currency pairs.", count: "50+ pairs" },
-    { name: "Metals", body: "Gold, silver and other precious metals CFDs.", count: "Spot & futures" },
-    { name: "Indices", body: "Trade the world's leading stock indices.", count: "Global coverage" },
-    { name: "Shares", body: "CFDs on globally listed equities.", count: "Major exchanges" },
-    { name: "Commodities", body: "Energy and agricultural commodity CFDs.", count: "Energy & softs" },
-    { name: "Crypto CFDs", body: "Trade price movements in major cryptocurrencies.", count: "24/7 market" },
+    {
+      name: "Forex",
+      body: "Major, minor and exotic currency pairs.",
+      count: "50+ pairs",
+      symbols: [
+        { label: "EUR/USD", symbol: "EURUSD=X", decimals: 4 },
+        { label: "GBP/USD", symbol: "GBPUSD=X", decimals: 4 },
+        { label: "USD/JPY", symbol: "JPY=X", decimals: 2 },
+        { label: "AUD/USD", symbol: "AUDUSD=X", decimals: 4 },
+      ],
+    },
+    {
+      name: "Metals",
+      body: "Gold, silver and other precious metals CFDs.",
+      count: "Spot & futures",
+      symbols: [
+        { label: "Gold", symbol: "GC=F", decimals: 2 },
+        { label: "Silver", symbol: "SI=F", decimals: 2 },
+        { label: "Platinum", symbol: "PL=F", decimals: 2 },
+        { label: "Palladium", symbol: "PA=F", decimals: 2 },
+      ],
+    },
+    {
+      name: "Indices",
+      body: "Trade the world's leading stock indices.",
+      count: "Global coverage",
+      symbols: [
+        { label: "US30", symbol: "^DJI", decimals: 1 },
+        { label: "SPX500", symbol: "^GSPC", decimals: 1 },
+        { label: "NAS100", symbol: "^NDX", decimals: 1 },
+        { label: "GER40", symbol: "^GDAXI", decimals: 1 },
+      ],
+    },
+    {
+      name: "Shares",
+      body: "CFDs on globally listed equities.",
+      count: "Major exchanges",
+      symbols: [
+        { label: "Apple", symbol: "AAPL", decimals: 2 },
+        { label: "Microsoft", symbol: "MSFT", decimals: 2 },
+        { label: "Amazon", symbol: "AMZN", decimals: 2 },
+        { label: "Tesla", symbol: "TSLA", decimals: 2 },
+      ],
+    },
+    {
+      name: "Commodities",
+      body: "Energy and agricultural commodity CFDs.",
+      count: "Energy & softs",
+      symbols: [
+        { label: "WTI Oil", symbol: "CL=F", decimals: 2 },
+        { label: "Natural Gas", symbol: "NG=F", decimals: 3 },
+        { label: "Coffee", symbol: "KC=F", decimals: 2 },
+        { label: "Wheat", symbol: "ZW=F", decimals: 2 },
+      ],
+    },
+    {
+      name: "Crypto CFDs",
+      body: "Trade price movements in major cryptocurrencies.",
+      count: "24/7 market",
+      symbols: [
+        { label: "BTC/USD", symbol: "BTC-USD", decimals: 0 },
+        { label: "ETH/USD", symbol: "ETH-USD", decimals: 2 },
+        { label: "SOL/USD", symbol: "SOL-USD", decimals: 2 },
+        { label: "XRP/USD", symbol: "XRP-USD", decimals: 4 },
+      ],
+    },
   ],
 };
 
@@ -267,51 +333,79 @@ export const fundSafety = {
 export const accounts = {
   heading: "An account for\nevery trading style",
   lead: "Three tiers, one platform. Move between them as your volume changes.",
+  /**
+   * Standard isn't one price list — it's the same account in two
+   * denominations, dollar or cent lots. That's a toggle inside one card
+   * (`StandardTierCard.tsx`), not two separate cards, so the reader compares
+   * ECN and Pro against one "Standard" rather than two near-identical tiers.
+   */
+  standard: {
+    name: "Standard",
+    blurb: "For traders opening their first live position and learning how a fill behaves.",
+    cta: "Open Standard Account",
+    modes: {
+      dollar: {
+        label: "Dollar",
+        deposit: "100", // REVIEW: minimum deposit to open — distinct from the $1,000 spread-promo threshold below
+        spread: "0.0",
+        commission: "None",
+        features: [
+          "0.0 spread on deposits up to $1,000",
+          "Leverage up to 1:300",
+          "Not swap-free",
+          "Negative balance protection",
+          "Fast execution on every order",
+          "Support 24/7",
+        ],
+      },
+      cent: {
+        label: "Cent",
+        deposit: "10", // REVIEW: minimum deposit not specified — confirm actual figure
+        spread: "1.0", // REVIEW: specified only as "min spread" — confirm the actual figure
+        commission: "None",
+        features: [
+          "Every symbol tradable in cent lots",
+          "Leverage up to 1:300",
+          "Not swap-free",
+          "Minimal spreads across all symbols",
+          "Fast execution on every order",
+          "Support 24/7",
+        ],
+      },
+    },
+  },
   tiers: [
-    {
-      name: "Standard",
-      blurb: "For traders opening their first live position and learning how a fill behaves.",
-      deposit: "100",
-      spread: "1.0",
-      commission: "None",
-      cta: "Open Standard Account",
-      features: [
-        "Fast execution on every order",
-        "Negative balance protection",
-        "All six asset classes",
-        "Support in your language, 24/5",
-      ],
-      recommended: false,
-    },
-    {
-      name: "Pro",
-      blurb: "For active traders running size regularly, who feel every extra pip of spread.",
-      deposit: "1,000",
-      spread: "0.6",
-      commission: "None",
-      cta: "Open Pro Account",
-      features: [
-        "Everything in Standard",
-        "Tighter spreads from 0.6 pips",
-        "Priority withdrawal processing",
-        "A named account contact",
-      ],
-      recommended: true,
-    },
     {
       name: "ECN",
       blurb: "For high-volume and algorithmic traders who would rather pay commission than spread.",
-      deposit: "5,000",
+      deposit: "1,000", // REVIEW: minimum deposit not specified — confirm actual figure
       spread: "0.0",
       commission: "Per lot",
       cta: "Open ECN Account",
       features: [
-        "Everything in Pro",
-        "Raw spreads from 0.0 pips",
+        "Tight, raw spreads from 0.0 pips",
+        "Not swap-free",
         "Commission-based pricing",
-        "Market depth on eligible instruments",
+        "Market execution",
+        "Zero-latency order routing",
+        "Support 24/7",
       ],
-      recommended: false,
+    },
+    {
+      name: "Pro",
+      blurb: "The ECN account, behind a larger deposit — for high-volume traders who want more headroom.",
+      deposit: "20,000",
+      spread: "0.0",
+      commission: "Per lot",
+      cta: "Open Pro Account",
+      features: [
+        "Tight, raw spreads from 0.0 pips",
+        "Not swap-free",
+        "Commission-based pricing",
+        "Market execution",
+        "Zero-latency order routing",
+        "Support 24/7",
+      ],
     },
   ],
 } as const;
@@ -328,13 +422,13 @@ export const everyTrader = {
       tone: "light" as const,
       title: "New to trading?",
       body: "Practise on a demo account with live market prices and none of the risk. Work through our guides at your own pace, and move to a live account whenever you feel ready.",
-      cta: { label: "Start on a demo", href: "#accounts" },
+      cta: { label: "Start on a demo", href: "/coming-soon" },
     },
     {
       tone: "dark" as const,
       title: "Been at this a while?",
-      body: "Raw spreads, deeper liquidity and the advanced tooling you already know how to use — plus a named contact who picks up when you call.",
-      cta: { label: "See the ECN account", href: "#accounts" },
+      body: "Raw spreads, deeper liquidity and the advanced tooling you already know how to use, plus a named contact who picks up when you call.",
+      cta: { label: "See the ECN account", href: "/coming-soon" },
     },
   ],
 };
@@ -358,7 +452,7 @@ export const steps = {
 
 export const support = {
   heading: "Real people, whenever\nthe market is open",
-  lead: "Reach us by chat, email or phone, 24/5, in a wide range of languages. No ticket queue, no bot to argue with first.",
+  lead: "Reach us by chat, email or phone, 24/7, in a wide range of languages. No ticket queue, no bot to argue with first.",
   cta: { label: "Talk to us", href: "mailto:support@elitecapital.com" },
 };
 
@@ -369,7 +463,7 @@ export const support = {
 
 export const faq = {
   heading: "Questions worth\nasking a broker",
-  lead: "Can't find it? Our support team answers in your language, 24/5.",
+  lead: "Can't find it? Our support team answers in your language, 24/7.",
   items: [
     {
       q: "What do I need to open a live account?",
@@ -385,7 +479,7 @@ export const faq = {
     },
     {
       q: "Which platforms can I trade on?",
-      a: "MetaTrader 5 and our browser-based Web Portal, plus the iOS and Android apps. One account works across all of them, and Copy Trading sits on top.", // REVIEW
+      a: "MetaTrader 5 / 4 and our browser-based Web Portal, plus the iOS and Android apps. One account works across all of them, and Copy Trading sits on top.", // REVIEW
     },
     {
       q: "Can I lose more than I deposit?",
