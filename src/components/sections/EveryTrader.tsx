@@ -32,7 +32,7 @@ export function EveryTrader() {
               <article
                 key={card.title}
                 data-tilt="3"
-                className={`card-glow card-3d lift-hover flex min-h-[clamp(260px,26vw,340px)] flex-col rounded-panel p-7 sm:p-9 ${
+                className={`card-glow card-3d lift-hover flex flex-col rounded-panel p-7 sm:p-9 ${
                   dark
                     ? "glow-light bg-navy-950 text-ink-100"
                     : "bevel-clear text-navy-900"
