@@ -118,7 +118,7 @@ export function SiteHeader() {
               />
             </Link>
 
-            <nav className="ml-1 hidden items-center gap-0.5 lg:flex">
+            <nav className="ml-6 hidden items-center gap-1 lg:ml-10 lg:flex">
               {nav.map((item) =>
                 item.groups ? (
                   <div

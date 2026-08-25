@@ -666,6 +666,46 @@ details[open]::details-content {
 }
 
 /* ==========================================================================
+   BRAND MARK — candlesticks rising in sequence inside the logo, looping.
+   Shared by every <LogoMark> instance (header, footer); pure CSS so the
+   mark animates without shipping client JS. `prefers-reduced-motion` is
+   handled by the blanket rule below, not here.
+   ========================================================================== */
+
+@keyframes ec-candle-rise {
+  0%,
+  4% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  34%,
+  78% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  92%,
+  100% {
+    transform: scaleY(1);
+    opacity: 0;
+  }
+}
+
+.ec-candle {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: ec-candle-rise 3.6s cubic-bezier(0.22, 0.9, 0.3, 1) infinite;
+}
+.ec-candle-2 {
+  animation-delay: 0.22s;
+}
+.ec-candle-3 {
+  animation-delay: 0.44s;
+}
+
+/* ==========================================================================
    ACCESSIBILITY PREFERENCES
    Global, not per-component. Do not re-implement these in a component.
    ========================================================================== */

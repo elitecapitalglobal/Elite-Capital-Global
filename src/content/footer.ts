@@ -101,14 +101,13 @@ export const footerLegal = [
   {
     label: "Regional Restrictions",
     paragraphs: [
-      "Elite Capital does not offer its services to residents of certain jurisdictions, including [[LIST RESTRICTED JURISDICTIONS — typically the United States and Canada, plus any territory on the FATF call-for-action list or subject to applicable sanctions]].",
-      "This website is not directed at anyone in any country where publishing or using it would breach local law. If you access it from such a country, it is your responsibility to make sure you are allowed to. We do not represent that the information here is appropriate in every jurisdiction.",
+      "Elite Capital does not provide services to residents of jurisdictions where such offerings are prohibited by applicable law, including countries under international sanctions and/or FATF blacklisting. The aforementioned include but are not limited to: Afghanistan, Belarus, Cuba, Democratic Republic of Congo, Haiti, Iran, Israel, Myanmar, North Korea, Russia, South Sudan, Syria, Ukraine, Venezuela, Yemen, and other jurisdictions with restrictive local regulations, including the United States of America. These restrictions apply to all client acquisition methods, including through Introducing Brokers or Affiliates.",
+      "Elite Capital reserves the right to restrict services to residents of any other jurisdiction where such offerings may be prohibited or deemed high risk.",
     ],
   },
   {
     label: "Regulatory Information",
     paragraphs: [
-      "[[FILL IN — one paragraph for each licensed entity, giving the registered company name, the regulator, the licence or registration number, and the registered office address. Mirror this on /regulation. Do not publish this footer until these are real.]]",
       "The entity that holds your account is determined by your country of residence and is confirmed to you during the application. The products, leverage limits and protections available to you follow from that entity. A licence granted by an authority does not mean the authority endorses the products offered under it.",
     ],
   },

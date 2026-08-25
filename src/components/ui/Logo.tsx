@@ -1,29 +1,24 @@
 /**
- * The brand mark: a shield split black-and-emerald — trust/security for a
- * regulated broker, in the theme's own two colours — plus a two-line
- * wordmark set in Fraunces, a display serif distinct from Mona Sans, the
- * way a logotype almost always carries its own face.
+ * The brand mark: three candlesticks rising in sequence — the chart-reading
+ * motion at the centre of what the site does — beside a single-line
+ * "ELITE CAPITAL" wordmark, tracked wide and set in Mona Sans, the site's
+ * own display face (see `layout.tsx` / `--font-sans` in `globals.css`)
+ * rather than a separate logotype face.
  *
- * Unlike the old flat-gold PNG this replaces, every colour here is a
- * Tailwind utility bound to the same `--color-navy-*` / `--color-blue-*`
- * tokens as the rest of the site (see `globals.css`).
+ * Every colour is a Tailwind utility bound to the same `--color-ink-*` /
+ * `--color-blue-*` tokens as the rest of the site (see `globals.css`).
  *
- * Sizing is em-based end to end: the mark is `h-[1em]` and the wordmark
- * lines are fractional `em` sizes, so callers scale the whole lockup with a
- * single `text-[Npx]` (or responsive `text-[..] sm:text-[..]`) on `className`
+ * Sizing is em-based end to end: the mark is `h-[1em]` and the wordmark is
+ * a fractional `em` size, so callers scale the whole lockup with a single
+ * `text-[Npx]` (or responsive `text-[..] sm:text-[..]`) on `className`
  * instead of juggling image height/width pairs.
  */
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center gap-[0.28em] ${className}`}>
+    <span className={`inline-flex items-center gap-[0.32em] ${className}`}>
       <LogoMark className="h-[1em] w-auto shrink-0" />
-      <span className="flex flex-col justify-center leading-none">
-        <span className="font-[family-name:var(--font-fraunces)] text-[0.56em] font-semibold tracking-[0.01em] text-ink-100">
-          Elite
-        </span>
-        <span className="font-[family-name:var(--font-fraunces)] text-[0.24em] font-medium tracking-[0.34em] text-blue-400 uppercase">
-          Capital
-        </span>
+      <span className="font-[family-name:var(--font-mona)] text-[0.38em] font-medium tracking-[0.14em] whitespace-nowrap text-ink-100 uppercase">
+        Elite Capital
       </span>
     </span>
   );
@@ -32,34 +27,22 @@ export function Logo({ className = "" }: { className?: string }) {
 /** The mark alone, no wordmark — for favicon-scale or square placements. */
 export function LogoMark({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 48 48" aria-hidden className={className}>
-      <defs>
-        <clipPath id="ecg-shield-clip">
-          <path d="M24 2 41 8.5V21C41 32.5 33.5 41.5 24 46 14.5 41.5 7 32.5 7 21V8.5Z" />
-        </clipPath>
-      </defs>
-
-      {/* Split fill, clipped to one shield silhouette — obsidian on the
-          left, the accent emerald on the right. Security in the shape,
-          the theme's two colours doing the rest. */}
-      <g clipPath="url(#ecg-shield-clip)">
-        <rect x="0" y="0" width="24" height="48" className="fill-navy-950" />
-        <rect x="24" y="0" width="24" height="48" className="fill-blue-600" />
+    <svg viewBox="0 0 46 44" aria-hidden className={className}>
+      {/* Three candles rising in sequence, hold, then reset — keyframes
+          and delays live in globals.css (`.ec-candle`) so every instance
+          of this mark shares one animation instead of redefining it. */}
+      <g className="ec-candle">
+        <rect x="10" y="13" width="2" height="22" rx="1" className="fill-ink-100" />
+        <rect x="6" y="18" width="10" height="12" rx="2" className="fill-ink-100" />
       </g>
-
-      {/* A thin lit edge so the shield reads as one object, not two
-          rectangles behind a mask. */}
-      <path
-        d="M24 2 41 8.5V21C41 32.5 33.5 41.5 24 46 14.5 41.5 7 32.5 7 21V8.5Z"
-        fill="none"
-        className="stroke-blue-400/65"
-        strokeWidth="1.3"
-      />
-      <path
-        d="M24 2V46"
-        className="stroke-navy-950/35"
-        strokeWidth="1"
-      />
+      <g className="ec-candle ec-candle-2">
+        <rect x="23" y="9" width="2" height="26" rx="1" className="fill-ink-100" />
+        <rect x="19" y="14" width="10" height="16" rx="2" className="fill-ink-100" />
+      </g>
+      <g className="ec-candle ec-candle-3">
+        <rect x="36" y="5" width="2" height="25" rx="1" className="fill-blue-600" />
+        <rect x="32" y="9" width="10" height="17" rx="2" className="fill-blue-600" />
+      </g>
     </svg>
   );
 }
