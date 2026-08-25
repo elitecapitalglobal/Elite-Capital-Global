@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Mona_Sans, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
@@ -41,10 +41,28 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
+const title = "Elite Capital | Forex & CFD Trading Platform";
+const description =
+  "Trade forex, commodities, indices, metals and shares with tight spreads, fast execution and platforms built for every kind of trader.";
+
 export const metadata: Metadata = {
-  title: "Elite Capital | Forex & CFD Trading Platform",
-  description:
-    "Trade forex, commodities, indices, metals and shares with tight spreads, fast execution and platforms built for every kind of trader.",
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    siteName: "Elite Capital",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#080808",
 };
 
 /**
