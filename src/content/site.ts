@@ -38,7 +38,7 @@ export const site = {
 
   /** Footer brand paragraph. The link columns live in `footer.ts`. */
   footerBlurb:
-    "Elite Capital provides online trading in forex, commodities, indices, metals and shares through MetaTrader 5 / 4 and our browser-based Web Portal.",
+    "Elite Capital provides online trading in forex, commodities, indices, metals and shares through MetaTrader 5 and our browser-based Web Portal.",
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -88,7 +88,7 @@ export const nav: NavItem[] = [
       {
         title: "Trading Terminals",
         items: [
-          { label: "MetaTrader 5 / 4", desc: "The full multi-asset terminal, with the tooling to match.", href: "#platforms" },
+          { label: "MetaTrader 5", desc: "The full multi-asset terminal, with the tooling to match.", href: "#platforms" },
           { label: "Web Portal", desc: "Trade in your browser. Nothing to download, nothing to update.", href: "#platforms" },
         ],
       },
@@ -223,7 +223,7 @@ export const platforms = {
   items: [
     { title: "Mobile App", body: "The same account in your pocket, on iOS and Android.", image: "/mobile-app.png" },
     { title: "Web Portal", body: "Trade straight from your browser. Nothing to install, nothing to keep updated.", image: "/web-trader.png" },
-    { title: "MetaTrader 5 / 4", body: "The full multi-asset terminal, with the charting and automation to match." },
+    { title: "MetaTrader 5", body: "The full multi-asset terminal, with the charting and automation to match." },
     { title: "Copy Trading", body: "Follow a strategy you rate and mirror its trades on your own account." },
   ],
 };
@@ -479,7 +479,7 @@ export const faq = {
     },
     {
       q: "Which platforms can I trade on?",
-      a: "MetaTrader 5 / 4 and our browser-based Web Portal, plus the iOS and Android apps. One account works across all of them, and Copy Trading sits on top.", // REVIEW
+      a: "MetaTrader 5 and our browser-based Web Portal, plus the iOS and Android apps. One account works across all of them, and Copy Trading sits on top.", // REVIEW
     },
     {
       q: "Can I lose more than I deposit?",
