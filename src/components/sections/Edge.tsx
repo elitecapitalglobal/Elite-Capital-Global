@@ -12,7 +12,7 @@ import { Reveal } from "@/components/ui/Reveal";
  */
 export function Edge() {
   return (
-    <Section surface="clear" className="py-[clamp(48px,6vw,88px)]">
+    <Section surface="clear" className="pt-6 pb-12">
       <Reveal
         stagger
         className="shell grid gap-4 sm:grid-cols-2 lg:grid-cols-4"

@@ -43,16 +43,34 @@ export function SiteHeader() {
     closeTimer.current = setTimeout(() => setOpen(null), 140);
   };
 
-  // The pill always wears the deep palette — it never flips to the light
-  // glass variant, no matter what surface is scrolling underneath it — but
-  // it only picks up the glass fill/border/shadow once scrolled. At rest,
-  // the row floats on the page with no chrome at all.
+  // Scrolled, the pill always wears the deep glass palette, no matter what
+  // surface is scrolling underneath it. At rest it has no chrome at all and
+  // floats directly on the hero, which is now the light `clear` palette —
+  // so the text/logo tone flips with `scrolled` to stay legible in both
+  // states instead of assuming a dark hero underneath.
   const t = {
     pill: scrolled ? "nav-glass-deep" : "",
-    link: "text-ink-300 hover:text-ink-100",
-    linkActive: "text-blue-400",
-    quiet: "text-ink-300 hover:text-blue-400",
-    burger: "text-ink-100",
+    link: scrolled
+      ? "text-ink-300 hover:text-ink-100"
+      : "text-navy-700 hover:text-navy-900",
+    linkActive: scrolled ? "text-blue-400" : "text-blue-700",
+    quiet: scrolled
+      ? "text-ink-300 hover:text-blue-400"
+      : "text-navy-700 hover:text-blue-700",
+    burger: scrolled ? "text-ink-100" : "text-navy-900",
+    // The mega panel and mobile drawer are solid, not glass (DESIGN.md §4),
+    // so they need their own light/dark pairing rather than reusing the
+    // pill's glass utilities.
+    panel: scrolled ? "panel-solid" : "panel-solid-clear",
+    panelLabel: scrolled ? "text-blue-400" : "text-blue-700",
+    panelTitle: scrolled
+      ? "text-ink-100 group-hover:text-blue-400"
+      : "text-navy-900 group-hover:text-blue-700",
+    panelDesc: scrolled ? "text-ink-500" : "text-navy-700/70",
+    panelHover: scrolled ? "hover:bg-navy-700" : "hover:bg-navy-900/6",
+    panelBorder: scrolled ? "border-ink-100/8" : "border-navy-900/10",
+    panelText: scrolled ? "text-ink-300" : "text-navy-700",
+    ghost: (scrolled ? "ghost" : "ghostDark") as "ghost" | "ghostDark",
   };
 
   return (
@@ -103,6 +121,7 @@ export function SiteHeader() {
                 // longer able to shrink, the logo is what has to give at
                 // 320px. Logo + CTA + burger fits in 284px only at the small
                 // step.
+                tone={scrolled ? "light" : "dark"}
                 className={`transition-all duration-500 ease-[var(--ease-out-expo)] ${
                   scrolled ? "text-[20px] sm:text-[32px]" : "text-[24px] sm:text-[40px]"
                 }`}
@@ -183,7 +202,9 @@ export function SiteHeader() {
           </div>
 
           {/* Mega panel. Solid, not glass — glass on glass destroys
-              legibility, and this holds body copy. DESIGN.md §4. */}
+              legibility, and this holds body copy. DESIGN.md §4. Its
+              light/dark pairing follows the pill's own `scrolled` toggle
+              rather than staying fixed to the dark palette. */}
           {nav.map((item) =>
             item.groups && open === item.label ? (
               <div
@@ -191,10 +212,12 @@ export function SiteHeader() {
                 className="absolute inset-x-0 top-full z-[var(--z-dropdown)] px-[var(--gutter)]"
                 onMouseEnter={() => hoverOpen(item.label)}
               >
-                <div className="panel-solid mx-auto mt-2 flex max-w-6xl flex-wrap gap-x-8 gap-y-6 rounded-panel p-7 shadow-[0_30px_60px_-20px_rgb(0_0_0/0.6)]">
+                <div
+                  className={`${t.panel} mx-auto mt-2 flex max-w-6xl flex-wrap gap-x-8 gap-y-6 rounded-panel p-7 shadow-[0_30px_60px_-20px_rgb(0_0_0/0.6)]`}
+                >
                   {item.groups.map((group) => (
                     <div key={group.title} className="min-w-56 flex-1">
-                      <p className="type-label mb-2.5 px-3 text-blue-400">
+                      <p className={`type-label mb-2.5 px-3 ${t.panelLabel}`}>
                         {group.title}
                       </p>
                       {group.items.map((link) => (
@@ -202,12 +225,16 @@ export function SiteHeader() {
                           key={link.label}
                           href={link.href}
                           onClick={() => setOpen(null)}
-                          className="group block rounded-inner px-3 py-2 transition-colors hover:bg-navy-700"
+                          className={`group block rounded-inner px-3 py-2 transition-colors ${t.panelHover}`}
                         >
-                          <span className="block text-sm font-semibold text-ink-100 transition-colors group-hover:text-blue-400">
+                          <span
+                            className={`block text-sm font-semibold transition-colors ${t.panelTitle}`}
+                          >
                             {link.label}
                           </span>
-                          <span className="block text-[12.5px] leading-snug text-ink-500">
+                          <span
+                            className={`block text-[12.5px] leading-snug ${t.panelDesc}`}
+                          >
                             {link.desc}
                           </span>
                         </Link>
@@ -223,13 +250,15 @@ export function SiteHeader() {
         {/* Mobile drawer */}
         {mobileOpen && (
           <div className="absolute inset-x-0 top-full z-[var(--z-dropdown)] px-[var(--gutter)] lg:hidden">
-            <div className="panel-solid mt-2 max-h-[70dvh] overflow-y-auto rounded-panel p-5">
+            <div
+              className={`${t.panel} mt-2 max-h-[70dvh] overflow-y-auto rounded-panel p-5`}
+            >
               {nav.map((item) => (
                 <div
                   key={item.label}
-                  className="border-b border-ink-100/8 py-2.5 last:border-0"
+                  className={`border-b py-2.5 last:border-0 ${t.panelBorder}`}
                 >
-                  <p className="type-label mb-1.5 text-blue-400">
+                  <p className={`type-label mb-1.5 ${t.panelLabel}`}>
                     {item.label}
                   </p>
                   <div className="grid gap-0.5 sm:grid-cols-2">
@@ -240,7 +269,7 @@ export function SiteHeader() {
                           key={link.href + link.label}
                           href={link.href}
                           onClick={() => setMobileOpen(false)}
-                          className="flex min-h-11 items-center rounded-inner px-3 text-sm text-ink-300"
+                          className={`flex min-h-11 items-center rounded-inner px-3 text-sm ${t.panelText}`}
                         >
                           {link.label}
                         </Link>
@@ -249,7 +278,7 @@ export function SiteHeader() {
                       <Link
                         href={item.href!}
                         onClick={() => setMobileOpen(false)}
-                        className="flex min-h-11 items-center rounded-inner px-3 text-sm text-ink-300"
+                        className={`flex min-h-11 items-center rounded-inner px-3 text-sm ${t.panelText}`}
                       >
                         Go to {item.label}
                       </Link>
@@ -258,7 +287,7 @@ export function SiteHeader() {
                 </div>
               ))}
               <div className="mt-4 grid gap-2">
-                <Button href={site.cta.login.href} variant="ghost">
+                <Button href={site.cta.login.href} variant={t.ghost}>
                   {site.cta.login.label}
                 </Button>
               </div>

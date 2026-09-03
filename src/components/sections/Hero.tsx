@@ -49,8 +49,8 @@ export function Hero() {
   return (
     <section
       ref={root}
-      data-surface="deep"
-      className="aurora relative isolate overflow-hidden pt-[clamp(56px,8vw,104px)]"
+      data-surface="clear"
+      className="aurora-light relative isolate overflow-hidden pt-[clamp(56px,8vw,104px)] text-navy-900"
     >
       <div data-hero-aurora aria-hidden className="absolute inset-0 -z-10">
         {/* Faint vertical rule field — Vertex's hero has one; it gives the
@@ -59,7 +59,7 @@ export function Hero() {
           className="absolute inset-0 opacity-[0.14]"
           style={{
             backgroundImage:
-              "repeating-linear-gradient(90deg, transparent 0 63px, rgb(255 255 255 / 0.5) 63px 64px)",
+              "repeating-linear-gradient(90deg, transparent 0 63px, rgb(0 0 0 / 0.35) 63px 64px)",
             maskImage:
               "radial-gradient(70% 55% at 50% 30%, #000, transparent 78%)",
           }}
@@ -70,9 +70,9 @@ export function Hero() {
         <div className="relative z-0 mx-auto max-w-5xl pb-[clamp(64px,11vw,132px)] text-center">
           <p
             data-hero-fade
-            className="bevel-deep mx-auto mb-6 inline-flex items-center gap-2.5 rounded-pill px-4 py-1.5 text-[13px] font-medium text-ink-300"
+            className="bevel-clear mx-auto mb-6 inline-flex items-center gap-2.5 rounded-pill px-4 py-1.5 text-[13px] font-medium text-navy-700"
           >
-            <span className="size-1.5 rounded-full bg-blue-400" aria-hidden />
+            <span className="size-1.5 rounded-full bg-blue-700" aria-hidden />
             {hero.kicker}
           </p>
 
@@ -88,7 +88,7 @@ export function Hero() {
 
           <p
             data-hero-fade
-            className="type-lead mx-auto mt-5 max-w-[54ch] text-ink-300"
+            className="type-lead mx-auto mt-5 max-w-[54ch] text-navy-700/80"
           >
             {hero.lead}
           </p>
@@ -101,7 +101,7 @@ export function Hero() {
               {site.cta.primary.label}
               <Arrow />
             </Button>
-            <Button href={site.cta.secondary.href} variant="ghost">
+            <Button href={site.cta.secondary.href} variant="ghostDark">
               {site.cta.secondary.label}
             </Button>
           </div>
@@ -110,7 +110,7 @@ export function Hero() {
               star ratings we can't source. */}
           <ul
             data-hero-fade
-            className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] text-ink-500"
+            className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] text-navy-700/70"
           >
             {hero.trustRow.map((item) => (
               <li key={item} className="flex items-center gap-2">
@@ -169,7 +169,7 @@ function ScrollIndicator() {
       href="#advantages"
       aria-label="Scroll to explore"
       data-hero-fade
-      className="bevel-deep flex h-16 w-9 items-start justify-center rounded-pill pt-3.5 text-ink-300 transition-colors duration-300 hover:text-ink-100"
+      className="bevel-clear flex h-16 w-9 items-start justify-center rounded-pill pt-3.5 text-navy-700 transition-colors duration-300 hover:text-navy-900"
     >
       <ChevronDown ref={chevronRef} />
     </a>
@@ -208,7 +208,7 @@ function Arrow() {
 
 function Check() {
   return (
-    <svg width="13" height="13" viewBox="0 0 14 14" aria-hidden className="text-blue-400">
+    <svg width="13" height="13" viewBox="0 0 14 14" aria-hidden className="text-blue-700">
       <path
         d="M2.5 7.5l3 3 6-7"
         fill="none"

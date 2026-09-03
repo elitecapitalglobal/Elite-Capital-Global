@@ -127,7 +127,14 @@ html {
 }
 
 body {
-  background: var(--color-navy-950);
+  /* `color` stays ink-100 — several `deep` sections (ClosingCta among them)
+     lean on this as their default text colour rather than setting their
+     own. `background`, though, is now ink-100 too: the header sits in
+     normal flow above the hero (its `sticky` box still reserves height
+     there), so the strip of raw body colour behind it, plus any bottom
+     overscroll past the now-light footer, has to read as `clear`, not the
+     `deep` sections' obsidian. */
+  background: var(--color-ink-100);
   color: var(--color-ink-100);
   font-family: var(--font-sans);
   font-size: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
@@ -175,59 +182,6 @@ p {
 
 @utility section-y {
   padding-block: var(--section-y);
-}
-
-/* ==========================================================================
-   SECTION SEAMS
-   Sections sit back to back as flat solid colours, which made every deep ->
-   light (or light -> deep) boundary a hard, one-frame cut while scrolling.
-   This blends the first stretch of whichever section comes second, fading
-   in from the previous section's own colour instead of starting at full
-   contrast immediately underneath the page's dark/light rhythm.
-
-   Pure CSS via the adjacent-sibling combinator: it matches on the
-   `data-surface` attribute every section already carries (see Section.tsx),
-   so no page or section file has to know what its neighbour is. `tint` and
-   `white` both report as `clear` for this same reason `SiteHeader` uses it.
-   ========================================================================== */
-[data-surface="deep"] + [data-surface="clear"],
-[data-surface="clear"] + [data-surface="deep"] {
-  position: relative;
-}
-
-[data-surface="deep"] + [data-surface="clear"]::before,
-[data-surface="clear"] + [data-surface="deep"]::before {
-  content: "";
-  position: absolute;
-  inset-inline: 0;
-  top: 0;
-  height: clamp(40px, 6vw, 84px);
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* Eased, not linear. A plain two-stop fade spends most of its height at
-   ~50% opacity, which sits on a light background as a flat grey smear
-   instead of a dissolve. Front-loading the opacity so it clears the "grey"
-   band fast keeps the seam readable as a quick soft edge, not a stripe. */
-[data-surface="deep"] + [data-surface="clear"]::before {
-  background: linear-gradient(
-    180deg,
-    var(--color-navy-950) 0%,
-    color-mix(in oklab, var(--color-navy-950) 45%, transparent) 30%,
-    color-mix(in oklab, var(--color-navy-950) 12%, transparent) 60%,
-    transparent 100%
-  );
-}
-
-[data-surface="clear"] + [data-surface="deep"]::before {
-  background: linear-gradient(
-    180deg,
-    var(--color-ink-100) 0%,
-    color-mix(in oklab, var(--color-ink-100) 45%, transparent) 30%,
-    color-mix(in oklab, var(--color-ink-100) 12%, transparent) 60%,
-    transparent 100%
-  );
 }
 
 /* ==========================================================================
@@ -430,6 +384,14 @@ p {
   border: 1px solid color-mix(in oklab, var(--color-ink-100) 8%, transparent);
 }
 
+/* Light counterpart — for solid panels (mega menu, mobile drawer) that need
+   to sit on the `clear` palette instead of obsidian, e.g. the header's
+   dropdowns while they float over the now-light hero, unscrolled. */
+@utility panel-solid-clear {
+  background: linear-gradient(160deg, #fff, var(--color-ink-100));
+  border: 1px solid color-mix(in oklab, var(--color-navy-900) 8%, transparent);
+}
+
 /* The hero wash — Vertex Pro's signature. Deep indigo at the top, a royal
    blue bloom rising from just below the fold. The bloom is anchored off-canvas
    (`at 50% 112%`) so its brightest point is never on screen; what the reader
@@ -451,6 +413,18 @@ p {
       var(--color-navy-950) 0%,
       var(--color-navy-900) 100%
     );
+}
+
+/* Light echo of `aurora`, for sections that want the same rising-bloom
+   composition on the `clear` palette instead of obsidian. */
+@utility aurora-light {
+  background:
+    radial-gradient(
+      100% 80% at 50% 112%,
+      color-mix(in oklab, var(--color-blue-200) 70%, transparent),
+      transparent 62%
+    ),
+    linear-gradient(180deg, var(--color-ink-100) 0%, var(--color-blue-50) 100%);
 }
 
 /* Hairline that fades at both ends — used to close `deep` sections. */

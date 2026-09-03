@@ -45,10 +45,10 @@ export default function Home() {
       <main>
         <Hero />
         <Ticker />
-        <Edge />
         <Advantages />
         <Platforms />
         <Markets />
+        <Edge />
         <FundSafety />
         <Accounts />
         <EveryTrader />

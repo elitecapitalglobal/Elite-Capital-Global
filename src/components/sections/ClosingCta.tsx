@@ -11,7 +11,7 @@ export function ClosingCta() {
   return (
     <section
       data-surface="deep"
-      className="relative isolate overflow-hidden bg-navy-950 py-[clamp(72px,8vw,124px)]"
+      className="relative isolate overflow-hidden bg-navy-700 py-[clamp(72px,8vw,124px)]"
     >
       <div
         aria-hidden

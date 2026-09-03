@@ -19,34 +19,34 @@ import { footerColumns, footerContact, footerLegal } from "@/content/footer";
  */
 export function SiteFooter() {
   return (
-    <footer data-surface="deep" className="bg-navy-900 text-ink-100">
+    <footer data-surface="clear" className="bg-ink-100 text-navy-900">
       {/* ---------------------------------------------------------------- */}
       {/* 1. Navigation                                                     */}
       {/* ---------------------------------------------------------------- */}
-      <div className="border-t border-ink-100/8">
+      <div className="border-t border-navy-900/10">
         <div className="shell grid gap-10 py-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)] lg:gap-16 lg:py-16">
           <div>
-            <Logo className="text-[44px]" />
-            <p className="measure mt-5 text-[14.5px] leading-relaxed text-ink-300">
+            <Logo className="text-[44px]" tone="dark" />
+            <p className="measure mt-5 text-[14.5px] leading-relaxed text-navy-700/80">
               {site.footerBlurb}
             </p>
 
             <div className="mt-7">
-              <h2 className="type-label text-blue-400">
+              <h2 className="type-label text-blue-700">
                 {footerContact.heading}
               </h2>
-              <p className="mt-2 text-[14px] leading-relaxed text-ink-300">
+              <p className="mt-2 text-[14px] leading-relaxed text-navy-700/80">
                 {footerContact.body}
               </p>
               <a
                 href={`mailto:${footerContact.email}`}
-                className="mt-2 inline-flex min-h-11 items-center text-[14.5px] font-semibold text-ink-100 underline decoration-blue-400/50 underline-offset-4 transition-colors hover:text-blue-400"
+                className="mt-2 inline-flex min-h-11 items-center text-[14.5px] font-semibold text-navy-900 underline decoration-blue-700/50 underline-offset-4 transition-colors hover:text-blue-700"
               >
                 {footerContact.email}
               </a>
               <a
                 href={`tel:${footerContact.phone.replace(/\s+/g, "")}`}
-                className="flex min-h-11 items-center text-[14.5px] font-semibold text-ink-100 underline decoration-blue-400/50 underline-offset-4 transition-colors hover:text-blue-400"
+                className="flex min-h-11 items-center text-[14.5px] font-semibold text-navy-900 underline decoration-blue-700/50 underline-offset-4 transition-colors hover:text-blue-700"
               >
                 {footerContact.phone}
               </a>
@@ -56,13 +56,13 @@ export function SiteFooter() {
           <nav aria-label="Footer" className="grid max-w-md gap-8 sm:grid-cols-2">
             {footerColumns.map((col) => (
               <div key={col.title}>
-                <h2 className="type-label mb-3 text-blue-400">{col.title}</h2>
+                <h2 className="type-label mb-3 text-blue-700">{col.title}</h2>
                 <ul>
                   {col.links.map((link) => (
                     <li key={link.label}>
                       <Link
                         href={link.href}
-                        className="flex min-h-10 items-center text-[14.5px] text-ink-300 transition-colors hover:text-blue-400"
+                        className="flex min-h-10 items-center text-[14.5px] text-navy-700 transition-colors hover:text-blue-700"
                       >
                         {link.label}
                       </Link>
@@ -78,15 +78,15 @@ export function SiteFooter() {
       {/* ---------------------------------------------------------------- */}
       {/* 2. Disclosures                                                    */}
       {/* ---------------------------------------------------------------- */}
-      <div className="border-t border-ink-100/8 bg-navy-950">
+      <div className="border-t border-navy-900/10 bg-blue-50">
         <div className="shell grid gap-8 py-12 md:grid-cols-2 lg:gap-x-16">
           {footerLegal.map((block) => (
             <section key={block.label}>
-              <h2 className="type-label text-ink-100">{block.label}</h2>
+              <h2 className="type-label text-navy-900">{block.label}</h2>
               {block.paragraphs.map((p) => (
                 <p
                   key={p}
-                  className="mt-2.5 text-[13px] leading-[1.65] text-ink-300/85"
+                  className="mt-2.5 text-[13px] leading-[1.65] text-navy-700/80"
                 >
                   {p}
                 </p>
@@ -99,9 +99,9 @@ export function SiteFooter() {
       {/* ---------------------------------------------------------------- */}
       {/* 3. Copyright                                                      */}
       {/* ---------------------------------------------------------------- */}
-      <div className="border-t border-ink-100/8 bg-navy-950">
+      <div className="border-t border-navy-900/10 bg-blue-50">
         <div className="shell py-7 text-center">
-          <p className="text-[13px] text-ink-500">
+          <p className="text-[13px] text-navy-700/70">
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
         </div>

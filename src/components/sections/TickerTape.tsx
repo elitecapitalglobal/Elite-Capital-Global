@@ -54,17 +54,17 @@ export function TickerTape({ initial }: { initial: TickerRow[] }) {
 
   return (
     <div
-      data-surface="deep"
+      data-surface="clear"
       // overflow-hidden is load-bearing: the track is several times the
       // viewport width, and without clipping here it drags the whole page
       // into horizontal scroll.
-      className="relative overflow-hidden border-y border-ink-100/8 bg-navy-900"
+      className="relative overflow-hidden border-y border-navy-900/10 bg-blue-50"
     >
       <Marquee copies={4} duration="60s">
         {rows.map((row) => (
           <span
             key={row.pair}
-            className="flex shrink-0 items-center gap-2 py-3 pe-12 text-[13px] font-semibold text-ink-300"
+            className="flex shrink-0 items-center gap-2 py-3 pe-12 text-[13px] font-semibold text-navy-700"
           >
             {row.pair}
             <span
