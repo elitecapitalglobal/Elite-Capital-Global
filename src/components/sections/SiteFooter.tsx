@@ -50,10 +50,13 @@ export function SiteFooter() {
               >
                 {footerContact.phone}
               </a>
+              <p className="mt-2 text-[14px] leading-relaxed text-navy-700/80">
+                {footerContact.address}
+              </p>
             </div>
           </div>
 
-          <nav aria-label="Footer" className="grid max-w-md gap-8 sm:grid-cols-2">
+          <nav aria-label="Footer" className="grid max-w-2xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {footerColumns.map((col) => (
               <div key={col.title}>
                 <h2 className="type-label mb-3 text-blue-700">{col.title}</h2>

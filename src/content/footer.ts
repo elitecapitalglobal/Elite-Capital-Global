@@ -47,10 +47,31 @@ export const footerColumns: FooterColumn[] = [
     ],
   },
   {
+    /** Mirrors `markets.items` in `site.ts` — same six asset classes, all on one page. */
+    title: "Markets",
+    links: [
+      { label: "Forex", href: "#markets" },
+      { label: "Metals", href: "#markets" },
+      { label: "Indices", href: "#markets" },
+      { label: "Shares", href: "#markets" },
+      { label: "Commodities", href: "#markets" },
+      { label: "Crypto CFDs", href: "#markets" },
+    ],
+  },
+  {
     title: "Support",
     links: [
       { label: "Help Center", href: "#faq" },
       { label: "Contact Us", href: "#support" },
+    ],
+  },
+  {
+    /** Mirrors `fundSafety.points` in `site.ts` — same three facts, not new claims. */
+    title: "Client Protection",
+    links: [
+      { label: "Segregated Client Accounts", href: "#fund-safety" },
+      { label: "Negative Balance Protection", href: "#fund-safety" },
+      { label: "Encrypted End to End", href: "#fund-safety" },
     ],
   },
 ];
@@ -60,8 +81,7 @@ export const footerContact = {
   body: "Multilingual support, 24 hours a day, 7 days a week.",
   email: "info@elitecapital.com", // REVIEW: confirm the live inbox
   phone: "+971 52 763 2238",
-  /** Add address when it exists. Do not invent it. */
-  address: "[[REGISTERED OFFICE ADDRESS]]",
+  address: "40 Street Lane 10, Bonne Terre, Gros Islet, Saint Lucia",
 };
 
 /** ALL-CAPS labelled disclosure blocks, in the order the industry uses. */
