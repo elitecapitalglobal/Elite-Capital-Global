@@ -453,8 +453,8 @@ export const steps = {
 export const support = {
   heading: "Real people, whenever\nthe market is open",
   lead: "Reach us by chat, email or phone, 24/7, in a wide range of languages. No ticket queue, no bot to argue with first.",
-  cta: { label: "Talk to us", href: "mailto:info@elitecapital.com" },
-  phone: "+971 52 763 2238",
+  cta: { label: "Talk to us", href: "mailto:info@elitecapital.global" },
+  phone: "+1-758-572-0609",
 };
 
 /* -------------------------------------------------------------------------- */

@@ -79,8 +79,8 @@ export const footerColumns: FooterColumn[] = [
 export const footerContact = {
   heading: "Talk to us",
   body: "Multilingual support, 24 hours a day, 7 days a week.",
-  email: "info@elitecapital.com", // REVIEW: confirm the live inbox
-  phone: "+971 52 763 2238",
+  email: "info@elitecapital.global", // REVIEW: confirm the live inbox
+  phone: "+1-758-572-0609",
   address: "40 Street Lane 10, Bonne Terre, Gros Islet, Saint Lucia",
 };
 
