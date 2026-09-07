@@ -51,7 +51,8 @@ export function SiteFooter() {
                 {footerContact.phone}
               </a>
               <p className="mt-2 text-[14px] leading-relaxed text-navy-700/80">
-                {footerContact.address}
+                {footerContact.addresses[0]} <strong className="font-bold">&</strong>{" "}
+                {footerContact.addresses[1]}
               </p>
             </div>
           </div>

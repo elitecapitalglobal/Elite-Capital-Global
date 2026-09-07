@@ -81,7 +81,10 @@ export const footerContact = {
   body: "Multilingual support, 24 hours a day, 7 days a week.",
   email: "info@elitecapital.global", // REVIEW: confirm the live inbox
   phone: "+1-758-572-0609",
-  address: "40 Street Lane 10, Bonne Terre, Gros Islet, Saint Lucia",
+  addresses: [
+    "40 Street Lane 10, Bonne Terre, Gros Islet, Saint Lucia",
+    "Unit 1, La Place Creole Building, Rodney Village, Rodney Bay, Gros Islet, Saint Lucia",
+  ],
 };
 
 /** ALL-CAPS labelled disclosure blocks, in the order the industry uses. */
