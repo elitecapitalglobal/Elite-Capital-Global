@@ -41,7 +41,7 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
-const title = "Elite Capital | Forex & CFD Trading Platform";
+const title = "Elite fx Capital | Forex & CFD Trading Platform";
 const description =
   "Trade forex, commodities, indices, metals and shares with tight spreads, fast execution and platforms built for every kind of trader.";
 
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
-    siteName: "Elite Capital",
+    siteName: "Elite fx Capital",
     type: "website",
   },
   twitter: {

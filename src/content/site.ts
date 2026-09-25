@@ -13,7 +13,7 @@
  */
 
 export const site = {
-  name: "Elite Capital",
+  name: "Elite fx Capital",
   tagline: "Forex & CFD Trading Platform",
 
   /** Regulatory. Not decorative — must stay above the fold. */
@@ -38,7 +38,7 @@ export const site = {
 
   /** Footer brand paragraph. The link columns live in `footer.ts`. */
   footerBlurb:
-    "Elite Capital provides online trading in forex, commodities, indices, metals and shares through MetaTrader 5 and our browser-based Web Portal.",
+    "Elite fx Capital provides online trading in forex, commodities, indices, metals and shares through MetaTrader 5 and our browser-based Web Portal.",
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -107,7 +107,7 @@ export const nav: NavItem[] = [
     label: "Elite",
     groups: [
       {
-        title: "Why Elite Capital",
+        title: "Why Elite fx Capital",
         items: [
           { label: "Fast Execution", desc: "Orders routed for low-latency fills.", href: "#advantages" },
           { label: "Competitive Spreads", desc: "Tight pricing across all markets.", href: "#advantages" },
@@ -133,7 +133,7 @@ export const nav: NavItem[] = [
 export const hero = {
   kicker: "Forex & CFD Trading",
   headline: ["Trade global markets with", "precision and trust"],
-  lead: "Elite Capital gives you access to forex, commodities, indices, metals and shares with tight spreads, fast execution, and platforms built for every kind of trader.",
+  lead: "Elite fx Capital gives you access to forex, commodities, indices, metals and shares with tight spreads, fast execution, and platforms built for every kind of trader.",
   /** Facts only — no ratings or counts we can't source. */
   trustRow: [
     "Segregated client funds",
@@ -472,7 +472,7 @@ export const faq = {
     },
     {
       q: "Are my funds held separately from the firm's?",
-      a: "Yes. Client money is held in segregated accounts, apart from the capital Elite Capital operates on, and every account carries negative balance protection.", // REVIEW
+      a: "Yes. Client money is held in segregated accounts, apart from the capital Elite fx Capital operates on, and every account carries negative balance protection.", // REVIEW
     },
     {
       q: "What does trading actually cost me?",
@@ -484,7 +484,7 @@ export const faq = {
     },
     {
       q: "Can I lose more than I deposit?",
-      a: "No. CFDs are leveraged, so losses can be large and fast, but negative balance protection applies to every Elite Capital account — your losses stop at your balance. Read the risk disclosure in full before you trade.", // REVIEW
+      a: "No. CFDs are leveraged, so losses can be large and fast, but negative balance protection applies to every Elite fx Capital account — your losses stop at your balance. Read the risk disclosure in full before you trade.", // REVIEW
     },
   ],
 };
@@ -494,7 +494,7 @@ export const faq = {
 /* -------------------------------------------------------------------------- */
 
 export const closing = {
-  heading: "Start trading with\nElite Capital today",
+  heading: "Start trading with\nElite fx Capital today",
   lead: "Open a live account, or practice risk-free on a demo first.",
 };
 

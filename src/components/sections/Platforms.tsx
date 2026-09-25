@@ -44,7 +44,7 @@ export function Platforms() {
             <div className="relative mt-6 min-h-56 flex-1">
               <Image
                 src={mobile.image!}
-                alt="The Elite Capital mobile app showing a trader's portfolio and copy-trading list"
+                alt="The Elite fx Capital mobile app showing a trader's portfolio and copy-trading list"
                 fill
                 sizes="(max-width: 1024px) 100vw, 33vw"
                 className="object-contain object-bottom"
@@ -56,7 +56,7 @@ export function Platforms() {
             <div className="relative mt-6 h-56">
               <Image
                 src={web.image!}
-                alt="The Elite Capital Web Portal with live charts and a market watch panel"
+                alt="The Elite fx Capital Web Portal with live charts and a market watch panel"
                 fill
                 sizes="(max-width: 1024px) 100vw, 66vw"
                 className="object-contain object-left-bottom"

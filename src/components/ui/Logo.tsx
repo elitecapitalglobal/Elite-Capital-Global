@@ -1,7 +1,7 @@
 /**
  * The brand mark: three candlesticks rising in sequence — the chart-reading
  * motion at the centre of what the site does — beside a single-line
- * "ELITE CAPITAL" wordmark, tracked wide and set in Mona Sans, the site's
+ * "ELITE FX CAPITAL" wordmark, tracked wide and set in Mona Sans, the site's
  * own display face (see `layout.tsx` / `--font-sans` in `globals.css`)
  * rather than a separate logotype face.
  *
@@ -34,7 +34,7 @@ export function Logo({
           tone === "dark" ? "text-navy-900" : "text-ink-100"
         }`}
       >
-        Elite Capital
+        Elite fx Capital
       </span>
     </span>
   );

@@ -3,7 +3,7 @@ import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 
 export const metadata: Metadata = {
-  title: "Coming Soon | Elite Capital",
+  title: "Coming Soon | Elite fx Capital",
   description:
     "Our client portal is launching soon. Check back shortly to open your account.",
 };

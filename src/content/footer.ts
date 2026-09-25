@@ -18,7 +18,7 @@
  * ─────────────────────────────────────────────────────────────────────────
  * THE `[[...]]` MARKERS ARE DELIBERATE AND MUST BE FILLED IN BEFORE LAUNCH.
  *
- * I do not have Elite Capital's licensing details, and I will not invent them.
+ * I do not have Elite fx Capital's licensing details, and I will not invent them.
  * Every competitor footer above names real entities, real regulators and real
  * licence numbers; a fabricated equivalent is a false regulatory claim, which
  * is materially worse than a visible blank. Fill them in or remove the block.
@@ -100,8 +100,8 @@ export const footerLegal = [
   {
     label: "Regional Restrictions",
     paragraphs: [
-      "Elite Capital does not provide services to residents of jurisdictions where such offerings are prohibited by applicable law, including countries under international sanctions and/or FATF blacklisting. The aforementioned include but are not limited to: Afghanistan, Belarus, Cuba, Democratic Republic of Congo, Haiti, Iran, Israel, Myanmar, North Korea, Russia, South Sudan, Syria, Ukraine, Venezuela, Yemen, and other jurisdictions with restrictive local regulations, including the United States of America. These restrictions apply to all client acquisition methods, including through Introducing Brokers or Affiliates.",
-      "Elite Capital reserves the right to restrict services to residents of any other jurisdiction where such offerings may be prohibited or deemed high risk.",
+      "Elite fx Capital does not provide services to residents of jurisdictions where such offerings are prohibited by applicable law, including countries under international sanctions and/or FATF blacklisting. The aforementioned include but are not limited to: Afghanistan, Belarus, Cuba, Democratic Republic of Congo, Haiti, Iran, Israel, Myanmar, North Korea, Russia, South Sudan, Syria, Ukraine, Venezuela, Yemen, and other jurisdictions with restrictive local regulations, including the United States of America. These restrictions apply to all client acquisition methods, including through Introducing Brokers or Affiliates.",
+      "Elite fx Capital reserves the right to restrict services to residents of any other jurisdiction where such offerings may be prohibited or deemed high risk.",
     ],
   },
   {
@@ -113,7 +113,7 @@ export const footerLegal = [
   {
     label: "Client Funds",
     paragraphs: [
-      "Client money is held in segregated accounts, separate from the capital the business operates on. Every Elite Capital account carries negative balance protection, so you cannot lose more than the balance in your account. Segregation and negative balance protection do not protect you against trading losses, which remain yours.",
+      "Client money is held in segregated accounts, separate from the capital the business operates on. Every Elite fx Capital account carries negative balance protection, so you cannot lose more than the balance in your account. Segregation and negative balance protection do not protect you against trading losses, which remain yours.",
     ],
   },
 ];
