@@ -4,6 +4,7 @@ import { Edge } from "@/components/sections/Edge";
 import { Advantages } from "@/components/sections/Advantages";
 import { Platforms } from "@/components/sections/Platforms";
 import { Markets } from "@/components/sections/Markets";
+import { CalendarSection } from "@/components/sections/CalendarSection";
 import { FundSafety } from "@/components/sections/FundSafety";
 import { Accounts } from "@/components/sections/Accounts";
 import { EveryTrader } from "@/components/sections/EveryTrader";
@@ -16,11 +17,13 @@ import { ClosingCta } from "@/components/sections/ClosingCta";
  * The page's rhythm is the deep/clear alternation, and it is legible right
  * here — that's the point of keeping section order in one flat list.
  *
- *   deep   Hero, Ticker
- *   clear  Edge
+ *   clear  Hero                (split: copy left, live sessions globe right)
+ *   deep   Ticker
  *   split  Advantages          (pale left half, indigo right half)
  *   white  Platforms
  *   tint   Markets
+ *   white  CalendarSection     (economic calendar, house-styled)
+ *   clear  Edge
  *   clear  FundSafety          (light band, indigo panel)
  *   white  Accounts
  *   tint   EveryTrader         (light band, one indigo card)
@@ -48,6 +51,7 @@ export default function Home() {
         <Advantages />
         <Platforms />
         <Markets />
+        <CalendarSection />
         <Edge />
         <FundSafety />
         <Accounts />

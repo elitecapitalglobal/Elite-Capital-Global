@@ -1,18 +1,29 @@
 "use client";
 
 import { useRef, type Ref } from "react";
+import dynamic from "next/dynamic";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { hero, site } from "@/content/site";
 import { Button } from "@/components/ui/Button";
 import { EASE, DUR, STAGGER, canAnimate } from "@/lib/motion";
+import { SessionClockProvider } from "@/components/ui/SessionClock";
+import { SessionBoard } from "@/components/ui/SessionBoard";
+import { LiveSessionPill } from "@/components/ui/LiveSessionPill";
+
+// Canvas + d3 + the world atlas stay out of the first-paint bundle.
+const SessionGlobe = dynamic(
+  () => import("@/components/ui/SessionGlobe").then((m) => m.SessionGlobe),
+  { ssr: false, loading: () => <GlobePlaceholder /> },
+);
 
 gsap.registerPlugin(useGSAP);
 
 /**
- * Vertex Pro's hero, pill kicker, two-line display headline, one primary CTA,
- * trust row, then a small, permanent scroll-down indicator — the pill stays
- * put; only the chevron inside it bobs.
+ * Split hero. Left: live-session kicker pill, two-line display headline,
+ * CTAs, trust row. Right: the live trading-sessions globe with its session
+ * card floating over it. Then a small, permanent scroll-down indicator — the
+ * pill stays put; only the chevron inside it bobs.
  */
 export function Hero() {
   const root = useRef<HTMLElement>(null);
@@ -25,7 +36,8 @@ export function Hero() {
         if (!canAnimate()) return;
 
         // One orchestrated page-load. Aurora, then headline lines, then the
-        // rest of the hero content fades up. ~1s total, runs once.
+        // globe rises in beside them and the session card settles over it.
+        // ~1.2s total, runs once.
         const tl = gsap.timeline({ defaults: { ease: EASE } });
 
         tl.from("[data-hero-aurora]", { opacity: 0, duration: 1.2 })
@@ -38,6 +50,16 @@ export function Hero() {
             "[data-hero-fade]",
             { y: 20, opacity: 0, duration: DUR.reveal, stagger: STAGGER.tight },
             0.45,
+          )
+          .from(
+            "[data-hero-globe]",
+            { scale: 0.94, opacity: 0, duration: 1.2 },
+            0.3,
+          )
+          .from(
+            "[data-hero-card]",
+            { y: 28, opacity: 0, duration: DUR.reveal },
+            0.6,
           );
       });
 
@@ -50,85 +72,119 @@ export function Hero() {
     <section
       ref={root}
       data-surface="clear"
-      className="aurora-light relative isolate overflow-hidden pt-[clamp(56px,8vw,104px)] text-navy-900"
+      className="aurora-light relative isolate overflow-hidden pt-[clamp(40px,6vw,88px)] text-navy-900"
     >
       <div data-hero-aurora aria-hidden className="absolute inset-0 -z-10">
         {/* Faint vertical rule field — Vertex's hero has one; it gives the
-            gradient something to sit against so it doesn't read as a blur. */}
+            gradient something to sit against so it doesn't read as a blur.
+            Its focus sits behind the copy column now the globe owns the
+            right. */}
         <div
           className="absolute inset-0 opacity-[0.14]"
           style={{
             backgroundImage:
               "repeating-linear-gradient(90deg, transparent 0 63px, rgb(0 0 0 / 0.35) 63px 64px)",
             maskImage:
-              "radial-gradient(70% 55% at 50% 30%, #000, transparent 78%)",
+              "radial-gradient(60% 55% at 30% 35%, #000, transparent 78%)",
+          }}
+        />
+        {/* Emerald bloom behind the globe, so it reads as lit from within. */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(38% 50% at 74% 46%, color-mix(in oklab, var(--color-blue-400) 22%, transparent), transparent 70%)",
           }}
         />
       </div>
 
-      <div className="shell">
-        <div className="relative z-0 mx-auto max-w-5xl pb-[clamp(64px,11vw,132px)] text-center">
-          <p
-            data-hero-fade
-            className="bevel-clear mx-auto mb-6 inline-flex items-center gap-2.5 rounded-pill px-4 py-1.5 text-[13px] font-medium text-navy-700"
-          >
-            <span className="size-1.5 rounded-full bg-blue-700" aria-hidden />
-            {hero.kicker}
-          </p>
+      <SessionClockProvider>
+        <div className="shell">
+          <div className="grid items-center gap-x-[clamp(32px,4vw,72px)] gap-y-10 lg:grid-cols-[1.05fr_1fr]">
+            <div className="relative z-10 mx-auto max-w-2xl text-center lg:mx-0 lg:max-w-none lg:text-left">
+              <div data-hero-fade>
+                <LiveSessionPill fallback={hero.kicker} />
+              </div>
 
-          <h1 className="type-display">
-            {hero.headline.map((line) => (
-              <span key={line} className="block overflow-hidden pb-[0.08em]">
-                <span data-hero-line className="block">
-                  {line}
-                </span>
-              </span>
-            ))}
-          </h1>
+              <h1 className="type-display lg:text-[clamp(2.75rem,3.9vw,4.5rem)]!">
+                {hero.headline.map((line) => (
+                  <span key={line} className="block overflow-hidden pb-[0.08em]">
+                    <span data-hero-line className="block">
+                      {line}
+                    </span>
+                  </span>
+                ))}
+              </h1>
 
-          <p
-            data-hero-fade
-            className="type-lead mx-auto mt-5 max-w-[54ch] text-navy-700/80"
-          >
-            {hero.lead}
-          </p>
+              <p
+                data-hero-fade
+                className="type-lead mx-auto mt-5 max-w-[54ch] text-navy-700/80 lg:mx-0"
+              >
+                {hero.lead}
+              </p>
 
-          <div
-            data-hero-fade
-            className="mt-7 flex flex-wrap items-center justify-center gap-3"
-          >
-            <Button href={site.cta.primary.href}>
-              {site.cta.primary.label}
-              <Arrow />
-            </Button>
-            <Button href={site.cta.secondary.href} variant="ghostDark">
-              {site.cta.secondary.label}
-            </Button>
+              <div
+                data-hero-fade
+                className="mt-7 flex flex-wrap items-center justify-center gap-3 lg:justify-start"
+              >
+                <Button href={site.cta.primary.href}>
+                  {site.cta.primary.label}
+                  <Arrow />
+                </Button>
+                <Button href={site.cta.secondary.href} variant="ghostDark">
+                  {site.cta.secondary.label}
+                </Button>
+              </div>
+
+              {/* Chrom's trust row. Verifiable facts only — no install counts or
+                  star ratings we can't source. */}
+              <ul
+                data-hero-fade
+                className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] text-navy-700/70 lg:justify-start"
+              >
+                {hero.trustRow.map((item) => (
+                  <li key={item} className="flex items-center gap-2">
+                    <Check />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* The live sessions globe. Below lg it stacks under the copy and
+                the card sits beneath it; from lg the card floats over the
+                globe's lower-left edge, overlapping it for depth. */}
+            <div id="sessions" className="relative mx-auto w-full max-w-[560px] scroll-mt-28 lg:max-w-none">
+              <div data-hero-globe className="mx-auto w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[600px]">
+                <SessionGlobe />
+              </div>
+              <div
+                data-hero-card
+                className="relative z-10 -mt-6 sm:-mt-10 lg:absolute lg:bottom-0 lg:-left-[6%] lg:mt-0 lg:w-[260px] xl:-left-[10%]"
+              >
+                <SessionBoard />
+              </div>
+            </div>
           </div>
 
-          {/* Chrom's trust row. Verifiable facts only — no install counts or
-              star ratings we can't source. */}
-          <ul
-            data-hero-fade
-            className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] text-navy-700/70"
-          >
-            {hero.trustRow.map((item) => (
-              <li key={item} className="flex items-center gap-2">
-                <Check />
-                {item}
-              </li>
-            ))}
-          </ul>
-
-          <div
-            className="flex justify-center"
-            style={{ transform: "translateY(60px)" }}
-          >
+          <div className="flex justify-center pt-10 pb-[clamp(40px,5vw,64px)] lg:pt-6">
             <ScrollIndicator />
           </div>
         </div>
-      </div>
+      </SessionClockProvider>
     </section>
+  );
+}
+
+/**
+ * Same footprint as the globe's sphere (88% of the box), so the canvas
+ * arriving causes no shift — it simply paints over the ring.
+ */
+function GlobePlaceholder() {
+  return (
+    <div className="relative aspect-square w-full" aria-hidden>
+      <div className="absolute inset-[6%] rounded-full bg-[radial-gradient(circle_at_32%_30%,#fff,var(--color-blue-50))] shadow-[0_0_60px_-10px_rgb(15_169_104/0.35)]" />
+    </div>
   );
 }
 

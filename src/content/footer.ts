@@ -8,21 +8,16 @@
  *   2. A contact block — a regulated firm has to be reachable.
  *   3. RISK WARNING, at length. Not the one-liner from the header.
  *   4. REGIONAL RESTRICTIONS — who we may not serve.
- *   5. REGULATORY INFORMATION — one paragraph per licensed entity.
+ *   5. COMPANY INFORMATION — registration only; no regulator is named.
  *   6. A bottom bar with the copyright line.
  *
  * All four put 3–5 in ALL-CAPS labelled blocks at the very bottom, below the
  * links. That is the convention a compliance reviewer will look for, so this
  * follows it.
  *
- * ─────────────────────────────────────────────────────────────────────────
- * THE `[[...]]` MARKERS ARE DELIBERATE AND MUST BE FILLED IN BEFORE LAUNCH.
- *
- * I do not have Elite fx Capital's licensing details, and I will not invent them.
- * Every competitor footer above names real entities, real regulators and real
- * licence numbers; a fabricated equivalent is a false regulatory claim, which
- * is materially worse than a visible blank. Fill them in or remove the block.
- * ─────────────────────────────────────────────────────────────────────────
+ * Elite fx Capital Ltd. is registered in Saint Lucia and holds no financial
+ * services licence. Do not add a regulator, licence number or "regulated by"
+ * line here unless that changes — a fabricated one is a false regulatory claim.
  */
 
 export type FooterColumn = {
@@ -31,59 +26,60 @@ export type FooterColumn = {
 };
 
 /**
- * Single-page site: every link below is an anchor into a section already on
- * this page, never a route. Columns that used to point at now-deleted
- * sub-pages (per-market, per-platform, legal, company) collapse to whichever
- * on-page section covers that ground.
+ * Home-page anchors are written `/#id` so they resolve from every route, not
+ * only from `/`. Company and legal pages are real routes.
  */
 export const footerColumns: FooterColumn[] = [
   {
     title: "Trading",
     links: [
-      { label: "Account Types", href: "#accounts" },
-      { label: "Markets", href: "#markets" },
-      { label: "Platforms", href: "#platforms" },
-      { label: "Our Advantages", href: "#advantages" },
+      { label: "Account Types", href: "/#accounts" },
+      { label: "Markets", href: "/#markets" },
+      { label: "Platforms", href: "/#platforms" },
+      { label: "Deposits & Withdrawals", href: "/deposits-and-withdrawals" },
     ],
   },
   {
-    /** Mirrors `markets.items` in `site.ts` — same six asset classes, all on one page. */
-    title: "Markets",
+    title: "Company",
     links: [
-      { label: "Forex", href: "#markets" },
-      { label: "Metals", href: "#markets" },
-      { label: "Indices", href: "#markets" },
-      { label: "Shares", href: "#markets" },
-      { label: "Commodities", href: "#markets" },
-      { label: "Crypto CFDs", href: "#markets" },
+      { label: "About Us", href: "/about" },
+      { label: "Contact Us", href: "/contact" },
+      { label: "Compliance", href: "/compliance" },
+      { label: "Help Centre", href: "/#faq" },
     ],
   },
   {
-    title: "Support",
+    title: "Legal",
     links: [
-      { label: "Help Center", href: "#faq" },
-      { label: "Contact Us", href: "#support" },
+      { label: "Client Agreement", href: "/legal/client-agreement" },
+      { label: "AML Policy", href: "/legal/aml-policy" },
+      { label: "Privacy Policy", href: "/legal/privacy-policy" },
+      { label: "Cookie Policy", href: "/legal/cookie-policy" },
     ],
   },
   {
     /** Mirrors `fundSafety.points` in `site.ts` — same three facts, not new claims. */
     title: "Client Protection",
     links: [
-      { label: "Segregated Client Accounts", href: "#fund-safety" },
-      { label: "Negative Balance Protection", href: "#fund-safety" },
-      { label: "Encrypted End to End", href: "#fund-safety" },
+      { label: "Segregated Client Accounts", href: "/#fund-safety" },
+      { label: "Negative Balance Protection", href: "/#fund-safety" },
+      { label: "Encrypted End to End", href: "/#fund-safety" },
     ],
   },
 ];
 
+/**
+ * Email only. No phone number and no street address are published on the
+ * site — by instruction, not by oversight. Keep these in step with `contact`
+ * in `site.ts`, which the company pages read.
+ */
 export const footerContact = {
   heading: "Talk to us",
   body: "Multilingual support, 24 hours a day, 7 days a week.",
-  email: "info@elitecapital.global", // REVIEW: confirm the live inbox
-  phone: "+1-758-572-0609",
-  addresses: [
-    "40 Street Lane 10, Bonne Terre, Gros Islet, Saint Lucia",
-    "Unit 1, La Place Creole Building, Rodney Village, Rodney Bay, Gros Islet, Saint Lucia",
+  emails: [
+    { label: "Support", address: "support@elitecapital.global" },
+    { label: "General enquiries", address: "info@elitecapital.global" },
+    { label: "Compliance", address: "compliance@elitecapital.global" },
   ],
 };
 
@@ -105,9 +101,10 @@ export const footerLegal = [
     ],
   },
   {
-    label: "Regulatory Information",
+    /** Registration only. The company holds no licence, so no regulator is named. */
+    label: "Company Information",
     paragraphs: [
-      "The entity that holds your account is determined by your country of residence and is confirmed to you during the application. The products, leverage limits and protections available to you follow from that entity. A licence granted by an authority does not mean the authority endorses the products offered under it.",
+      "Elite fx Capital Ltd. is registered in Saint Lucia as an International Business Company. The website elitecapital.global is operated by Elite fx Capital Ltd.",
     ],
   },
   {

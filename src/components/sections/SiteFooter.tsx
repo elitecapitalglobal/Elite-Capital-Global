@@ -38,26 +38,23 @@ export function SiteFooter() {
               <p className="mt-2 text-[14px] leading-relaxed text-navy-700/80">
                 {footerContact.body}
               </p>
-              <a
-                href={`mailto:${footerContact.email}`}
-                className="mt-2 inline-flex min-h-11 items-center text-[14.5px] font-semibold text-navy-900 underline decoration-blue-700/50 underline-offset-4 transition-colors hover:text-blue-700"
-              >
-                {footerContact.email}
-              </a>
-              <a
-                href={`tel:${footerContact.phone.replace(/\s+/g, "")}`}
-                className="flex min-h-11 items-center text-[14.5px] font-semibold text-navy-900 underline decoration-blue-700/50 underline-offset-4 transition-colors hover:text-blue-700"
-              >
-                {footerContact.phone}
-              </a>
-              <p className="mt-2 text-[14px] leading-relaxed text-navy-700/80">
-                {footerContact.addresses[0]} <strong className="font-bold">&</strong>{" "}
-                {footerContact.addresses[1]}
-              </p>
+              <ul className="mt-2">
+                {footerContact.emails.map((e) => (
+                  <li key={e.address} className="flex flex-wrap items-baseline gap-x-2">
+                    <span className="text-[13px] text-navy-700/70">{e.label}</span>
+                    <a
+                      href={`mailto:${e.address}`}
+                      className="inline-flex min-h-10 items-center text-[14.5px] font-semibold text-navy-900 underline decoration-blue-700/50 underline-offset-4 transition-colors hover:text-blue-700"
+                    >
+                      {e.address}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
-          <nav aria-label="Footer" className="grid max-w-2xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <nav aria-label="Footer" className="grid max-w-3xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {footerColumns.map((col) => (
               <div key={col.title}>
                 <h2 className="type-label mb-3 text-blue-700">{col.title}</h2>

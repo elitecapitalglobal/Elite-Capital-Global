@@ -1,4 +1,4 @@
-import { support } from "@/content/site";
+import { contact, support } from "@/content/site";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
@@ -26,11 +26,8 @@ export function Support() {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Button href={support.cta.href}>{support.cta.label}</Button>
-            <Button
-              variant="ghostDark"
-              href={`tel:${support.phone.replace(/\s+/g, "")}`}
-            >
-              Call us
+            <Button variant="ghostDark" href={contact.liveChatHref}>
+              Live chat
             </Button>
           </div>
         </Reveal>

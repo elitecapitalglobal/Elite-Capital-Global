@@ -33,7 +33,7 @@ export const site = {
       href: "/coming-soon",
     },
     secondary: { label: "Try Demo Account", href: "/coming-soon" },
-    login: { label: "Log In", href: "#accounts" },
+    login: { label: "Log In", href: "/#accounts" },
   },
 
   /** Footer brand paragraph. The link columns live in `footer.ts`. */
@@ -63,17 +63,17 @@ export const nav: NavItem[] = [
       {
         title: "FX & Commodities",
         items: [
-          { label: "Forex", desc: "Trade 50+ currency pairs with tight, competitive spreads.", href: "#markets" },
-          { label: "Metals", desc: "Gold, silver and precious metals with deep liquidity.", href: "#markets" },
-          { label: "Commodities", desc: "Diversify with oil, gas and other soft commodities.", href: "#markets" },
+          { label: "Forex", desc: "Trade 50+ currency pairs with tight, competitive spreads.", href: "/#markets" },
+          { label: "Metals", desc: "Gold, silver and precious metals with deep liquidity.", href: "/#markets" },
+          { label: "Commodities", desc: "Diversify with oil, gas and other soft commodities.", href: "/#markets" },
         ],
       },
       {
         title: "Equities & Digital",
         items: [
-          { label: "Indices", desc: "Get exposure to the world's leading stock indices.", href: "#markets" },
-          { label: "Shares", desc: "CFDs on global equities from major exchanges.", href: "#markets" },
-          { label: "Crypto CFDs", desc: "Speculate on Bitcoin, Ethereum and more, 24/7.", href: "#markets" },
+          { label: "Indices", desc: "Get exposure to the world's leading stock indices.", href: "/#markets" },
+          { label: "Shares", desc: "CFDs on global equities from major exchanges.", href: "/#markets" },
+          { label: "Crypto CFDs", desc: "Speculate on Bitcoin, Ethereum and more, 24/7.", href: "/#markets" },
         ],
       },
     ],
@@ -88,38 +88,40 @@ export const nav: NavItem[] = [
       {
         title: "Trading Terminals",
         items: [
-          { label: "MetaTrader 5", desc: "The full multi-asset terminal, with the tooling to match.", href: "#platforms" },
-          { label: "Web Portal", desc: "Trade in your browser. Nothing to download, nothing to update.", href: "#platforms" },
+          { label: "MetaTrader 5", desc: "The full multi-asset terminal, with the tooling to match.", href: "/#platforms" },
+          { label: "Web Portal", desc: "Trade in your browser. Nothing to download, nothing to update.", href: "/#platforms" },
         ],
       },
       {
         title: "Tools & Programs",
         items: [
-          { label: "Mobile Apps", desc: "The same account in your pocket, on iOS and Android.", href: "#platforms" },
-          { label: "Copy Trading", desc: "Follow a strategy you rate and mirror it on your own account.", href: "#platforms" },
+          { label: "Mobile Apps", desc: "The same account in your pocket, on iOS and Android.", href: "/#platforms" },
+          { label: "Copy Trading", desc: "Follow a strategy you rate and mirror it on your own account.", href: "/#platforms" },
         ],
       },
     ],
   },
-  // Single-page site: every href is a same-page anchor, never a route.
-  { label: "Accounts", href: "#accounts" },
+  // Anchors are written `/#id` so they still land on the home page from any other route.
+  { label: "Accounts", href: "/#accounts" },
   {
     label: "Elite",
     groups: [
       {
         title: "Why Elite fx Capital",
         items: [
-          { label: "Fast Execution", desc: "Orders routed for low-latency fills.", href: "#advantages" },
-          { label: "Competitive Spreads", desc: "Tight pricing across all markets.", href: "#advantages" },
-          { label: "Flexible Leverage", desc: "Trading power that fits your strategy.", href: "#advantages" },
-          { label: "Negative Balance Protection", desc: "Your account can never be pushed below zero.", href: "#fund-safety" },
+          { label: "Fast Execution", desc: "Orders routed for low-latency fills.", href: "/#advantages" },
+          { label: "Competitive Spreads", desc: "Tight pricing across all markets.", href: "/#advantages" },
+          { label: "Flexible Leverage", desc: "Trading power that fits your strategy.", href: "/#advantages" },
+          { label: "Negative Balance Protection", desc: "Your account can never be pushed below zero.", href: "/#fund-safety" },
         ],
       },
       {
-        title: "Support",
+        title: "Company & Support",
         items: [
-          { label: "Help Center", desc: "Answers to common trading questions.", href: "#faq" },
-          { label: "Contact Us", desc: "Reach our multilingual support team, 24/7.", href: "#support" },
+          { label: "About Us", desc: "Who we are and how we work.", href: "/about" },
+          { label: "Deposits & Withdrawals", desc: "Payment methods, limits and timings.", href: "/deposits-and-withdrawals" },
+          { label: "Compliance", desc: "Our AML approach, policies and complaints process.", href: "/compliance" },
+          { label: "Contact Us", desc: "Reach our multilingual support team, 24/7.", href: "/contact" },
         ],
       },
     ],
@@ -140,6 +142,47 @@ export const hero = {
     "Negative balance protection",
     "Multilingual support, 24/7",
   ],
+};
+
+/** Labels for the hero's live session globe, card and kicker pill. */
+export const sessionsCopy = {
+  title: "Trading sessions",
+  live: "Live",
+  closed: "Closed",
+  opensIn: "Opens in",
+  closesIn: "Closes in",
+  endsIn: "ends in",
+  overlap: "Overlap",
+  weekend: "Weekend",
+  closedPill: "Markets closed",
+  reopens: "reopen",
+  yourTime: "Your time",
+};
+
+/* -------------------------------------------------------------------------- */
+/* Economic calendar                                                           */
+/* -------------------------------------------------------------------------- */
+
+export const calendar = {
+  heading: "What's moving\nmarkets this week",
+  lead: "Rate decisions, inflation prints and jobs data from the economies that drive FX, filtered to medium and high impact.",
+  daysLabel: "Day",
+  today: "Today",
+  highOnly: "High impact only",
+  high: "High",
+  medium: "Med",
+  next: "Next",
+  cols: {
+    time: "Time",
+    currency: "Currency",
+    impact: "Impact",
+    event: "Event",
+    forecast: "Forecast",
+    previous: "Previous",
+  },
+  emptyDay: "No medium or high impact releases scheduled for this day.",
+  unavailable: "This week's calendar is unavailable right now. Please check back shortly.",
+  footnote: "Times shown in your local time zone",
 };
 
 /* -------------------------------------------------------------------------- */
@@ -206,7 +249,7 @@ export const advantages = {
   items: [
     { title: "Fast execution", body: "Orders routed for low-latency fills, even when the market is moving." },
     { title: "Competitive spreads", body: "Pricing built to keep the running cost of trading down." },
-    { title: "Flexible leverage", body: "Choose the trading power that suits your strategy, within your regulator's limits." },
+    { title: "Flexible leverage", body: "Choose the trading power that suits your strategy, within the limits of your account type." },
     { title: "Easy transactions", body: "Funding and withdrawals that are quick, simple and free of charge." }, // REVIEW
     { title: "Support in your language", body: "Real people, 24/7, in the language you are most comfortable using." },
     { title: "Negative balance protection", body: "Your account cannot be pushed below zero. Losses stop at your balance." }, // REVIEW
@@ -318,7 +361,7 @@ export const markets = {
 
 export const fundSafety = {
   heading: "Your money stays\nwhere it belongs",
-  lead: "Client funds sit in segregated accounts with established banks, kept apart from the money we run the business on. Negative balance protection means a bad session can never take you past zero.",
+  lead: "Client funds sit in segregated accounts, kept apart from the money we run the business on. Negative balance protection means a bad session can never take you past zero.",
   points: [
     "Segregated client accounts",
     "Negative balance protection",
@@ -452,10 +495,26 @@ export const steps = {
 
 export const support = {
   heading: "Real people, whenever\nthe market is open",
-  lead: "Reach us by chat, email or phone, 24/7, in a wide range of languages. No ticket queue, no bot to argue with first.",
-  cta: { label: "Talk to us", href: "mailto:info@elitecapital.global" },
-  phone: "+1-758-572-0609",
+  lead: "Reach us by live chat or email, 24/7, in a wide range of languages. No ticket queue, no bot to argue with first.",
+  cta: { label: "Talk to us", href: "/contact" },
 };
+
+/**
+ * The three public inboxes. Email only — no phone number or street address
+ * is published anywhere on the site, by instruction.
+ *
+ * `liveChatHref` falls back to the support inbox until a chat provider is
+ * chosen; swap it for the widget's open action when one is.
+ */
+export const contact = {
+  support: "support@elitecapital.global",
+  info: "info@elitecapital.global",
+  compliance: "compliance@elitecapital.global",
+  liveChatHref: "mailto:support@elitecapital.global?subject=Live%20chat%20request",
+  replyTime: "1 business day",
+  /** Plain statement of incorporation. No regulator is named — the company is not licensed by one. */
+  registration: "Elite fx Capital Ltd. is registered in Saint Lucia as an International Business Company.",
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /* FAQ                                                                         */
