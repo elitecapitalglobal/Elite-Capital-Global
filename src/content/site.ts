@@ -30,10 +30,10 @@ export const site = {
     primary: {
       label: "Open Live Account",
       short: "Open Account",
-      href: "/coming-soon",
+      href: "/signup",
     },
     secondary: { label: "Try Demo Account", href: "/coming-soon" },
-    login: { label: "Log In", href: "/#accounts" },
+    login: { label: "Log In", href: "/login" },
   },
 
   /** Footer brand paragraph. The link columns live in `footer.ts`. */
@@ -471,7 +471,7 @@ export const everyTrader = {
       tone: "dark" as const,
       title: "Been at this a while?",
       body: "Raw spreads, deeper liquidity and the advanced tooling you already know how to use, plus a named contact who picks up when you call.",
-      cta: { label: "See the ECN account", href: "/coming-soon" },
+      cta: { label: "See the ECN account", href: "/signup" },
     },
   ],
 };
@@ -544,6 +544,7 @@ export const faq = {
     {
       q: "Can I lose more than I deposit?",
       a: "No. CFDs are leveraged, so losses can be large and fast, but negative balance protection applies to every Elite fx Capital account — your losses stop at your balance. Read the risk disclosure in full before you trade.", // REVIEW
+      link: { label: "Read the Risk Disclosure Notice", href: "/legal/risk-disclosure" },
     },
   ],
 };

@@ -203,6 +203,21 @@ export default function FundingPage() {
             </div>
             <WithdrawChecklist />
           </div>
+
+          <div className="mt-5 grid gap-4 lg:grid-cols-2">
+            {f.rules.policies.map((p) => (
+              <div key={p.href} className="flex flex-col gap-5 rounded-card border border-navy-900/10 bg-white p-6 sm:p-7">
+                <div>
+                  <h3 className="text-[19px] font-semibold text-navy-900">{p.title}</h3>
+                  <p className="mt-1.5 text-[15px] leading-relaxed text-navy-700/80">{p.body}</p>
+                </div>
+                <div className="mt-auto flex flex-wrap gap-3">
+                  <Button href={p.href}>Read the policy</Button>
+                  <Button href={p.pdf} download variant="ghostDark">Download PDF</Button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </Section>
 

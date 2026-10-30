@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { SiteLink as Link } from "@/components/ui/SiteLink";
 import type { ComponentProps } from "react";
 
 /**
@@ -68,13 +68,24 @@ export function Button({
   variant = "primary",
   className = "",
   href,
+  download,
   ...props
 }: {
   variant?: Variant;
   className?: string;
   href?: string;
+  /** A file, not a route: renders a plain `<a download>` instead of `Link`. */
+  download?: boolean;
 } & Omit<ComponentProps<"button">, "ref">) {
   const cls = `${base} ${variants[variant]} ${className}`;
+
+  if (href && download) {
+    return (
+      <a href={href} download className={cls}>
+        {props.children}
+      </a>
+    );
+  }
 
   if (href) {
     return (

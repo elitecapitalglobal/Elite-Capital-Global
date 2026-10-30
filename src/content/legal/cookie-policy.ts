@@ -16,6 +16,7 @@ export const cookiePolicy: LegalDocument = {
   summary:
     "How elitecapital.global uses cookies and similar technologies, and how you can control them.",
   meta: "Last updated 20 October 2026",
+  pdf: "/documents/elite-fx-capital-cookie-policy.pdf",
   sections: [
     {
       id: "company-details",

@@ -249,6 +249,20 @@ export const funding = {
       ],
       done: "All set. You’re ready to request your withdrawal.",
     },
+    policies: [
+      {
+        title: "Withdrawal Policy",
+        body: "The full terms for withdrawals: who can withdraw, where funds are returned, processing times, and when a payment can be held.",
+        href: "/legal/withdrawal-policy",
+        pdf: "/documents/elite-fx-capital-withdrawal-policy.pdf",
+      },
+      {
+        title: "Refund Policy",
+        body: "When a deposit can be returned to you, such as a duplicate payment, how to ask within 3 days, and how an approved refund is paid.",
+        href: "/legal/refund-policy",
+        pdf: "/documents/elite-fx-capital-refund-policy.pdf",
+      },
+    ],
   },
   faq: {
     heading: "Questions about moving money",

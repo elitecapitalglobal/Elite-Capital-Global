@@ -19,14 +19,16 @@ import type { LegalDocument } from "./types";
  *   - 14.2: complaints route and times aligned with the Compliance page
  *     (compliance@, 1 business day, 15 business days).
  *   - Approval/sign-off table (names, MLRO, counsel) removed — internal.
- * The Risk Disclosure and Fee Schedule named in 1.2 are not yet published,
- * so they are mentioned but not linked.
+ * The Risk Disclosure named in 1.2 is published at /legal/risk-disclosure
+ * (30 Oct 2026); the Fee Schedule is not yet. Pages render plain text, so
+ * neither is linked from here.
  */
 export const clientAgreement: LegalDocument = {
   title: "Client Agreement",
   summary:
     "The terms that apply between you and Elite fx Capital Ltd. when you open and use a trading account.",
   meta: "Version 20102026_V1.0 · Effective 20 October 2026 · Next review 31 December 2026",
+  pdf: "/documents/elite-fx-capital-client-agreement.pdf",
   sections: [
     {
       id: "parties",

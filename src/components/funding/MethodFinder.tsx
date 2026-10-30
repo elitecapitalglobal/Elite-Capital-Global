@@ -209,7 +209,7 @@ export function MethodFinder() {
             )}
 
             <div className="flex flex-wrap gap-3">
-              <Button href="/coming-soon">{dir === "deposit" ? "Deposit" : "Withdraw"} in Client Area</Button>
+              <Button href="/login">{dir === "deposit" ? "Deposit" : "Withdraw"} in Client Area</Button>
               <Button href={contact.liveChatHref} variant="ghostDark">Ask our team</Button>
             </div>
           </div>

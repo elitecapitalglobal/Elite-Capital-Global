@@ -148,9 +148,13 @@ body {
      wide content at the component that owns it (see Ticker, Markets). */
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-display);
-  text-wrap: balance;
+/* In the base layer so a utility (e.g. `type-serif`) can override it —
+   unlayered rules beat every layered one, whatever their specificity. */
+@layer base {
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
 }
 
 p {
@@ -162,11 +166,15 @@ p {
   color: var(--color-navy-950);
 }
 
-/* Focus ring — visible on both surfaces, never removed. */
-:where(a, button, summary, input, select, [tabindex]):focus-visible {
-  outline: 2px solid var(--color-blue-600);
-  outline-offset: 2px;
-  border-radius: var(--radius-tight);
+/* Focus ring — visible on both surfaces. In the base layer so a control
+   with its own clear focus treatment (the auth underline fields) can opt out
+   with a utility; everything else keeps this ring. */
+@layer base {
+  :where(a, button, summary, input, select, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-blue-600);
+    outline-offset: 2px;
+    border-radius: var(--radius-tight);
+  }
 }
 
 /* ==========================================================================
@@ -659,6 +667,61 @@ details[open]::details-content {
 }
 .ec-candle-3 {
   animation-delay: 0.44s;
+}
+
+/* ==========================================================================
+   AUTH — sign-up and log-in. The one place the site goes fully dark and
+   quiet: a single slow light source, a film of grain, and content that
+   settles in rather than pops. Motion is stopped by the reduced-motion rule
+   below, like everything else.
+   ========================================================================== */
+
+/* The header sits a few pixels below the disclaimer strip, and the body
+   shows through that gap. Invisible on light pages; on the dark auth pages
+   the body has to be dark too. */
+body:has(> main.ec-auth) {
+  background: var(--color-navy-950);
+}
+
+@keyframes ec-drift {
+  0%, 100% { transform: translate3d(-8%, 4%, 0) scale(1); }
+  50% { transform: translate3d(8%, -6%, 0) scale(1.12); }
+}
+
+.ec-drift {
+  animation: ec-drift 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Grain: an SVG turbulence tile at very low opacity. Takes the flatness off
+   large dark fields, the way a printed page or a lacquered panel would. */
+.ec-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+}
+
+@keyframes ec-rise {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+.ec-rise {
+  animation: ec-rise 900ms var(--ease-out-expo) both;
+}
+
+@keyframes ec-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Serif display — Fraunces, the wordmark's face, used here for headlines
+   only. Never body copy. */
+@utility type-serif {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  font-optical-sizing: auto;
 }
 
 /* ==========================================================================

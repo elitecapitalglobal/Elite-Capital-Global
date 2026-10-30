@@ -2,9 +2,10 @@ import type { LegalDocument } from "./types";
 
 /**
  * Client-facing summary of "Elite FX Capital – AML Policy" (V1.0, 20 October
- * 2026). Agreed with the client on 23 October 2026: summary on the site, no
- * PDF download until the PDF is re-exported without address and registration
- * number.
+ * 2026). Agreed with the client on 23 October 2026: summary on the site.
+ * On 30 October 2026 the client asked for every policy to be downloadable,
+ * so the PDF is built from this text by `npm run legal:pdf` (no address or
+ * registration number), and the meta line drops "Summary of policy".
  *
  * Deliberately left out: the risk matrix (s.7), staff rules (s.18), the
  * internal STR/UOR procedure (s.15, s.17), the EDD deposit thresholds (Annex
@@ -16,7 +17,8 @@ export const amlPolicy: LegalDocument = {
   title: "Anti-Money Laundering Policy",
   summary:
     "How we prevent money laundering and terrorist financing, and what that means for you when you open an account, deposit or withdraw.",
-  meta: "Summary of policy version 20102026_V1.0 · Approved 20 October 2026 · Next review 30 June 2027",
+  meta: "Version 20102026_V1.0 · Approved 20 October 2026 · Next review 30 June 2027",
+  pdf: "/documents/elite-fx-capital-aml-policy.pdf",
   sections: [
     {
       id: "our-commitment",
@@ -37,7 +39,7 @@ export const amlPolicy: LegalDocument = {
             "anonymous accounts or accounts in a false name;",
             "people or companies we cannot properly identify;",
             "anyone on an international sanctions list;",
-            "residents of the countries listed under Regional Restrictions on our website;",
+            "residents or citizens of the countries listed under Regional Restrictions on our website;",
             "clients whose funds or business we cannot verify;",
             "applications with incomplete or invalid documents; or",
             "anyone linked to drug trafficking, terrorism or organised crime.",

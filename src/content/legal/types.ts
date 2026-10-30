@@ -19,9 +19,14 @@ export type LegalSection = {
 
 export type LegalDocument = {
   title: string;
-  /** One sentence for the hero and the page description. */
+  /** One sentence for the page's meta description (not shown on the page). */
   summary: string;
   /** e.g. "Version 20102026_V1.0 · Effective 20 October 2026" */
   meta: string;
+  /**
+   * Public path of the letterheaded PDF in `public/`, built from this same
+   * object by `npm run legal:pdf`. Leave unset until the PDF exists.
+   */
+  pdf?: string;
   sections: LegalSection[];
 };

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { SiteLink as Link } from "@/components/ui/SiteLink";
 import { site } from "@/content/site";
 import { Logo } from "@/components/ui/Logo";
 import { footerColumns, footerContact, footerLegal } from "@/content/footer";

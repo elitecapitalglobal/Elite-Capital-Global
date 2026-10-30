@@ -12,6 +12,7 @@ export const privacyPolicy: LegalDocument = {
   summary:
     "What personal data we collect, why we collect it, who we share it with, and the choices you have.",
   meta: "Last updated 23 October 2026",
+  pdf: "/documents/elite-fx-capital-privacy-policy.pdf",
   sections: [
     {
       id: "who-we-are",

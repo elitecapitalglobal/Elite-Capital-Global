@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import type { LegalBlock, LegalDocument } from "@/content/legal/types";
 import { PageHero } from "@/components/pages/PageHero";
+import { Button } from "@/components/ui/Button";
 
 /**
  * One layout for every legal document: a contents list that stays in view on
@@ -19,8 +20,20 @@ export function LegalPage({
 }) {
   return (
     <main>
-      <PageHero label="Legal" title={doc.title} lead={doc.summary}>
+      {/* No summary line here: the page is the policy itself (client, 30 Oct
+          2026). `doc.summary` is still each page's meta description. */}
+      <PageHero label="Legal" title={doc.title}>
         <p className="num mt-5 text-[12.5px] text-navy-700/70">{doc.meta}</p>
+        {doc.pdf && (
+          <div className="mt-7 flex justify-center">
+            <Button href={doc.pdf} download variant="ghostDark">
+              <svg aria-hidden width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 4v11M7 10l5 5 5-5M5 20h14" />
+              </svg>
+              Download PDF
+            </Button>
+          </div>
+        )}
       </PageHero>
 
       <section data-surface="clear" className="bg-white text-navy-900">

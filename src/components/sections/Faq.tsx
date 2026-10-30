@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { faq } from "@/content/site";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
@@ -37,6 +38,14 @@ export function Faq() {
               </summary>
               <p className="measure pb-5 text-[15px] leading-relaxed text-navy-700/85">
                 {item.a}
+                {"link" in item && item.link && (
+                  <>
+                    {" "}
+                    <Link href={item.link.href} className="font-semibold text-blue-700 underline decoration-blue-700/40 underline-offset-4 hover:decoration-blue-700">
+                      {item.link.label}
+                    </Link>
+                  </>
+                )}
               </p>
             </details>
           ))}

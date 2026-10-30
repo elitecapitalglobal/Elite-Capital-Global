@@ -114,7 +114,7 @@ export const compliance = {
     heading: "Who we are",
     body: [
       contact.registration,
-      "We follow the anti-money laundering and counter-terrorist financing laws that apply to us in Saint Lucia, and we do not accept clients from restricted jurisdictions.",
+      "We follow the anti-money laundering and counter-terrorist financing laws that apply to us in Saint Lucia, and we do not accept residents or citizens of restricted jurisdictions.",
     ],
   },
   approach: {
@@ -135,6 +135,8 @@ export const compliance = {
     items: [
       { title: "Client Agreement", body: "The terms that apply to your trading account.", href: "/legal/client-agreement" },
       { title: "Anti-Money Laundering Policy", body: "Our identity, source-of-funds and screening checks.", href: "/legal/aml-policy" },
+      { title: "Withdrawal Policy", body: "How withdrawals are requested, checked and paid.", href: "/legal/withdrawal-policy" },
+      { title: "Refund Policy", body: "When a deposit can be returned, and how to ask.", href: "/legal/refund-policy" },
       { title: "Privacy Policy", body: "What personal data we collect and how we use it.", href: "/legal/privacy-policy" },
       { title: "Cookie Policy", body: "How the website uses cookies.", href: "/legal/cookie-policy" },
     ],

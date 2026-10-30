@@ -1,17 +1,24 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { SiteLink as Link } from "@/components/ui/SiteLink";
+import { usePathname } from "next/navigation";
 import { nav, site } from "@/content/site";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
 import { Marquee } from "@/components/ui/Marquee";
+
+const DARK_ROUTES = new Set(["/signup", "/login"]);
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Routes whose page is dark from the very top (sign-up, log-in). There the
+  // header wears its light-on-dark tones at rest too, not only once scrolled.
+  const onDark = DARK_ROUTES.has(usePathname());
+  const deep = scrolled || onDark;
 
   useEffect(() => {
     const read = () => setScrolled(window.scrollY > 24);
@@ -50,27 +57,27 @@ export function SiteHeader() {
   // states instead of assuming a dark hero underneath.
   const t = {
     pill: scrolled ? "nav-glass-deep" : "",
-    link: scrolled
+    link: deep
       ? "text-ink-300 hover:text-ink-100"
       : "text-navy-700 hover:text-navy-900",
-    linkActive: scrolled ? "text-blue-400" : "text-blue-700",
-    quiet: scrolled
+    linkActive: deep ? "text-blue-400" : "text-blue-700",
+    quiet: deep
       ? "text-ink-300 hover:text-blue-400"
       : "text-navy-700 hover:text-blue-700",
-    burger: scrolled ? "text-ink-100" : "text-navy-900",
+    burger: deep ? "text-ink-100" : "text-navy-900",
     // The mega panel and mobile drawer are solid, not glass (DESIGN.md §4),
     // so they need their own light/dark pairing rather than reusing the
     // pill's glass utilities.
-    panel: scrolled ? "panel-solid" : "panel-solid-clear",
-    panelLabel: scrolled ? "text-blue-400" : "text-blue-700",
-    panelTitle: scrolled
+    panel: deep ? "panel-solid" : "panel-solid-clear",
+    panelLabel: deep ? "text-blue-400" : "text-blue-700",
+    panelTitle: deep
       ? "text-ink-100 group-hover:text-blue-400"
       : "text-navy-900 group-hover:text-blue-700",
-    panelDesc: scrolled ? "text-ink-500" : "text-navy-700/70",
-    panelHover: scrolled ? "hover:bg-navy-700" : "hover:bg-navy-900/6",
-    panelBorder: scrolled ? "border-ink-100/8" : "border-navy-900/10",
-    panelText: scrolled ? "text-ink-300" : "text-navy-700",
-    ghost: (scrolled ? "ghost" : "ghostDark") as "ghost" | "ghostDark",
+    panelDesc: deep ? "text-ink-500" : "text-navy-700/70",
+    panelHover: deep ? "hover:bg-navy-700" : "hover:bg-navy-900/6",
+    panelBorder: deep ? "border-ink-100/8" : "border-navy-900/10",
+    panelText: deep ? "text-ink-300" : "text-navy-700",
+    ghost: (deep ? "ghost" : "ghostDark") as "ghost" | "ghostDark",
   };
 
   return (
@@ -80,7 +87,11 @@ export function SiteHeader() {
           wrapping it eats too much vertical space above the fold, so it
           scrolls as a marquee instead; `sm` and up it's wide enough to read
           as a static centred line. */}
-      <div className="relative z-[var(--z-sticky)] overflow-hidden bg-ink-100 text-navy-900">
+      <div
+        className={`relative z-[var(--z-sticky)] overflow-hidden ${
+          onDark ? "bg-navy-950 text-ink-300 [&_p]:!text-ink-300/80" : "bg-ink-100 text-navy-900"
+        }`}
+      >
         <Marquee copies={3} duration="34s" className="py-2 sm:hidden">
           <p className="flex shrink-0 items-center whitespace-nowrap pe-10 text-[11px] leading-snug text-navy-700/85">
             <strong className="font-semibold">Disclaimer:</strong>{" "}
@@ -94,7 +105,9 @@ export function SiteHeader() {
       </div>
 
       <header
-        className="sticky top-4 z-[var(--z-sticky)]"
+        className={`sticky top-4 z-[var(--z-sticky)] transition-colors duration-500 ${
+          onDark && !scrolled ? "bg-navy-950" : ""
+        }`}
         onMouseLeave={hoverClose}
       >
         <div className="shell">
@@ -121,7 +134,7 @@ export function SiteHeader() {
                 // longer able to shrink, the logo is what has to give at
                 // 320px. Logo + CTA + burger fits in 284px only at the small
                 // step.
-                tone={scrolled ? "light" : "dark"}
+                tone={deep ? "light" : "dark"}
                 className={`transition-all duration-500 ease-[var(--ease-out-expo)] ${
                   scrolled ? "text-[20px] sm:text-[32px]" : "text-[24px] sm:text-[40px]"
                 }`}

@@ -52,7 +52,10 @@ export const footerColumns: FooterColumn[] = [
     title: "Legal",
     links: [
       { label: "Client Agreement", href: "/legal/client-agreement" },
+      { label: "Risk Disclosure Notice", href: "/legal/risk-disclosure" },
       { label: "AML Policy", href: "/legal/aml-policy" },
+      { label: "Withdrawal Policy", href: "/legal/withdrawal-policy" },
+      { label: "Refund Policy", href: "/legal/refund-policy" },
       { label: "Privacy Policy", href: "/legal/privacy-policy" },
       { label: "Cookie Policy", href: "/legal/cookie-policy" },
     ],
@@ -96,8 +99,8 @@ export const footerLegal = [
   {
     label: "Regional Restrictions",
     paragraphs: [
-      "Elite fx Capital does not provide services to residents of jurisdictions where such offerings are prohibited by applicable law, including countries under international sanctions and/or FATF blacklisting. The aforementioned include but are not limited to: Afghanistan, Belarus, Cuba, Democratic Republic of Congo, Haiti, Iran, Israel, Myanmar, North Korea, Russia, South Sudan, Syria, Ukraine, Venezuela, Yemen, and other jurisdictions with restrictive local regulations, including the United States of America. These restrictions apply to all client acquisition methods, including through Introducing Brokers or Affiliates.",
-      "Elite fx Capital reserves the right to restrict services to residents of any other jurisdiction where such offerings may be prohibited or deemed high risk.",
+      "Elite fx Capital does not provide services to residents or citizens of jurisdictions where such offerings are prohibited by applicable law, including countries under international sanctions and/or FATF blacklisting. The aforementioned include but are not limited to: Afghanistan, Belarus, Cuba, Democratic Republic of Congo, Haiti, Iran, Israel, Myanmar, North Korea, Russia, South Sudan, Syria, Ukraine, Venezuela, Yemen, and other jurisdictions with restrictive local regulations, including the United States of America. These restrictions apply to all client acquisition methods, including through Introducing Brokers or Affiliates.",
+      "Elite fx Capital reserves the right to restrict services to residents or citizens of any other jurisdiction where such offerings may be prohibited or deemed high risk.",
     ],
   },
   {

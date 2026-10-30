@@ -58,7 +58,7 @@ export default function CompliancePage() {
             <h2 className="type-h2 text-navy-900">{compliance.documents.heading}</h2>
             <p className="type-lead mt-4 text-navy-700/80">{compliance.documents.lead}</p>
           </div>
-          <Reveal stagger className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Reveal stagger className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {compliance.documents.items.map((d) => (
               <Link
                 key={d.href}
