@@ -203,8 +203,18 @@ async function main() {
 
   try {
     const portFile = join(work, "profile", "DevToolsActivePort");
-    for (let i = 0; i < 100 && !existsSync(portFile); i++) await sleep(100);
-    const [port, path] = readFileSync(portFile, "utf8").trim().split("\n");
+    // Chrome may still hold the file open (EBUSY on Windows) or not have
+    // written both lines yet, so keep trying until it reads cleanly.
+    let port, path;
+    for (let i = 0; i < 100 && !path; i++) {
+      try {
+        [port, path] = readFileSync(portFile, "utf8").trim().split("\n");
+      } catch {
+        /* not there or locked yet */
+      }
+      if (!path) await sleep(100);
+    }
+    if (!path) throw new Error("Chrome did not start (no DevToolsActivePort).");
     const cdp = await connect(`ws://127.0.0.1:${port}${path}`);
 
     for (const doc of DOCS) {

@@ -28,45 +28,48 @@ export type FooterColumn = {
 /**
  * Home-page anchors are written `/#id` so they resolve from every route, not
  * only from `/`. Company and legal pages are real routes.
+ *
+ * Columns and links are kept in alphabetical order (client instruction,
+ * 2 November 2026). Keep new entries in order too.
  */
 export const footerColumns: FooterColumn[] = [
   {
-    title: "Trading",
+    /** Mirrors `fundSafety.points` in `site.ts` — same three facts, not new claims. */
+    title: "Client Protection",
     links: [
-      { label: "Account Types", href: "/#accounts" },
-      { label: "Markets", href: "/#markets" },
-      { label: "Platforms", href: "/#platforms" },
-      { label: "Deposits & Withdrawals", href: "/deposits-and-withdrawals" },
+      { label: "Encrypted End to End", href: "/#fund-safety" },
+      { label: "Negative Balance Protection", href: "/#fund-safety" },
+      { label: "Segregated Client Accounts", href: "/#fund-safety" },
     ],
   },
   {
     title: "Company",
     links: [
       { label: "About Us", href: "/about" },
-      { label: "Contact Us", href: "/contact" },
       { label: "Compliance", href: "/compliance" },
+      { label: "Contact Us", href: "/contact" },
       { label: "Help Centre", href: "/#faq" },
     ],
   },
   {
     title: "Legal",
     links: [
-      { label: "Client Agreement", href: "/legal/client-agreement" },
-      { label: "Risk Disclosure Notice", href: "/legal/risk-disclosure" },
       { label: "AML Policy", href: "/legal/aml-policy" },
-      { label: "Withdrawal Policy", href: "/legal/withdrawal-policy" },
-      { label: "Refund Policy", href: "/legal/refund-policy" },
-      { label: "Privacy Policy", href: "/legal/privacy-policy" },
+      { label: "Client Agreement", href: "/legal/client-agreement" },
       { label: "Cookie Policy", href: "/legal/cookie-policy" },
+      { label: "Privacy Policy", href: "/legal/privacy-policy" },
+      { label: "Refund Policy", href: "/legal/refund-policy" },
+      { label: "Risk Disclosure Notice", href: "/legal/risk-disclosure" },
+      { label: "Withdrawal Policy", href: "/legal/withdrawal-policy" },
     ],
   },
   {
-    /** Mirrors `fundSafety.points` in `site.ts` — same three facts, not new claims. */
-    title: "Client Protection",
+    title: "Trading",
     links: [
-      { label: "Segregated Client Accounts", href: "/#fund-safety" },
-      { label: "Negative Balance Protection", href: "/#fund-safety" },
-      { label: "Encrypted End to End", href: "/#fund-safety" },
+      { label: "Account Types", href: "/#accounts" },
+      { label: "Deposits & Withdrawals", href: "/deposits-and-withdrawals" },
+      { label: "Markets", href: "/#markets" },
+      { label: "Platforms", href: "/#platforms" },
     ],
   },
 ];

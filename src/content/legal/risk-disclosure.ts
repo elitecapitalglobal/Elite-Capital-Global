@@ -198,7 +198,7 @@ export const riskDisclosure: LegalDocument = {
       title: "17. Legal restrictions, taxes and your jurisdiction",
       blocks: [
         "17.1 Trading CFDs must be permitted under the laws of the country where you live or are a citizen. It is your responsibility to check this before you open an account or trade.",
-        "17.2 The Company does not provide services to residents of restricted countries, as listed on the Website. A list of restricted countries is part of the Company’s terms.",
+        "17.2 The Company does not provide services to residents or citizens of restricted countries, as listed on the Website. A list of restricted countries is part of the Company’s terms.",
         "17.3 You are responsible for any tax on your trading, your deposits and your withdrawals in your country of residence. The Company does not give tax advice.",
       ],
     },

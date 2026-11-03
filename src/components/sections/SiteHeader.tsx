@@ -277,6 +277,8 @@ export function SiteHeader() {
                   <div className="grid gap-0.5 sm:grid-cols-2">
                     {(item.groups ?? [])
                       .flatMap((g) => g.items)
+                      // Groups are merged here, so re-sort to stay alphabetical.
+                      .sort((a, b) => a.label.localeCompare(b.label))
                       .map((link) => (
                         <Link
                           key={link.href + link.label}

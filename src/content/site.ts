@@ -56,24 +56,32 @@ export type NavItem = {
   groups?: NavGroup[];
 };
 
+/**
+ * Kept in alphabetical order at every level — menus, groups and links (client
+ * instruction, 2 November 2026). Keep new entries in order too.
+ */
 export const nav: NavItem[] = [
+  // Anchors are written `/#id` so they still land on the home page from any other route.
+  { label: "Accounts", href: "/#accounts" },
   {
-    label: "Trading",
+    label: "Elite",
     groups: [
       {
-        title: "FX & Commodities",
+        title: "Company & Support",
         items: [
-          { label: "Forex", desc: "Trade 50+ currency pairs with tight, competitive spreads.", href: "/#markets" },
-          { label: "Metals", desc: "Gold, silver and precious metals with deep liquidity.", href: "/#markets" },
-          { label: "Commodities", desc: "Diversify with oil, gas and other soft commodities.", href: "/#markets" },
+          { label: "About Us", desc: "Who we are and how we work.", href: "/about" },
+          { label: "Compliance", desc: "Our AML approach, policies and complaints process.", href: "/compliance" },
+          { label: "Contact Us", desc: "Reach our multilingual support team, 24/7.", href: "/contact" },
+          { label: "Deposits & Withdrawals", desc: "Payment methods, limits and timings.", href: "/deposits-and-withdrawals" },
         ],
       },
       {
-        title: "Equities & Digital",
+        title: "Why Elite fx Capital",
         items: [
-          { label: "Indices", desc: "Get exposure to the world's leading stock indices.", href: "/#markets" },
-          { label: "Shares", desc: "CFDs on global equities from major exchanges.", href: "/#markets" },
-          { label: "Crypto CFDs", desc: "Speculate on Bitcoin, Ethereum and more, 24/7.", href: "/#markets" },
+          { label: "Competitive Spreads", desc: "Tight pricing across all markets.", href: "/#advantages" },
+          { label: "Fast Execution", desc: "Orders routed for low-latency fills.", href: "/#advantages" },
+          { label: "Flexible Leverage", desc: "Trading power that fits your strategy.", href: "/#advantages" },
+          { label: "Negative Balance Protection", desc: "Your account can never be pushed below zero.", href: "/#fund-safety" },
         ],
       },
     ],
@@ -86,42 +94,38 @@ export const nav: NavItem[] = [
     label: "Platforms",
     groups: [
       {
+        title: "Tools & Programs",
+        items: [
+          { label: "Copy Trading", desc: "Follow a strategy you rate and mirror it on your own account.", href: "/#platforms" },
+          { label: "Mobile Apps", desc: "The same account in your pocket, on iOS and Android.", href: "/#platforms" },
+        ],
+      },
+      {
         title: "Trading Terminals",
         items: [
           { label: "MetaTrader 5", desc: "The full multi-asset terminal, with the tooling to match.", href: "/#platforms" },
           { label: "Web Portal", desc: "Trade in your browser. Nothing to download, nothing to update.", href: "/#platforms" },
         ],
       },
-      {
-        title: "Tools & Programs",
-        items: [
-          { label: "Mobile Apps", desc: "The same account in your pocket, on iOS and Android.", href: "/#platforms" },
-          { label: "Copy Trading", desc: "Follow a strategy you rate and mirror it on your own account.", href: "/#platforms" },
-        ],
-      },
     ],
   },
-  // Anchors are written `/#id` so they still land on the home page from any other route.
-  { label: "Accounts", href: "/#accounts" },
   {
-    label: "Elite",
+    label: "Trading",
     groups: [
       {
-        title: "Why Elite fx Capital",
+        title: "Equities & Digital",
         items: [
-          { label: "Fast Execution", desc: "Orders routed for low-latency fills.", href: "/#advantages" },
-          { label: "Competitive Spreads", desc: "Tight pricing across all markets.", href: "/#advantages" },
-          { label: "Flexible Leverage", desc: "Trading power that fits your strategy.", href: "/#advantages" },
-          { label: "Negative Balance Protection", desc: "Your account can never be pushed below zero.", href: "/#fund-safety" },
+          { label: "Crypto CFDs", desc: "Speculate on Bitcoin, Ethereum and more, 24/7.", href: "/#markets" },
+          { label: "Indices", desc: "Get exposure to the world's leading stock indices.", href: "/#markets" },
+          { label: "Shares", desc: "CFDs on global equities from major exchanges.", href: "/#markets" },
         ],
       },
       {
-        title: "Company & Support",
+        title: "FX & Commodities",
         items: [
-          { label: "About Us", desc: "Who we are and how we work.", href: "/about" },
-          { label: "Deposits & Withdrawals", desc: "Payment methods, limits and timings.", href: "/deposits-and-withdrawals" },
-          { label: "Compliance", desc: "Our AML approach, policies and complaints process.", href: "/compliance" },
-          { label: "Contact Us", desc: "Reach our multilingual support team, 24/7.", href: "/contact" },
+          { label: "Commodities", desc: "Diversify with oil, gas and other soft commodities.", href: "/#markets" },
+          { label: "Forex", desc: "Trade 50+ currency pairs with tight, competitive spreads.", href: "/#markets" },
+          { label: "Metals", desc: "Gold, silver and precious metals with deep liquidity.", href: "/#markets" },
         ],
       },
     ],
