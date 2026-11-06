@@ -177,10 +177,22 @@ export function SiteHeader() {
             <div className="ml-auto flex items-center gap-1 sm:gap-1.5">
               <Link
                 href={site.cta.login.href}
-                className={`hidden min-h-11 items-center px-3 text-sm font-medium transition-colors sm:flex ${t.quiet}`}
+                className={`hidden min-h-11 shrink-0 items-center px-3 text-sm font-medium whitespace-nowrap transition-colors sm:flex ${t.quiet}`}
               >
                 {site.cta.login.label}
               </Link>
+              {/* Hidden below `sm`: at 320px the pill has no room for a third
+                  action, so phones get it in the drawer instead. Same `!`
+                  padding override as the CTA below, for the same reason. */}
+              <Button
+                href={site.cta.deposit.href}
+                variant={t.ghost}
+                // `max-sm:!hidden`, not `hidden sm:inline-flex`: the base
+                // class already sets `inline-flex`, and the two would tie.
+                className="shrink-0 !px-4 !py-2.5 text-sm max-sm:!hidden xl:!px-6"
+              >
+                {site.cta.deposit.label}
+              </Button>
               {/* Stays visible at every width — it is the page's whole
                   purpose, and burying it in the drawer costs conversions. */}
               <Button
@@ -304,6 +316,9 @@ export function SiteHeader() {
               <div className="mt-4 grid gap-2">
                 <Button href={site.cta.login.href} variant={t.ghost}>
                   {site.cta.login.label}
+                </Button>
+                <Button href={site.cta.deposit.href} variant={t.ghost} className="sm:hidden">
+                  {site.cta.deposit.label}
                 </Button>
               </div>
             </div>

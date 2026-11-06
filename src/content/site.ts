@@ -34,6 +34,8 @@ export const site = {
     },
     secondary: { label: "Try Demo Account", href: "/coming-soon" },
     login: { label: "Log In", href: "/login" },
+    /** Deposits are made in the client area, so this goes through log-in. */
+    deposit: { label: "Deposit", href: "/login" },
   },
 
   /** Footer brand paragraph. The link columns live in `footer.ts`. */
@@ -58,34 +60,12 @@ export type NavItem = {
 
 /**
  * Kept in alphabetical order at every level — menus, groups and links (client
- * instruction, 2 November 2026). Keep new entries in order too.
+ * instruction, 2 November 2026). Keep new entries in order too. One exception:
+ * "Elite" always sits last in the top bar (client instruction, 6 November 2026).
  */
 export const nav: NavItem[] = [
   // Anchors are written `/#id` so they still land on the home page from any other route.
   { label: "Accounts", href: "/#accounts" },
-  {
-    label: "Elite",
-    groups: [
-      {
-        title: "Company & Support",
-        items: [
-          { label: "About Us", desc: "Who we are and how we work.", href: "/about" },
-          { label: "Compliance", desc: "Our AML approach, policies and complaints process.", href: "/compliance" },
-          { label: "Contact Us", desc: "Reach our multilingual support team, 24/7.", href: "/contact" },
-          { label: "Deposits & Withdrawals", desc: "Payment methods, limits and timings.", href: "/deposits-and-withdrawals" },
-        ],
-      },
-      {
-        title: "Why Elite fx Capital",
-        items: [
-          { label: "Competitive Spreads", desc: "Tight pricing across all markets.", href: "/#advantages" },
-          { label: "Fast Execution", desc: "Orders routed for low-latency fills.", href: "/#advantages" },
-          { label: "Flexible Leverage", desc: "Trading power that fits your strategy.", href: "/#advantages" },
-          { label: "Negative Balance Protection", desc: "Your account can never be pushed below zero.", href: "/#fund-safety" },
-        ],
-      },
-    ],
-  },
   {
     /**
      * Two terminals, not four. MT4 and Pro-Link were removed with the rest of
@@ -126,6 +106,29 @@ export const nav: NavItem[] = [
           { label: "Commodities", desc: "Diversify with oil, gas and other soft commodities.", href: "/#markets" },
           { label: "Forex", desc: "Trade 50+ currency pairs with tight, competitive spreads.", href: "/#markets" },
           { label: "Metals", desc: "Gold, silver and precious metals with deep liquidity.", href: "/#markets" },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Elite",
+    groups: [
+      {
+        title: "Company & Support",
+        items: [
+          { label: "About Us", desc: "Who we are and how we work.", href: "/about" },
+          { label: "Compliance", desc: "Our AML approach, policies and complaints process.", href: "/compliance" },
+          { label: "Contact Us", desc: "Reach our multilingual support team, 24/7.", href: "/contact" },
+          { label: "Deposits & Withdrawals", desc: "Payment methods, limits and timings.", href: "/deposits-and-withdrawals" },
+        ],
+      },
+      {
+        title: "Why Elite fx Capital",
+        items: [
+          { label: "Competitive Spreads", desc: "Tight pricing across all markets.", href: "/#advantages" },
+          { label: "Fast Execution", desc: "Orders routed for low-latency fills.", href: "/#advantages" },
+          { label: "Flexible Leverage", desc: "Trading power that fits your strategy.", href: "/#advantages" },
+          { label: "Negative Balance Protection", desc: "Your account can never be pushed below zero.", href: "/#fund-safety" },
         ],
       },
     ],
@@ -381,10 +384,10 @@ export const accounts = {
   heading: "An account for\nevery trading style",
   lead: "Three tiers, one platform. Move between them as your volume changes.",
   /**
-   * Standard isn't one price list — it's the same account in two
-   * denominations, dollar or cent lots. That's a toggle inside one card
-   * (`StandardTierCard.tsx`), not two separate cards, so the reader compares
-   * ECN and Pro against one "Standard" rather than two near-identical tiers.
+   * Standard's prices sit under `modes` so the account can be offered in more
+   * than one denomination (it once had dollar and cent lots). Only Dollar is
+   * offered now. Add a mode back here and `StandardTierCard.tsx` shows the
+   * switch again, inside the one card rather than as a second tier.
    */
   standard: {
     name: "Standard",
@@ -405,20 +408,8 @@ export const accounts = {
           "Support 24/7",
         ],
       },
-      cent: {
-        label: "Cent",
-        deposit: "10", // REVIEW: minimum deposit not specified — confirm actual figure
-        spread: "1.0", // REVIEW: specified only as "min spread" — confirm the actual figure
-        commission: "None",
-        features: [
-          "Every symbol tradable in cent lots",
-          "Leverage up to 1:300",
-          "Not swap-free",
-          "Minimal spreads across all symbols",
-          "Fast execution on every order",
-          "Support 24/7",
-        ],
-      },
+      // The Cent mode was removed on client instruction (6 November 2026). With
+      // one mode left, `StandardTierCard` hides the Dollar/Cent switch.
     },
   },
   tiers: [

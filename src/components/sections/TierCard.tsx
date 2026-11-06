@@ -12,13 +12,13 @@ export type TierCardProps = {
   cta: string;
   /** Dark, lifted treatment — reserved for the Standard card. */
   recommended?: boolean;
-  /** A control rendered next to the name — the Dollar/Cent switch on Standard. */
+  /** A control rendered next to the name — Standard's mode switch, when it has more than one mode. */
   toggle?: ReactNode;
 };
 
 /**
  * One pricing card. Shared by the plain ECN/Pro tiers (`Accounts.tsx`, server
- *-rendered) and `StandardTierCard` (client, owns the Dollar/Cent toggle) —
+ *-rendered) and `StandardTierCard` (client, owns the mode switch) —
  * the card itself has no state of its own, it just renders whatever numbers
  * it's handed.
  */

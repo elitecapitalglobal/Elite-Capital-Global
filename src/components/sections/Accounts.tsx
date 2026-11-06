@@ -5,8 +5,8 @@ import { TierCard } from "./TierCard";
 import { StandardTierCard } from "./StandardTierCard";
 
 /**
- * Chrom's pricing block — three tiers: Standard (with its own Dollar/Cent
- * toggle, see `StandardTierCard.tsx`), ECN and Pro. Standard is the
+ * Chrom's pricing block — three tiers: Standard (see
+ * `StandardTierCard.tsx`), ECN and Pro. Standard is the
  * recommended, lifted card; ECN and Pro render through the same `TierCard`
  * Standard does, just without a toggle.
  *
