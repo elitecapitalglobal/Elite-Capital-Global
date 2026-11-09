@@ -30,6 +30,12 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   // Don't advertise the framework and version to scanners.
   poweredByHeader: false,
+  async redirects() {
+    return [
+      // The holding page was removed on 9 Nov 2026; old links land on sign-up.
+      { source: "/coming-soon", destination: "/signup", permanent: true },
+    ];
+  },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },

@@ -32,7 +32,7 @@ export const site = {
       short: "Open Account",
       href: "/signup",
     },
-    secondary: { label: "Try Demo Account", href: "/coming-soon" },
+    secondary: { label: "Try Demo Account", href: "/signup" },
     login: { label: "Log In", href: "/login" },
     /** Deposits are made in the client area, so this goes through log-in. */
     deposit: { label: "Deposit", href: "/login" },
@@ -460,7 +460,7 @@ export const everyTrader = {
       tone: "light" as const,
       title: "New to trading?",
       body: "Practise on a demo account with live market prices and none of the risk. Work through our guides at your own pace, and move to a live account whenever you feel ready.",
-      cta: { label: "Start on a demo", href: "/coming-soon" },
+      cta: { label: "Start on a demo", href: "/signup" },
     },
     {
       tone: "dark" as const,
