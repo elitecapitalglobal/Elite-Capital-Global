@@ -391,7 +391,7 @@ export const accounts = {
    */
   standard: {
     name: "Standard",
-    blurb: "For traders opening their first live position and learning how a fill behaves.",
+    blurb: "For traders opening their first live position and Ideal for beginners starting with smaller volumes.",
     cta: "Open Standard Account",
     modes: {
       dollar: {
@@ -402,7 +402,7 @@ export const accounts = {
         features: [
           "0.0 spread on deposits up to $1,000",
           "Leverage up to 1:300",
-          "Not swap-free",
+          "Swap-free",
           "Negative balance protection",
           "Fast execution on every order",
           "Support 24/7",
@@ -422,7 +422,7 @@ export const accounts = {
       cta: "Open ECN Account",
       features: [
         "Tight, raw spreads from 0.0 pips",
-        "Not swap-free",
+        "Swap-free",
         "Commission-based pricing",
         "Market execution",
         "Zero-latency order routing",
@@ -438,7 +438,7 @@ export const accounts = {
       cta: "Open Pro Account",
       features: [
         "Tight, raw spreads from 0.0 pips",
-        "Not swap-free",
+        "Swap-free",
         "Commission-based pricing",
         "Market execution",
         "Zero-latency order routing",

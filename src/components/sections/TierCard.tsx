@@ -44,7 +44,7 @@ export function TierCard({
     >
       {recommended && (
         <span className="absolute -top-3 left-8 rounded-pill bg-blue-600 px-3 py-1 text-[11.5px] font-bold text-white">
-          Recommended
+          Most Popular
         </span>
       )}
 
