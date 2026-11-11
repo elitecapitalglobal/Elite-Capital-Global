@@ -20,7 +20,7 @@ import { NextResponse, type NextRequest } from "next/server";
  *
  * The pages call `connection()` so they render per request; a pre-built page
  * would carry a stale nonce and be blocked.
- */
+ */ 
 export function proxy(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
   const dev = process.env.NODE_ENV === "development";
