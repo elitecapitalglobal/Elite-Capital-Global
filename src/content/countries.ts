@@ -15,10 +15,13 @@ export type Country = { code: string; name: string; dial: string };
 export const RESTRICTED = new Set([
   "AF", // Afghanistan
   "BY", // Belarus
+  "BE", // Belgium
+  "CA", // Canada
   "CU", // Cuba
   "CD", // Democratic Republic of Congo
   "HT", // Haiti
   "IR", // Iran
+  "IQ", // Iraq
   "IL", // Israel
   "MM", // Myanmar
   "KP", // North Korea
