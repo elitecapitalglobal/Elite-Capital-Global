@@ -45,7 +45,7 @@ export async function POST(req: Request) {
 
   // Per-account ceiling: 10 tries in 10 minutes, whichever IPs they come from.
   if (rateLimited(`login-email:${email}`, 10, 10 * 60_000)) {
-    return fail(429, "Too many attempts for this account. Please wait 10 minutes, or reset your password with support.");
+    return fail(429, "Too many attempts for this account. Please wait 10 minutes, or use “Forgotten your password?” to reset it.");
   }
 
   const human = await verifyTurnstile(body.turnstile, ip, "login", requestHost(req));

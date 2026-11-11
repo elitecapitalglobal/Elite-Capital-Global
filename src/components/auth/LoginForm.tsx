@@ -69,7 +69,8 @@ export function LoginForm() {
         </div>
 
         <div className="-mt-3 text-right">
-          <a href="mailto:support@elitecapital.global?subject=Password%20reset" className="text-[13.5px] text-ink-300 underline-offset-4 transition-colors hover:text-ink-100 hover:underline">
+          {/* Resets are handled by the client portal (FYNXT), not by this site. */}
+          <a href="https://clients.elitecapital.global/Home/ForgotPassword" className="text-[13.5px] text-ink-300 underline-offset-4 transition-colors hover:text-ink-100 hover:underline">
             Forgotten your password?
           </a>
         </div>
