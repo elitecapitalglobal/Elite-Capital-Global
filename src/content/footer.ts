@@ -102,7 +102,7 @@ export const footerLegal = [
   {
     label: "Regional Restrictions",
     paragraphs: [
-      "Elite fx Capital does not provide services to residents or citizens of jurisdictions where such offerings are prohibited by applicable law, including countries under international sanctions and/or FATF blacklisting. The aforementioned include but are not limited to: Afghanistan, Belarus, Belgium, Canada, Cuba, Democratic Republic of Congo, Haiti, Iran, Iraq, Israel, Myanmar, North Korea, Russia, South Sudan, Syria, Ukraine, Venezuela, Yemen, and other jurisdictions with restrictive local regulations, including the United States of America. These restrictions apply to all client acquisition methods, including through Introducing Brokers or Affiliates.",
+      "Elite fx Capital does not provide services to residents or citizens of jurisdictions where such offerings are prohibited by applicable law, including countries under international sanctions and/or FATF blacklisting. The aforementioned include but are not limited to: Afghanistan, Belarus, Canada, Cuba, Democratic Republic of Congo, Haiti, Iran, Iraq, Israel, Myanmar, North Korea, Russia, South Sudan, Syria, Ukraine, Venezuela, Yemen, and other jurisdictions with restrictive local regulations, including the United States of America. These restrictions apply to all client acquisition methods, including through Introducing Brokers or Affiliates.",
       "Elite fx Capital reserves the right to restrict services to residents or citizens of any other jurisdiction where such offerings may be prohibited or deemed high risk.",
     ],
   },

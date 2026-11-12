@@ -15,7 +15,6 @@ export type Country = { code: string; name: string; dial: string };
 export const RESTRICTED = new Set([
   "AF", // Afghanistan
   "BY", // Belarus
-  "BE", // Belgium
   "CA", // Canada
   "CU", // Cuba
   "CD", // Democratic Republic of Congo
@@ -50,7 +49,6 @@ const ALL: Country[] = [
   { code: "BH", name: "Bahrain", dial: "973" },
   { code: "BD", name: "Bangladesh", dial: "880" },
   { code: "BB", name: "Barbados", dial: "1246" },
-  { code: "BE", name: "Belgium", dial: "32" },
   { code: "BZ", name: "Belize", dial: "501" },
   { code: "BJ", name: "Benin", dial: "229" },
   { code: "BM", name: "Bermuda", dial: "1441" },
